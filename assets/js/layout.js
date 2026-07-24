@@ -1,5 +1,7 @@
 /**
  * Shared layout — header, footer, contact CTAs
+ * Injects site chrome; mobile drawer is a sibling of the header (not nested).
+ * @see documentation/ARCHITECTURE.md
  */
 (function () {
   'use strict';
@@ -23,17 +25,17 @@
         : 'grid sm:grid-cols-3 gap-4';
       return `
         <div class="${cls}">
-          <a href="${c.whatsapp}" target="_blank" rel="noopener noreferrer" class="contact-cta contact-cta--whatsapp btn-lift">
+          <a href="${c.whatsapp}" target="_blank" rel="noopener noreferrer" class="contact-cta contact-cta--whatsapp btn-lift" aria-label="Chat on WhatsApp at ${esc(c.phone)}">
             <i data-lucide="message-circle" class="w-4 h-4"></i>
             <span class="contact-cta__title">WhatsApp</span>
-            <span class="contact-cta__sub">Chat instantly</span>
+            <span class="contact-cta__sub">${esc(c.phone)}</span>
           </a>
-          <a href="${c.tel}" class="contact-cta contact-cta--phone btn-lift">
+          <a href="${c.tel}" class="contact-cta contact-cta--phone btn-lift" aria-label="Call ${esc(c.phone)}">
             <i data-lucide="phone" class="w-4 h-4"></i>
             <span class="contact-cta__title">Call</span>
             <span class="contact-cta__sub">${esc(c.phone)}</span>
           </a>
-          <a href="${c.mailto}" class="contact-cta contact-cta--email btn-lift">
+          <a href="${c.mailto}" class="contact-cta contact-cta--email btn-lift" aria-label="Email ${esc(c.email)}">
             <i data-lucide="mail" class="w-4 h-4"></i>
             <span class="contact-cta__title">Email</span>
             <span class="contact-cta__sub">${esc(c.email)}</span>
@@ -48,12 +50,14 @@
         <li><a href="${n.href}" class="nav-link px-3 py-2 text-sm font-medium rounded-lg transition-colors ${n.page === currentPage ? 'text-gold is-active' : 'text-muted dark:text-zinc-400 hover:text-navy dark:hover:text-white'}">${esc(n.label)}</a></li>
       `).join('');
 
-      const mobileLinks = s.nav.map(n => `
-        <li><a href="${n.href}" class="nav-mobile-link block px-3 py-3 text-base font-medium rounded-lg transition-colors ${n.cta ? 'mt-4 bg-navy text-white text-center' : 'text-ink dark:text-zinc-300 hover:bg-canvas dark:hover:bg-navy-secondary'}">${esc(n.label)}</a></li>
+      const mobileLinks = s.nav.filter(n => !n.cta).map(n => `
+        <li>
+          <a href="${n.href}" class="nav-mobile-link${n.page === currentPage ? ' is-active' : ''}" ${n.page === currentPage ? 'aria-current="page"' : ''}>${esc(n.label)}</a>
+        </li>
       `).join('');
 
       return `
-        <header class="site-header fixed inset-x-0 top-0 z-50 transition-all duration-300" id="site-header">
+        <header class="site-header fixed inset-x-0 top-0 transition-colors duration-300" id="site-header">
           <nav class="max-w-8xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3 transition-all duration-300 site-header__nav" aria-label="Main navigation">
             <a href="index.html" class="brand-lockup z-10 group min-w-0" aria-label="${esc(s.name)} — Home">
               <img src="${esc(logo)}" alt="${esc(s.name)} logo" class="brand-logo brand-logo--nav" width="1254" height="1254" decoding="async">
@@ -73,24 +77,27 @@
               </button>
             </div>
           </nav>
-          <div id="nav-overlay" class="nav-overlay hidden lg:hidden" aria-hidden="true"></div>
-          <div id="nav-drawer" class="nav-drawer lg:hidden" aria-hidden="true" role="dialog" aria-label="Mobile navigation">
-            <div class="px-6 pt-6 pb-2 flex items-center justify-between gap-3">
-              <a href="index.html" class="brand-lockup nav-mobile-link" aria-label="${esc(s.name)} — Home">
-                <img src="${esc(logo)}" alt="${esc(s.name)} logo" class="brand-logo brand-logo--nav" width="1254" height="1254" decoding="async">
-                <span class="font-semibold text-sm text-navy dark:text-white">${esc(s.name)}</span>
-              </a>
-              <button type="button" id="theme-toggle-mobile" class="w-11 h-11 inline-flex items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10" aria-label="Toggle dark mode">
+        </header>
+        <div id="nav-overlay" class="nav-overlay lg:hidden" hidden aria-hidden="true"></div>
+        <div id="nav-drawer" class="nav-drawer lg:hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Mobile navigation">
+          <div class="nav-drawer__panel">
+            <nav class="nav-drawer__nav" aria-label="Mobile navigation">
+              <ul class="nav-drawer__list" role="list">${mobileLinks}</ul>
+            </nav>
+            <div class="nav-drawer__actions">
+              <button type="button" id="theme-toggle-mobile" class="nav-drawer__theme" aria-label="Toggle dark mode">
                 <i data-lucide="moon" class="w-4 h-4 icon-theme-dark"></i>
                 <i data-lucide="sun" class="w-4 h-4 icon-theme-light hidden"></i>
+                <span>Theme</span>
               </button>
-            </div>
-            <ul class="flex flex-col gap-1 px-6 pt-4 pb-6" role="list">${mobileLinks}</ul>
-            <div class="px-6 pb-8">
-              <a href="${s.cv}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-gold text-navy font-semibold py-3 rounded-lg min-h-[48px]"><i data-lucide="file-text" class="w-4 h-4"></i> View my CV</a>
+              <a href="${s.cv}" target="_blank" rel="noopener noreferrer" class="nav-drawer__cv nav-mobile-link">
+                <i data-lucide="file-text" class="w-4 h-4" aria-hidden="true"></i>
+                View my CV
+              </a>
+              <a href="index.html#contact" class="nav-drawer__contact nav-mobile-link">Contact</a>
             </div>
           </div>
-        </header>`;
+        </div>`;
     },
 
     renderFooter() {
@@ -98,7 +105,7 @@
       const img = VM.images || {};
       const logo = s.logo || img.logo || 'assets/images/vincelogo.png';
       const c = s.contact;
-      const phoneDisplay = '0713 582 606';
+      const phoneDisplay = c.phone || s.phone || '+255 713 582 606';
       const year = new Date().getFullYear();
       const portrait = img.contact || img.profile || img.hero || '';
 
@@ -124,7 +131,7 @@
                       <h3 class="connect-card__title">WhatsApp</h3>
                       <p class="connect-card__sub">Chat instantly</p>
                     </div>
-                    <a href="${c.whatsapp}" target="_blank" rel="noopener noreferrer" class="connect-card__btn" aria-label="Chat on WhatsApp">
+                    <a href="${c.whatsapp}" target="_blank" rel="noopener noreferrer" class="connect-card__btn" aria-label="Chat on WhatsApp at ${esc(phoneDisplay)}">
                       Chat on WhatsApp <span class="connect-card__arrow" aria-hidden="true">→</span>
                     </a>
                   </article>
@@ -146,10 +153,18 @@
                       <h3 class="connect-card__title">Email</h3>
                       <p class="connect-card__sub">Send me an email</p>
                     </div>
-                    <a href="${c.mailto}" class="connect-card__btn" aria-label="Email ${esc(c.email)}">
-                      ${esc(c.email)} <span class="connect-card__arrow" aria-hidden="true">→</span>
+                    <a href="${c.mailto}" class="connect-card__btn connect-card__btn--email" aria-label="Email ${esc(c.email)}">
+                      <span class="connect-card__email">${esc(c.email)}</span> <span class="connect-card__arrow" aria-hidden="true">→</span>
                     </a>
                   </article>
+                </div>
+
+                <div class="connect-location">
+                  <div class="connect-location__icon" aria-hidden="true"><i data-lucide="map-pin"></i></div>
+                  <div>
+                    <p class="connect-location__title">Based in ${esc(s.location)}</p>
+                    <p class="connect-location__sub">Open to local and international engagements.</p>
+                  </div>
                 </div>
 
                 <div class="connect-secondary">
@@ -159,14 +174,6 @@
                   <a href="${s.cv}" target="_blank" rel="noopener noreferrer" class="connect-secondary__btn connect-secondary__btn--gold">
                     <i data-lucide="file-text" class="w-4 h-4"></i> View my CV
                   </a>
-                </div>
-
-                <div class="connect-location">
-                  <div class="connect-location__icon" aria-hidden="true"><i data-lucide="map-pin"></i></div>
-                  <div>
-                    <p class="connect-location__title">Based in ${esc(s.location)}</p>
-                    <p class="connect-location__sub">Open to local and international engagements.</p>
-                  </div>
                 </div>
 
                 <blockquote class="connect-quote">
@@ -215,7 +222,7 @@
             </nav>
           </div>
           <div class="max-w-8xl mx-auto px-6 pb-8 text-center sm:text-left text-xs text-white/40">
-            <p>&copy; ${year} ${esc(s.name)}. All rights reserved.</p>
+            <p>&copy; ${year} ${esc(s.name)}. All rights reserved.${typeof VM.version === 'string' ? ` <span class="text-white/25">v${esc(VM.version)}</span>` : ''}</p>
           </div>
         </footer>
         <button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top" hidden>

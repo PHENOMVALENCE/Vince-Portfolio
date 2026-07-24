@@ -1,0 +1,6 @@
+# robots.txt — Vicent Manila Portfolio
+User-agent: *
+Allow: /
+
+# Update the Sitemap URL to your production domain after go-live.
+# Sitemap: https://www.example.com/sitemap.xml

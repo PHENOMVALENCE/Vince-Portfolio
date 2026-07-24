@@ -1,25 +1,29 @@
 /**
  * Vicent Manila — Site configuration
+ * Portfolio version: see VM.version
  */
 window.VM = window.VM || {};
+
+/** Semantic version of this portfolio codebase */
+VM.version = '1.2.0';
 
 VM.site = {
   name: 'Vicent Manila',
   tagline: 'International Business Development Leader',
   brandLine: 'Leadership • Strategy • Partnerships',
-  email: 'vincemanila1@gmail.com',
-  phone: '0713582606',
-  phoneIntl: '+250713582606',
+  email: 'manilavicent@gmail.com',
+  phone: '+255 713 582 606',
+  phoneIntl: '+255713582606',
   location: 'Dar es Salaam, Tanzania',
   linkedin: 'https://www.linkedin.com/in/vicentmanila',
   cv: 'assets/cv/vicent-manila-cv.pdf',
   logo: 'assets/images/vincelogo.png',
   contact: {
-    whatsapp: 'https://wa.me/250713582606?text=Hello%20Vicent%2C%20I%20would%20like%20to%20connect%20regarding%20a%20collaboration.',
-    tel: 'tel:+250713582606',
-    mailto: 'mailto:vincemanila1@gmail.com?subject=Collaboration%20Inquiry',
-    email: 'vincemanila1@gmail.com',
-    phone: '0713582606',
+    whatsapp: 'https://wa.me/255713582606',
+    tel: 'tel:+255713582606',
+    mailto: 'mailto:manilavicent@gmail.com',
+    email: 'manilavicent@gmail.com',
+    phone: '+255 713 582 606',
   },
   nav: [
     { href: 'index.html#about', label: 'About', page: 'home' },

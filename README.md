@@ -1,25 +1,30 @@
-# Folio— Freelance Portfolio Template (HTML · Tailwind · Alpine.js)
-#### Preview
+# Vicent Manila Portfolio
 
- - [Demo](https://themewagon.github.io/folio-html/)
+> **Documentation has moved.** Start here: **[documentation/README.md](./documentation/README.md)**  
+> Full index: **[documentation/DOCUMENTATION_INDEX.md](./documentation/DOCUMENTATION_INDEX.md)**
 
-#### Download
- - [Download from ThemeWagon](https://themewagon.com/themes/folio-html/)
+**Current version:** `1.2.0` (`VM.version` in `assets/js/config.js`)
 
-## Getting Started
+---
 
-1. Clone Repository
-```
-git clone https://github.com/themewagon/folio-html.git
-```
+## Quick links
 
-## Author 
-```
-Design and code is completely written by Laurent Begey and development team. 
-```
+| Resource | Link |
+|----------|------|
+| Product README | [documentation/README.md](./documentation/README.md) |
+| Architecture | [documentation/ARCHITECTURE.md](./documentation/ARCHITECTURE.md) |
+| Maintenance | [documentation/MAINTENANCE_GUIDE.md](./documentation/MAINTENANCE_GUIDE.md) |
+| Deployment | [documentation/DEPLOYMENT_GUIDE.md](./documentation/DEPLOYMENT_GUIDE.md) |
+| Changelog | [documentation/CHANGELOG.md](./documentation/CHANGELOG.md) |
 
-## License
+---
 
- - Design and Code is Copyright &copy; <a href="https://lbegey78.gumroad.com/" target="_blank">Laurent Begey</a>
- - Licensed cover under [MIT]
- - Distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+## Run locally
+
+Serve the repository root over HTTP (XAMPP, `npx serve`, etc.). Open `index.html` via the server — not as a `file://` URL.
+
+---
+
+## Note on this file
+
+An earlier ThemeWagon Folio template README lived here. The active, accurate project documentation is maintained under `/documentation`.

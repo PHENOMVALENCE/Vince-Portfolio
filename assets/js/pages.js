@@ -1,5 +1,7 @@
 /**
  * Vicent Manila — Page rendering & interactions
+ * Renders page bodies from VM.data / gallery-data; project detail + lightbox UIs.
+ * @see documentation/PAGE_DOCUMENTATION.md
  */
 (function () {
   'use strict';
@@ -15,6 +17,37 @@
 
   function delay(i, step) {
     return (i * (step || 0.05)).toFixed(2) + 's';
+  }
+
+  function imgPos(value) {
+    const map = {
+      center: 'center',
+      top: 'center top',
+      bottom: 'center bottom',
+      left: 'left center',
+      right: 'right center',
+    };
+    if (!value) return 'center';
+    if (map[value]) return map[value];
+    return String(value);
+  }
+
+  function normalizeGallery(project) {
+    const items = Array.isArray(project.gallery) ? project.gallery : [];
+    return items.map((item, i) => {
+      if (typeof item === 'string') {
+        return {
+          src: item,
+          alt: `${project.title} — gallery image ${i + 1}`,
+          position: project.imagePosition || 'center',
+        };
+      }
+      return {
+        src: item.src,
+        alt: item.alt || `${project.title} — gallery image ${i + 1}`,
+        position: item.position || project.imagePosition || 'center',
+      };
+    }).filter(g => g.src);
   }
 
   const S = () => VM.site;
@@ -224,7 +257,7 @@
               <div><p class="reveal section-label mb-3">Portfolio</p><h2 class="reveal section-title text-navy dark:text-white">Featured Projects</h2></div>
               <a href="projects.html" class="reveal text-sm font-semibold text-gold hover:underline flex items-center gap-1">All projects <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
               ${featured.map((p, i) => this.projectCard(p, i)).join('')}
             </div>
           </div>
@@ -325,9 +358,9 @@
             <div id="testimonial-carousel" class="max-w-3xl mx-auto relative overflow-hidden">
               <div id="testimonial-track" class="flex transition-transform duration-500 ease-out">
                 ${d.testimonials.map(t => `
-                  <blockquote class="w-full shrink-0 card-executive p-8 md:p-10">
+                  <blockquote class="w-full shrink-0 card-executive p-6 sm:p-8 md:p-10">
                     <i data-lucide="quote" class="w-8 h-8 text-gold/60 mb-4"></i>
-                    <p class="text-lg text-muted dark:text-zinc-300 leading-relaxed mb-8">"${esc(t.quote)}"</p>
+                    <p class="text-base sm:text-lg text-muted dark:text-zinc-300 leading-relaxed mb-8">"${esc(t.quote)}"</p>
                     <footer class="flex items-center gap-4">
                       <span class="avatar-initials" aria-hidden="true">${esc(t.initials)}</span>
                       <div><cite class="font-semibold text-navy dark:text-white not-italic">${esc(t.name)}</cite><p class="text-sm text-muted">${esc(t.position)}, ${esc(t.organization)}</p></div>
@@ -335,9 +368,9 @@
                   </blockquote>`).join('')}
               </div>
               <div class="flex items-center justify-center gap-4 mt-6">
-                <button type="button" id="testimonial-prev" class="w-10 h-10 rounded-full border border-black/[0.08] dark:border-white/10 flex items-center justify-center hover:bg-navy hover:text-white transition-colors" aria-label="Previous testimonial"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                <button type="button" id="testimonial-prev" class="w-11 h-11 rounded-full border border-black/[0.08] dark:border-white/10 flex items-center justify-center hover:bg-navy hover:text-white transition-colors" aria-label="Previous testimonial"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
                 <div id="testimonial-dots" class="flex gap-2" role="tablist" aria-label="Testimonial slides"></div>
-                <button type="button" id="testimonial-next" class="w-10 h-10 rounded-full border border-black/[0.08] dark:border-white/10 flex items-center justify-center hover:bg-navy hover:text-white transition-colors" aria-label="Next testimonial"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                <button type="button" id="testimonial-next" class="w-11 h-11 rounded-full border border-black/[0.08] dark:border-white/10 flex items-center justify-center hover:bg-navy hover:text-white transition-colors" aria-label="Next testimonial"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
               </div>
             </div>
           </div>
@@ -366,18 +399,19 @@
     },
 
     projectCard(p, i) {
+      const pos = imgPos(p.imagePosition);
       return `
-        <article class="reveal card-executive overflow-hidden group h-full flex flex-col" style="--d:${delay(i, 0.08)}">
-          <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="block project-card-media">
+        <article class="reveal project-card group" style="--d:${delay(i, 0.08)}; --img-pos:${pos}">
+          <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="project-card__media" aria-label="${esc(p.title)} case study">
             <img src="${esc(p.image)}" alt="${esc(p.title)}" width="900" height="562" loading="lazy" decoding="async">
           </a>
-          <div class="p-6 flex flex-col flex-1">
-            <span class="text-xs font-semibold text-gold uppercase tracking-wider">${esc(p.category_label)}</span>
-            <h3 class="text-xl font-semibold text-navy dark:text-white mt-2 mb-2">
-              <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="hover:text-gold transition-colors">${esc(p.title)}</a>
+          <div class="project-card__body">
+            <span class="project-card__category">${esc(p.category_label)}</span>
+            <h3 class="project-card__title">
+              <a href="project.html?slug=${encodeURIComponent(p.slug)}">${esc(p.title)}</a>
             </h3>
-            <p class="text-sm text-muted leading-relaxed mb-4 flex-1">${esc(p.summary)}</p>
-            <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="inline-flex items-center gap-1 text-sm font-semibold text-navy dark:text-white hover:text-gold transition-colors">View case study <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            <p class="project-card__summary">${esc(p.summary)}</p>
+            <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="project-card__cta">View case study <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i></a>
           </div>
         </article>`;
     },
@@ -462,8 +496,8 @@
         <section class="pb-24">
           <div class="max-w-8xl mx-auto px-6">
             <div class="reveal flex flex-wrap gap-2 mb-10" id="project-filters">${filters}</div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
-              ${d.projects.map((p, i) => `<div class="project-item" data-category="${esc(p.category)}">${this.projectCard(p, i)}</div>`).join('')}
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch" id="projects-grid">
+              ${d.projects.map((p, i) => `<div class="project-item h-full" data-category="${esc(p.category)}">${this.projectCard(p, i)}</div>`).join('')}
             </div>
           </div>
         </section>`;
@@ -477,7 +511,6 @@
       const root = document.getElementById('project-root');
       const slug = new URLSearchParams(location.search).get('slug');
       const project = VM.getProject(slug);
-      const d = D();
 
       if (!project) {
         location.href = 'projects.html';
@@ -486,54 +519,209 @@
 
       document.title = `${project.title} — ${S().name}`;
 
-      const gallery = project.gallery?.length ? `
-        <section class="py-16 bg-white dark:bg-navy-secondary/20">
-          <div class="max-w-8xl mx-auto px-6">
-            <h2 class="text-2xl font-bold text-navy dark:text-white mb-8">Project Gallery</h2>
-            <div class="grid md:grid-cols-2 gap-4">${project.gallery.map(img => `<img src="${esc(img)}" alt="Project gallery image" class="rounded-xl w-full aspect-video object-cover" loading="lazy">`).join('')}</div>
+      const heroPos = imgPos(project.imagePosition);
+      const galleryItems = normalizeGallery(project);
+
+      const gallery = galleryItems.length ? `
+        <section class="project-gallery-section" aria-labelledby="project-gallery-heading">
+          <div class="project-content max-w-8xl mx-auto px-6">
+            <div class="project-section-head">
+              <p class="section-label mb-3">Visual Story</p>
+              <h2 id="project-gallery-heading" class="section-title text-navy dark:text-white">Project Gallery</h2>
+              <div class="project-gold-rule" aria-hidden="true"></div>
+            </div>
+            <div class="project-gallery" id="project-gallery-grid">
+              ${galleryItems.map((img, i) => `
+                <figure class="project-gallery__item reveal" style="--d:${delay(i, 0.05)}; --img-pos:${imgPos(img.position)}">
+                  <button type="button" class="project-gallery__btn" data-project-gallery-index="${i}" aria-label="View ${esc(img.alt)}">
+                    <img src="${esc(img.src)}" alt="${esc(img.alt)}" loading="lazy" decoding="async">
+                  </button>
+                </figure>`).join('')}
+            </div>
+          </div>
+          <div id="project-lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project image viewer">
+            <div class="lightbox__shell">
+              <button type="button" class="lightbox__btn lightbox__close" id="project-lightbox-close" aria-label="Close image viewer"><i data-lucide="x" class="w-5 h-5"></i></button>
+              <button type="button" class="lightbox__btn lightbox__prev" id="project-lightbox-prev" aria-label="Previous image"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+              <button type="button" class="lightbox__btn lightbox__next" id="project-lightbox-next" aria-label="Next image"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+              <figure class="lightbox__figure">
+                <img id="project-lightbox-image" src="" alt="">
+                <figcaption class="lightbox__caption">
+                  <h3 id="project-lightbox-title"></h3>
+                  <p id="project-lightbox-caption"></p>
+                </figcaption>
+                <p class="lightbox__counter" id="project-lightbox-counter" aria-live="polite"></p>
+              </figure>
+            </div>
           </div>
         </section>` : '';
 
       const related = project.related?.length ? `
-        <section class="py-16 bg-canvas dark:bg-navy">
-          <div class="max-w-8xl mx-auto px-6">
-            <h2 class="text-2xl font-bold text-navy dark:text-white mb-8">Related Projects</h2>
+        <section class="project-related-section" aria-labelledby="related-projects-heading">
+          <div class="project-content max-w-8xl mx-auto px-6">
+            <div class="project-section-head">
+              <p class="section-label mb-3">Continue Exploring</p>
+              <h2 id="related-projects-heading" class="section-title text-navy dark:text-white">Related Projects</h2>
+              <div class="project-gold-rule" aria-hidden="true"></div>
+            </div>
             <div class="grid md:grid-cols-2 gap-6">
-              ${project.related.map(sl => {
+              ${project.related.map((sl, i) => {
                 const rel = VM.getProject(sl);
                 if (!rel) return '';
-                return `<a href="project.html?slug=${encodeURIComponent(rel.slug)}" class="card-executive p-6 flex items-center gap-4 group"><img src="${esc(rel.image)}" alt="" class="w-20 h-20 rounded-lg object-cover shrink-0" loading="lazy"><div><p class="text-xs text-gold font-semibold uppercase">${esc(rel.category_label)}</p><p class="font-semibold text-navy dark:text-white group-hover:text-gold transition-colors">${esc(rel.title)}</p></div></a>`;
+                const rPos = imgPos(rel.imagePosition);
+                return `
+                  <a href="project.html?slug=${encodeURIComponent(rel.slug)}" class="reveal project-related group" style="--d:${delay(i, 0.06)}; --img-pos:${rPos}">
+                    <div class="project-related__media">
+                      <img src="${esc(rel.image)}" alt="${esc(rel.title)}" loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-related__body">
+                      <p class="project-card__category">${esc(rel.category_label)}</p>
+                      <p class="project-related__title">${esc(rel.title)}</p>
+                      <p class="project-related__summary">${esc(rel.summary)}</p>
+                      <span class="project-card__cta">View case study <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i></span>
+                    </div>
+                  </a>`;
               }).join('')}
             </div>
           </div>
         </section>` : '';
 
       root.innerHTML = `
-        <section class="pt-28 pb-0 relative overflow-hidden">
-          <div class="relative aspect-[21/9] max-h-[480px] overflow-hidden">
-            <img src="${esc(project.image)}" alt="${esc(project.title)}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent"></div>
+        <section class="project-hero" aria-labelledby="project-title" style="--img-pos:${heroPos}">
+          <div class="project-hero__media">
+            <img src="${esc(project.image)}" alt="${esc(project.title)}" class="project-hero__img" width="1920" height="1080" fetchpriority="high" decoding="async">
+            <div class="project-hero__scrim" aria-hidden="true"></div>
           </div>
-          <div class="max-w-8xl mx-auto px-6 -mt-32 relative z-10 pb-12">
-            <span class="inline-block text-xs font-semibold text-gold uppercase tracking-wider bg-navy/80 backdrop-blur px-3 py-1 rounded-lg mb-4">${esc(project.category_label)} · ${esc(project.year)}</span>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">${esc(project.title)}</h1>
-            <p class="text-lg text-white/70 max-w-2xl">${esc(project.summary)}</p>
-          </div>
-        </section>
-        <section class="py-16 bg-canvas dark:bg-navy">
-          <div class="max-w-3xl mx-auto px-6 prose-cs">
-            <h3>Overview</h3><p>${esc(project.overview)}</p>
-            <h3>Challenge</h3><p>${esc(project.challenge)}</p>
-            <h3>Objectives</h3><ul>${project.objectives.map(o => `<li>${esc(o)}</li>`).join('')}</ul>
-            <h3>Role</h3><p>${esc(project.role)}</p>
-            <h3>Strategy</h3><p>${esc(project.strategy)}</p>
-            <h3>Execution</h3><p>${esc(project.execution)}</p>
-            <h3>Results</h3><ul>${project.results.map(r => `<li>${esc(r)}</li>`).join('')}</ul>
-            <h3>Impact</h3><p>${esc(project.impact)}</p>
+          <div class="project-hero__content">
+            <div class="project-hero__meta">
+              <span>${esc(project.category_label)}</span>
+              <span class="project-hero__dot" aria-hidden="true"></span>
+              <span>${esc(project.year)}</span>
+            </div>
+            <h1 id="project-title" class="project-hero__title">${esc(project.title)}</h1>
+            <p class="project-hero__summary">${esc(project.summary)}</p>
           </div>
         </section>
+
+        <section class="project-overview-section" aria-label="Project case study">
+          <div class="project-content project-content--prose max-w-8xl mx-auto px-6">
+            <div class="prose-cs project-case">
+              <h3>Overview</h3>
+              <p>${esc(project.overview)}</p>
+              <h3>Challenge</h3>
+              <p>${esc(project.challenge)}</p>
+              <h3>Objectives</h3>
+              <ul>${project.objectives.map(o => `<li>${esc(o)}</li>`).join('')}</ul>
+              <h3>Role</h3>
+              <p>${esc(project.role)}</p>
+              <h3>Strategy</h3>
+              <p>${esc(project.strategy)}</p>
+              <h3>Execution</h3>
+              <p>${esc(project.execution)}</p>
+            </div>
+          </div>
+        </section>
+
         ${gallery}
+
+        <section class="project-impact-section" aria-labelledby="project-impact-heading">
+          <div class="project-content max-w-8xl mx-auto px-6">
+            <div class="project-section-head project-section-head--light">
+              <p class="section-label mb-3">Outcomes</p>
+              <h2 id="project-impact-heading" class="section-title text-white">Impact Metrics</h2>
+              <div class="project-gold-rule" aria-hidden="true"></div>
+            </div>
+            <ul class="project-impact-list">
+              ${project.results.map((r, i) => `
+                <li class="reveal project-impact-item" style="--d:${delay(i, 0.05)}">
+                  <span class="project-impact-item__mark" aria-hidden="true"></span>
+                  <span>${esc(r)}</span>
+                </li>`).join('')}
+            </ul>
+            <p class="project-impact-statement reveal">${esc(project.impact)}</p>
+          </div>
+        </section>
+
         ${related}`;
+
+      this.initProjectGallery(galleryItems);
+    },
+
+    initProjectGallery(items) {
+      const lightbox = document.getElementById('project-lightbox');
+      if (!lightbox || !items?.length) return;
+
+      let current = 0;
+      let lastTrigger = null;
+      let touchX = null;
+
+      const imgEl = document.getElementById('project-lightbox-image');
+      const titleEl = document.getElementById('project-lightbox-title');
+      const captionEl = document.getElementById('project-lightbox-caption');
+      const counterEl = document.getElementById('project-lightbox-counter');
+
+      const showSlide = (index) => {
+        current = ((index % items.length) + items.length) % items.length;
+        const item = items[current];
+        if (imgEl) {
+          imgEl.src = item.src;
+          imgEl.alt = item.alt;
+        }
+        if (titleEl) titleEl.textContent = item.alt || '';
+        if (captionEl) captionEl.textContent = '';
+        if (counterEl) counterEl.textContent = `${current + 1} / ${items.length}`;
+      };
+
+      const openLightbox = (index) => {
+        VM.ui?.closeNav?.();
+        showSlide(index);
+        lightbox.classList.remove('hidden');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+        document.getElementById('project-lightbox-close')?.focus();
+        VM.ui?.refreshIcons?.();
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.add('hidden');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        if (imgEl) imgEl.removeAttribute('src');
+        lastTrigger?.focus?.();
+      };
+
+      document.querySelectorAll('[data-project-gallery-index]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          lastTrigger = btn;
+          openLightbox(parseInt(btn.dataset.projectGalleryIndex, 10));
+        });
+      });
+
+      document.getElementById('project-lightbox-close')?.addEventListener('click', closeLightbox);
+      document.getElementById('project-lightbox-prev')?.addEventListener('click', () => showSlide(current - 1));
+      document.getElementById('project-lightbox-next')?.addEventListener('click', () => showSlide(current + 1));
+
+      lightbox.addEventListener('click', e => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      const onKey = (e) => {
+        if (lightbox.classList.contains('hidden')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showSlide(current - 1);
+        if (e.key === 'ArrowRight') showSlide(current + 1);
+      };
+      document.addEventListener('keydown', onKey);
+
+      lightbox.addEventListener('touchstart', e => {
+        touchX = e.changedTouches[0]?.screenX ?? null;
+      }, { passive: true });
+      lightbox.addEventListener('touchend', e => {
+        if (touchX == null) return;
+        const dx = (e.changedTouches[0]?.screenX ?? touchX) - touchX;
+        if (Math.abs(dx) > 50) showSlide(current + (dx < 0 ? 1 : -1));
+        touchX = null;
+      }, { passive: true });
     },
 
     renderGallery() {
@@ -650,6 +838,7 @@
       };
 
       const openLightbox = (index) => {
+        VM.ui?.closeNav?.();
         showSlide(index);
         lightbox.classList.remove('hidden');
         lightbox.setAttribute('aria-hidden', 'false');
