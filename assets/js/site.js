@@ -15,8 +15,8 @@
     setTheme(dark) {
       document.documentElement.classList.toggle('dark', dark);
       localStorage.setItem('vm-theme', dark ? 'dark' : 'light');
-      document.querySelector('.icon-theme-dark')?.classList.toggle('hidden', dark);
-      document.querySelector('.icon-theme-light')?.classList.toggle('hidden', !dark);
+      document.querySelectorAll('.icon-theme-dark').forEach(el => el.classList.toggle('hidden', dark));
+      document.querySelectorAll('.icon-theme-light').forEach(el => el.classList.toggle('hidden', !dark));
     },
 
     toggleTheme() {
@@ -28,7 +28,9 @@
     openNav() {
       document.getElementById('nav-drawer')?.classList.add('is-open');
       document.getElementById('nav-overlay')?.classList.remove('hidden');
-      document.getElementById('nav-toggle')?.setAttribute('aria-expanded', 'true');
+      const toggle = document.getElementById('nav-toggle');
+      toggle?.setAttribute('aria-expanded', 'true');
+      toggle?.setAttribute('aria-label', 'Close menu');
       document.body.classList.add('nav-open');
       document.querySelector('.icon-menu')?.classList.add('hidden');
       document.querySelector('.icon-close')?.classList.remove('hidden');
@@ -37,7 +39,9 @@
     closeNav() {
       document.getElementById('nav-drawer')?.classList.remove('is-open');
       document.getElementById('nav-overlay')?.classList.add('hidden');
-      document.getElementById('nav-toggle')?.setAttribute('aria-expanded', 'false');
+      const toggle = document.getElementById('nav-toggle');
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.setAttribute('aria-label', 'Open menu');
       document.body.classList.remove('nav-open');
       document.querySelector('.icon-menu')?.classList.remove('hidden');
       document.querySelector('.icon-close')?.classList.add('hidden');
@@ -64,11 +68,15 @@
       const dark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
       this.setTheme(dark);
       document.getElementById('theme-toggle')?.addEventListener('click', () => this.toggleTheme());
+      document.getElementById('theme-toggle-mobile')?.addEventListener('click', () => this.toggleTheme());
     },
 
     initNav() {
       document.getElementById('nav-toggle')?.addEventListener('click', () => this.toggleNav());
       document.getElementById('nav-overlay')?.addEventListener('click', () => this.closeNav());
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') this.closeNav();
+      });
     },
 
     initReveal() {
@@ -175,6 +183,7 @@
       }
 
       function start() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         clearInterval(timer);
         timer = setInterval(() => go(current + 1), 6000);
       }
