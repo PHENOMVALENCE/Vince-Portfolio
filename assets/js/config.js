@@ -5,7 +5,7 @@
 window.VM = window.VM || {};
 
 /** Semantic version of this portfolio codebase */
-VM.version = '1.2.0';
+VM.version = '2.0.0';
 
 VM.site = {
   name: 'Vicent Manila',
@@ -29,7 +29,7 @@ VM.site = {
     { href: 'index.html#about', label: 'About', page: 'home' },
     { href: 'leadership.html', label: 'Leadership', page: 'leadership' },
     { href: 'index.html#experience', label: 'Experience' },
-    { href: 'projects.html', label: 'Projects', page: 'projects' },
+    { href: 'projects.html', label: 'Work', page: 'projects' },
     { href: 'gallery.html', label: 'Gallery', page: 'gallery' },
     { href: 'media.html', label: 'Insights', page: 'media' },
     { href: 'index.html#contact', label: 'Contact', page: 'contact', cta: true },

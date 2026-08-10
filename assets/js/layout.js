@@ -69,8 +69,7 @@
                 <i data-lucide="moon" class="w-4 h-4 icon-theme-dark"></i>
                 <i data-lucide="sun" class="w-4 h-4 icon-theme-light hidden"></i>
               </button>
-              <a href="${s.cv}" target="_blank" rel="noopener noreferrer" class="header-cv-btn inline-flex items-center justify-center gap-1.5 bg-gold text-navy text-sm font-semibold px-3 sm:px-4 py-2 rounded-lg btn-lift min-h-[44px]" aria-label="View CV"><i data-lucide="file-text" class="w-4 h-4"></i> <span>CV</span></a>
-              <a href="index.html#contact" class="hidden lg:inline-flex items-center gap-1.5 bg-navy dark:bg-white text-white dark:text-navy text-sm font-semibold px-4 py-2 rounded-lg btn-lift min-h-[44px]">Contact</a>
+              <a href="index.html#contact" class="header-contact-btn hidden lg:inline-flex items-center gap-2 bg-navy dark:bg-gold text-white dark:text-navy text-sm font-semibold px-5 py-2.5 rounded-xl min-h-[44px]">Let's Talk <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
               <button type="button" id="nav-toggle" class="lg:hidden inline-flex w-11 h-11 items-center justify-center rounded-lg border border-black/[0.08] dark:border-white/10" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">
                 <i data-lucide="menu" class="w-5 h-5 icon-menu"></i>
                 <i data-lucide="x" class="w-5 h-5 icon-close hidden"></i>
@@ -94,7 +93,7 @@
                 <i data-lucide="file-text" class="w-4 h-4" aria-hidden="true"></i>
                 View my CV
               </a>
-              <a href="index.html#contact" class="nav-drawer__contact nav-mobile-link">Contact</a>
+              <a href="index.html#contact" class="nav-drawer__contact nav-mobile-link">Let's Talk</a>
             </div>
           </div>
         </div>`;
@@ -119,8 +118,8 @@
           <div class="connect-inner max-w-8xl mx-auto px-6">
             <div class="connect-grid">
               <div class="connect-content reveal">
-                <p class="section-label mb-4">Connect</p>
-                <h2 id="connect-heading" class="connect-heading font-display text-white">Let's Build Meaningful<br>Impact Together</h2>
+                <p class="section-label mb-4">Let's Connect</p>
+                <h2 id="connect-heading" class="connect-heading font-display text-white">Have an opportunity<br>or conversation in mind?</h2>
                 <p class="connect-lead">Open to conversations on leadership, strategic partnerships, business development, organisational growth, youth development and international collaboration.</p>
                 <div class="connect-divider" aria-hidden="true"></div>
 
