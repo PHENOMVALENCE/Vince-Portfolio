@@ -2226,6 +2226,13 @@ body.lightbox-open { overflow: hidden; }
 /* Expertise horizontal showcase */
 .skills-scroll-hint { display: inline-flex; align-items: center; gap: .55rem; margin-top: 2rem; color: var(--navy); font-size: .78rem; font-weight: 700; letter-spacing: .04em; }
 .skills-scroll-hint svg { width: 1rem; height: 1rem; color: var(--gold); }
+.skills-carousel-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.25rem; margin-top: 2rem; }
+.skills-carousel-meta .skills-scroll-hint { margin: 0; }
+.skills-controls { display: inline-flex; align-items: center; gap: .75rem; }
+.skills-control { display: grid; place-items: center; width: 2.65rem; height: 2.65rem; border: 1px solid rgba(7,26,47,.16); border-radius: 50%; color: var(--navy); background: rgba(255,255,255,.78); transition: color .2s ease, background .2s ease, transform .2s ease; }
+.skills-control:hover, .skills-control:focus-visible { color: white; background: var(--navy); transform: translateY(-2px); }
+.skills-control svg { width: 1rem; height: 1rem; }
+.skills-status { min-width: 3.8rem; color: var(--navy); font: 700 .76rem/1 var(--font-sans, sans-serif); letter-spacing: .12em; text-align: center; }
 .skills-inner { grid-template-columns: minmax(17rem,.62fr) minmax(0,1.38fr); }
 .skills-grid {
   display: flex;
@@ -2267,6 +2274,7 @@ body.lightbox-open { overflow: hidden; }
 .skills-card__tags { order: 4; display: flex; padding: 0; margin: 0; }
 .skills-card:nth-child(even) .skills-tag { color: rgba(255,255,255,.72); }
 .skills-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(7,26,47,.1); }
+.skills-card.is-active { box-shadow: 0 22px 55px rgba(7,26,47,.13); }
 .skills-closing { align-self: end; }
 @media (min-width:1024px) {
   .skills-inner { grid-template-columns: minmax(17rem,.62fr) minmax(0,1.38fr); }
@@ -2278,6 +2286,8 @@ body.lightbox-open { overflow: hidden; }
   .skills-closing { margin-top: 1.25rem; }
 }
 @media (max-width:639px) {
+  .skills-carousel-meta { justify-content: space-between; }
+  .skills-scroll-hint { max-width: 9.5rem; line-height: 1.45; }
   .skills-card, .skills-card--featured { flex-basis: 84vw; min-height: 23rem; padding: 1.5rem; }
   .skills-card::before { font-size: 4rem; }
   .skills-card__title { font-size: 1.45rem; }

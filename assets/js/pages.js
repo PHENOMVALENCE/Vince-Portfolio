@@ -81,6 +81,7 @@
       if (page === 'gallery') this.initGallery();
       if (page === 'project') this.initProjectRedirect();
       this.fillContactCTAs();
+      if (page === 'home') this.initExpertiseCarousel();
       VM.ui?.refreshIcons?.();
       VM.ui?.initReveal?.();
       VM.ui?.initCounters?.();
@@ -93,6 +94,57 @@
         const compact = el.dataset.compact === 'true';
         el.innerHTML = VM.layout.contactCTAs(compact);
       });
+    },
+
+    initExpertiseCarousel() {
+      const track = document.getElementById('skills-track');
+      const cards = Array.from(track?.querySelectorAll('.skills-card') || []);
+      const previous = document.getElementById('skills-prev');
+      const next = document.getElementById('skills-next');
+      const status = document.getElementById('skills-status');
+      if (!track || cards.length < 2) return;
+
+      let current = 0;
+      let timer;
+      let scrollTimer;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const update = () => {
+        cards.forEach((card, index) => card.classList.toggle('is-active', index === current));
+        if (status) status.textContent = `${String(current + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
+      };
+      const go = (index, behavior = 'smooth') => {
+        current = (index + cards.length) % cards.length;
+        track.scrollTo({ left: cards[current].offsetLeft - track.offsetLeft, behavior });
+        update();
+      };
+      const stop = () => window.clearInterval(timer);
+      const start = () => {
+        stop();
+        if (!reducedMotion.matches) timer = window.setInterval(() => go(current + 1), 4500);
+      };
+
+      previous?.addEventListener('click', () => { go(current - 1); start(); });
+      next?.addEventListener('click', () => { go(current + 1); start(); });
+      track.addEventListener('keydown', event => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        go(current + (event.key === 'ArrowRight' ? 1 : -1));
+        start();
+      });
+      track.addEventListener('scroll', () => {
+        window.clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(() => {
+          current = cards.reduce((closest, card, index) =>
+            Math.abs(card.offsetLeft - track.offsetLeft - track.scrollLeft) < Math.abs(cards[closest].offsetLeft - track.offsetLeft - track.scrollLeft) ? index : closest, 0);
+          update();
+        }, 100);
+      }, { passive: true });
+      ['pointerenter', 'focusin', 'touchstart'].forEach(event => track.addEventListener(event, stop, { passive: true }));
+      track.addEventListener('pointerleave', start);
+      track.addEventListener('focusout', event => { if (!track.contains(event.relatedTarget)) start(); });
+      reducedMotion.addEventListener?.('change', start);
+      update();
+      start();
     },
 
     renderHome() {
@@ -311,7 +363,14 @@
               <h2 id="skills-heading" class="section-title text-white mb-4">Core Competencies</h2>
               <p class="skills-lead">A comprehensive blend of leadership, strategic thinking, business development, and operational excellence delivering measurable impact across Africa and beyond.</p>
               <div class="skills-divider" aria-hidden="true"></div>
-              <p class="skills-scroll-hint"><i data-lucide="move-horizontal" aria-hidden="true"></i> Swipe or scroll to explore</p>
+              <div class="skills-carousel-meta">
+                <p class="skills-scroll-hint"><i data-lucide="play" aria-hidden="true"></i> Auto-playing · swipe or use controls</p>
+                <div class="skills-controls" aria-label="Core competencies controls">
+                  <button type="button" id="skills-prev" class="skills-control" aria-label="Previous competency"><i data-lucide="arrow-left" aria-hidden="true"></i></button>
+                  <span id="skills-status" class="skills-status" aria-live="polite">01 / 10</span>
+                  <button type="button" id="skills-next" class="skills-control" aria-label="Next competency"><i data-lucide="arrow-right" aria-hidden="true"></i></button>
+                </div>
+              </div>
             </div>
             <div class="skills-grid" id="skills-track" tabindex="0" role="region" aria-label="Core competencies carousel">
               ${(() => {
@@ -331,7 +390,7 @@
                   const featured = cat === 'Business Development';
                   const icon = icons[cat] || 'sparkles';
                   return `
-                  <article class="reveal skills-card${featured ? ' skills-card--featured' : ''}" style="--d:${delay(i, 0.04)}">
+                  <article class="reveal skills-card${featured ? ' skills-card--featured' : ''}" data-skill-slide="${i}" style="--d:${delay(i, 0.04)}">
                     <div class="skills-card__icon" aria-hidden="true"><i data-lucide="${icon}"></i></div>
                     <h3 class="skills-card__title">${esc(cat)}</h3>
                     <div class="skills-card__rule" aria-hidden="true"></div>
