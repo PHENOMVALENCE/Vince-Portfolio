@@ -106,7 +106,7 @@
       const c = s.contact;
       const phoneDisplay = c.phone || s.phone || '+255 713 582 606';
       const year = new Date().getFullYear();
-      const portrait = img.contact || img.profile || img.hero || '';
+      const portrait = img.hero || img.profile || img.contact || '';
 
       return `
         <section id="contact" class="connect-section" aria-labelledby="connect-heading">
