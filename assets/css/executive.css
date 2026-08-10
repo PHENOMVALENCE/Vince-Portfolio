@@ -2101,6 +2101,134 @@ body.lightbox-open { overflow: hidden; }
   }
 }
 
+/* Contact editorial refresh */
+.connect-section {
+  padding: clamp(4.5rem, 7vw, 6rem) 0;
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+    radial-gradient(circle at 88% 18%, rgba(201,164,92,.13), transparent 25%),
+    var(--navy);
+  background-size: 44px 44px, 44px 44px, auto, auto;
+}
+.connect-bg__dots { opacity: .08; }
+.connect-bg__glow--left { opacity: .22; }
+.connect-grid { align-items: center; }
+@media (min-width: 1024px) {
+  .connect-grid { grid-template-columns: minmax(0, 1.15fr) minmax(22rem, .85fr); gap: clamp(3.5rem, 7vw, 7rem); }
+}
+.connect-content { max-width: 46rem; }
+.connect-heading {
+  max-width: 44rem;
+  font-size: clamp(2.6rem, 5vw, 4.35rem);
+  line-height: 1.02;
+  letter-spacing: -.04em;
+}
+.connect-lead { max-width: 40rem; font-size: 1rem; color: rgba(255,255,255,.62); }
+.connect-divider { width: 5.5rem; margin: 1.75rem 0 2rem; background: var(--gold); }
+.connect-cards { gap: 0; border-top: 1px solid rgba(255,255,255,.13); }
+@media (min-width: 1024px) { .connect-cards { grid-template-columns: 1fr; gap: 0; } }
+.connect-card {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(7rem, .65fr) minmax(10rem, 1fr);
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  min-height: 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+.connect-card:hover { transform: none; box-shadow: none; background: transparent; border-color: rgba(255,255,255,.25); }
+.connect-card__icon,
+.connect-card--whatsapp .connect-card__icon,
+.connect-card--call .connect-card__icon,
+.connect-card--email .connect-card__icon {
+  width: 2.65rem;
+  height: 2.65rem;
+  border-radius: 50%;
+  color: var(--gold);
+  background: rgba(201,164,92,.11);
+  border: 1px solid rgba(201,164,92,.22);
+}
+.connect-card__sub { color: rgba(255,255,255,.42); }
+.connect-card__btn,
+.connect-card--whatsapp .connect-card__btn,
+.connect-card--call .connect-card__btn,
+.connect-card--email .connect-card__btn {
+  justify-self: stretch;
+  justify-content: space-between;
+  margin: 0;
+  padding: .8rem 1rem;
+  min-height: 46px;
+  border-radius: 12px;
+  color: white;
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: none;
+}
+.connect-card__btn:hover,
+.connect-card--whatsapp .connect-card__btn:hover,
+.connect-card--call .connect-card__btn:hover,
+.connect-card--email .connect-card__btn:hover {
+  color: var(--navy);
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: none;
+}
+.connect-location {
+  padding: 1rem 0;
+  margin-top: 1.25rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.connect-location__icon { border-radius: 50%; }
+.connect-secondary { margin-top: .85rem; }
+.connect-secondary__btn { border-radius: 999px; padding-inline: 1.15rem; }
+.connect-quote { display: none; }
+.connect-portrait__stage { width: min(100%, 430px); }
+.connect-portrait__ring { inset: -14px 14px 14px -14px; border-radius: 30px; }
+.connect-portrait__frame {
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.36);
+}
+.connect-portrait__frame img { object-position: center 18%; }
+.connect-portrait::after {
+  content: 'Leadership · Strategy · Partnerships';
+  position: absolute;
+  right: 1rem;
+  bottom: 1.25rem;
+  z-index: 4;
+  padding: .75rem 1rem;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 12px;
+  color: white;
+  background: rgba(7,26,47,.82);
+  backdrop-filter: blur(12px);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.connect-portrait { position: relative; }
+
+@media (max-width: 1023px) {
+  .connect-content { max-width: none; }
+  .connect-portrait { max-width: 25rem; }
+}
+@media (max-width: 639px) {
+  .connect-section { padding: 4rem 0; }
+  .connect-heading { font-size: clamp(2.35rem, 11vw, 3.2rem); }
+  .connect-card { grid-template-columns: 2.75rem 1fr; gap: .85rem; padding: 1.1rem 0; }
+  .connect-card__btn { grid-column: 1 / -1; justify-self: stretch; }
+  .connect-secondary { display: grid; grid-template-columns: 1fr 1fr; }
+  .connect-portrait::after { right: .65rem; bottom: .75rem; font-size: .62rem; }
+}
+
 /* Legacy compact CTAs (speaking page etc.) */
 .contact-cta {
   display: flex;
