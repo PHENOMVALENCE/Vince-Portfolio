@@ -61,6 +61,7 @@
       caption: 'Vicent during an AIESEC leadership and youth development engagement.',
       width: 3456,
       height: 5184,
+      rotate180: true,
       featured: true,
     },
     {

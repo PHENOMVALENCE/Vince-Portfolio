@@ -277,7 +277,7 @@
                 return `
                 <figure class="reveal action-gallery__item" style="--d:${delay(i, 0.05)}">
                   <a href="gallery.html" class="block w-full h-full" aria-label="${esc(alt)}">
-                    <img src="${esc(src)}" alt="${esc(alt)}" width="${m.width || 800}" height="${m.height || 1000}" loading="lazy" decoding="async">
+                    <img src="${esc(src)}" alt="${esc(alt)}" class="${m.rotate180 ? 'image-rotate-180' : ''}" width="${m.width || 800}" height="${m.height || 1000}" loading="lazy" decoding="async">
                     ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ''}
                   </a>
                 </figure>`;
@@ -311,8 +311,9 @@
               <h2 id="skills-heading" class="section-title text-white mb-4">Core Competencies</h2>
               <p class="skills-lead">A comprehensive blend of leadership, strategic thinking, business development, and operational excellence delivering measurable impact across Africa and beyond.</p>
               <div class="skills-divider" aria-hidden="true"></div>
+              <p class="skills-scroll-hint"><i data-lucide="move-horizontal" aria-hidden="true"></i> Swipe or scroll to explore</p>
             </div>
-            <div class="skills-grid">
+            <div class="skills-grid" id="skills-track" tabindex="0" role="region" aria-label="Core competencies carousel">
               ${(() => {
                 const icons = {
                   'Leadership': 'users',
@@ -444,16 +445,16 @@
             ${d.impactStats.map(st => `<div class="stat-card text-center p-5"><p class="text-2xl font-bold text-gold" data-count="${st.value}" data-suffix="${esc(st.suffix)}">0${esc(st.suffix)}</p><p class="text-xs text-white/50 mt-1">${esc(st.label)}</p></div>`).join('')}
           </div>
         </section>
-        <section class="py-24 bg-canvas dark:bg-navy">
+        <section class="leadership-timeline-section py-24 bg-canvas dark:bg-navy">
           <div class="max-w-8xl mx-auto px-6">
             <h2 class="text-2xl font-bold text-navy dark:text-white mb-12">Complete Timeline</h2>
-            <div class="relative max-w-3xl mx-auto" id="timeline">
+            <div class="journey-timeline relative max-w-6xl mx-auto" id="timeline">
               <div class="timeline-line"></div>
               <div class="timeline-progress" id="timeline-progress"></div>
               ${d.experience.map((job, i) => `
-                <article class="reveal relative pl-10 pb-10 last:pb-0" style="--d:${delay(i)}">
-                  <div class="absolute left-0 top-2 w-4 h-4 rounded-full border-2 border-gold bg-canvas dark:bg-navy z-10"></div>
-                  <div class="card-executive p-8">
+                <article class="journey-entry reveal" style="--d:${delay(i)}">
+                  <div class="journey-entry__marker"><span>${String(i + 1).padStart(2, '0')}</span></div>
+                  <div class="journey-panel">
                     <div class="flex flex-wrap items-center gap-3 mb-3">
                       <span class="text-xs font-semibold text-gold uppercase tracking-wider px-2 py-1 bg-gold/10 rounded">${esc(job.period)}</span>
                       <span class="text-xs text-muted flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> ${esc(job.country)}</span>
@@ -461,7 +462,7 @@
                     <h3 class="text-xl font-semibold text-navy dark:text-white mb-1">${esc(job.title)}</h3>
                     <p class="text-sm font-medium text-muted mb-4">${esc(job.organization)}</p>
                     <p class="text-sm text-muted leading-relaxed mb-6">${esc(job.overview)}</p>
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="journey-panel__details grid md:grid-cols-2 gap-6 mb-6">
                       <div><h4 class="text-xs font-semibold uppercase tracking-wider text-muted mb-3">Responsibilities</h4><ul class="space-y-2">${job.responsibilities.map(r => `<li class="text-sm text-muted flex gap-2"><span class="text-gold">·</span> ${esc(r)}</li>`).join('')}</ul></div>
                       <div><h4 class="text-xs font-semibold uppercase tracking-wider text-gold mb-3">Achievements</h4><ul class="space-y-2">${job.achievements.map(a => `<li class="text-sm text-muted flex gap-2"><span class="text-gold">·</span> ${esc(a)}</li>`).join('')}</ul></div>
                     </div>
@@ -474,19 +475,19 @@
             </div>
           </div>
         </section>
-        <section class="py-24 bg-white dark:bg-navy-secondary/20">
+        <section class="leadership-organizations py-24 bg-white dark:bg-navy-secondary/20">
           <div class="max-w-8xl mx-auto px-6">
             <h2 class="text-2xl font-bold text-navy dark:text-white mb-8">Organizations Served</h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              ${d.organizations.map(org => `<div class="card-executive p-6 text-center"><i data-lucide="building-2" class="w-6 h-6 text-gold mx-auto mb-3"></i><p class="font-semibold text-navy dark:text-white text-sm">${esc(org)}</p></div>`).join('')}
+            <div class="organization-index">
+              ${d.organizations.map((org, i) => `<div class="organization-index__item"><span>${String(i + 1).padStart(2, '0')}</span><p>${esc(org)}</p></div>`).join('')}
             </div>
           </div>
         </section>
-        <section class="py-24 bg-canvas dark:bg-navy">
+        <section class="leadership-global py-24 bg-canvas dark:bg-navy">
           <div class="max-w-8xl mx-auto px-6">
             <h2 class="text-2xl font-bold text-navy dark:text-white mb-8">Global Contributions</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-              ${d.about.international.map(intl => `<div class="card-executive p-8"><h3 class="text-xl font-semibold text-navy dark:text-white mb-2">${esc(intl.country)}</h3><p class="text-muted">${esc(intl.role)}</p></div>`).join('')}
+            <div class="global-contributions">
+              ${d.about.international.map((intl, i) => `<article class="global-contribution"><span class="global-contribution__number">0${i + 1}</span><div><h3>${esc(intl.country)}</h3><p>${esc(intl.role)}</p></div><i data-lucide="globe-2" aria-hidden="true"></i></article>`).join('')}
             </div>
           </div>
         </section>`;
@@ -808,7 +809,7 @@
           return `
             <figure class="gallery-card" data-gallery-index="${idx}" tabindex="0" role="button" aria-label="View ${esc(item.alt)}">
               <div class="gallery-card__media">
-                <img src="${esc(thumb)}" alt="${esc(item.alt)}" width="${item.width || ''}" height="${item.height || ''}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
+                <img src="${esc(thumb)}" alt="${esc(item.alt)}" class="${item.rotate180 ? 'image-rotate-180' : ''}" width="${item.width || ''}" height="${item.height || ''}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
                 <div class="gallery-card__overlay" aria-hidden="true"><span>${esc((VM.galleryFilters && VM.galleryFilters[item.category]) || item.category)}</span></div>
               </div>
               <figcaption class="gallery-card__meta">
@@ -844,6 +845,7 @@
         if (imgEl) {
           imgEl.src = item.src;
           imgEl.alt = item.alt;
+          imgEl.classList.toggle('image-rotate-180', Boolean(item.rotate180));
         }
         if (titleEl) titleEl.textContent = item.title || '';
         if (captionEl) captionEl.textContent = item.caption || '';
@@ -923,11 +925,11 @@
             <p class="reveal text-lg text-muted max-w-2xl">Keynotes, panel discussions, and workshops on youth leadership, strategic partnerships, and international development.</p>
           </div>
         </section>
-        <section class="py-16 bg-canvas dark:bg-navy">
+        <section class="speaking-topics-section py-16 bg-canvas dark:bg-navy">
           <div class="max-w-8xl mx-auto px-6">
             <h2 class="text-2xl font-bold text-navy dark:text-white mb-8">Speaking Topics</h2>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              ${d.speakingTopics.map((topic, i) => `<div class="reveal card-executive p-6 flex items-start gap-3" style="--d:${delay(i)}"><i data-lucide="mic" class="w-5 h-5 text-gold shrink-0 mt-0.5"></i><p class="font-medium text-navy dark:text-white">${esc(topic)}</p></div>`).join('')}
+              ${d.speakingTopics.map((topic, i) => `<div class="speaking-topic reveal" style="--d:${delay(i)}"><span>0${i + 1}</span><p>${esc(topic)}</p></div>`).join('')}
             </div>
           </div>
         </section>
@@ -936,21 +938,21 @@
             <h2 class="text-2xl font-bold text-navy dark:text-white mb-8">Past Engagements</h2>
             <div class="space-y-4">
               ${d.speakingEngagements.map(eng => `
-                <div class="reveal card-executive p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <article class="speaking-engagement reveal">
                   <div><span class="text-xs font-semibold text-gold uppercase">${esc(eng.type)}</span><h3 class="text-lg font-semibold text-navy dark:text-white mt-1">${esc(eng.title)}</h3><p class="text-sm text-muted">${esc(eng.event)}</p></div>
                   <div class="text-sm text-muted shrink-0 flex items-center gap-4"><span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> ${esc(eng.location)}</span><span>${esc(eng.date)}</span></div>
-                </div>`).join('')}
+                </article>`).join('')}
             </div>
           </div>
         </section>
-        <section class="py-16 bg-canvas dark:bg-navy">
+        <section class="speaking-utility py-16 bg-canvas dark:bg-navy">
           <div class="max-w-8xl mx-auto px-6 grid lg:grid-cols-2 gap-8">
-            <div class="card-executive p-8">
+            <div class="speaking-utility__panel p-8">
               <h2 class="text-xl font-bold text-navy dark:text-white mb-4">Media Kit</h2>
               <p class="text-muted leading-relaxed mb-6">Download professional biography, headshots, speaking topics, and brand assets for event organizers and media inquiries.</p>
               <a href="${s.cv}" target="_blank" rel="noopener noreferrer" class="btn-lift inline-flex items-center gap-2 bg-gold text-navy font-semibold px-5 py-2.5 rounded-lg text-sm"><i data-lucide="file-text" class="w-4 h-4"></i> View my CV</a>
             </div>
-            <div class="card-executive p-8" id="booking">
+            <div class="speaking-utility__panel speaking-utility__panel--dark p-8" id="booking">
               <h2 class="text-xl font-bold text-navy dark:text-white mb-4">Book a Speaking Engagement</h2>
               <p class="text-muted leading-relaxed mb-6">Reach out directly to discuss keynotes, panels, or workshops for your event.</p>
               <div class="contact-ctas-slot" data-compact="true"></div>
@@ -964,7 +966,7 @@
               <a href="gallery.html" class="text-sm font-semibold text-gold hover:underline">Full gallery →</a>
             </div>
             <div class="grid md:grid-cols-3 gap-4">
-              ${galleryItems.map(item => `<figure class="card-executive overflow-hidden"><img src="${esc(item.thumb || item.src)}" alt="${esc(item.alt || item.title)}" class="w-full aspect-[4/5] object-cover" width="${item.width || ''}" height="${item.height || ''}" loading="lazy" decoding="async"><figcaption class="p-4"><p class="font-semibold text-navy dark:text-white text-sm">${esc(item.title)}</p><p class="text-xs text-muted">${esc(item.caption || '')}</p></figcaption></figure>`).join('')}
+              ${galleryItems.map(item => `<figure class="speaking-gallery-item"><img src="${esc(item.thumb || item.src)}" alt="${esc(item.alt || item.title)}" class="w-full aspect-[4/5] object-cover ${item.rotate180 ? 'image-rotate-180' : ''}" width="${item.width || ''}" height="${item.height || ''}" loading="lazy" decoding="async"><figcaption><p>${esc(item.title)}</p><small>${esc(item.caption || '')}</small></figcaption></figure>`).join('')}
             </div>
           </div>
         </section>`;
