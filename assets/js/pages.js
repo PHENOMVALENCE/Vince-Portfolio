@@ -371,6 +371,7 @@
                   <button type="button" id="skills-next" class="skills-control" aria-label="Next competency"><i data-lucide="arrow-right" aria-hidden="true"></i></button>
                 </div>
               </div>
+              <p class="skills-closing reveal">Strategic expertise. <span>Measurable impact.</span> Lasting change.</p>
             </div>
             <div class="skills-grid" id="skills-track" tabindex="0" role="region" aria-label="Core competencies carousel">
               ${(() => {
@@ -401,7 +402,6 @@
                 }).join('');
               })()}
             </div>
-            <p class="skills-closing reveal">Strategic expertise. <span>Measurable impact.</span> Lasting change.</p>
           </div>
         </section>
 
