@@ -109,14 +109,13 @@
       ];
 
       return `
-        <section id="hero" class="relative min-h-[92vh] flex items-center pt-20 overflow-hidden bg-white dark:bg-navy">
+        <section id="hero" class="executive-hero relative min-h-[92vh] flex items-center pt-20 overflow-hidden bg-white dark:bg-navy">
           <div class="absolute top-1/4 right-0 w-[28rem] h-[28rem] bg-gold/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
           <div class="absolute bottom-0 left-0 w-72 h-72 bg-navy/5 dark:bg-gold/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
           <div class="max-w-8xl mx-auto px-6 py-14 md:py-20 w-full relative z-10 hero-shell">
             <div class="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
               <div class="lg:col-span-6 hero-intro">
-                <img src="${esc(s.logo || img.logo || 'assets/images/vincelogo.png')}" alt="" class="reveal brand-logo brand-logo--hero hero-logo" width="1254" height="1254" decoding="async" aria-hidden="true">
-                <p class="reveal section-label mb-4 hero-eyebrow">${esc(d.hero.eyebrow)}</p>
+                <p class="reveal section-label mb-4 hero-eyebrow">Hello, I'm</p>
                 <h1 class="reveal hero-title text-navy dark:text-white mb-4" style="--d:.05s">${esc(s.name)}</h1>
                 <p class="reveal hero-role text-lg md:text-xl text-navy/80 dark:text-zinc-200 mb-1 font-semibold" style="--d:.08s">${esc(d.hero.roles[0])}</p>
                 <p class="reveal hero-subtitle text-sm md:text-base text-muted dark:text-zinc-400 mb-5" style="--d:.1s">${esc(d.hero.roles[1])} · ${esc(d.hero.roles[2])}</p>
@@ -133,12 +132,9 @@
                 </div>
 
                 <div class="reveal hero-actions mb-10" style="--d:.18s">
-                  <a href="${s.cv}" target="_blank" rel="noopener noreferrer" class="hero-btn hero-btn--primary btn-lift inline-flex items-center justify-center gap-2 bg-gold text-navy font-semibold px-5 py-3 rounded-lg text-sm"><i data-lucide="file-text" class="w-4 h-4"></i> View my CV</a>
-                  <div class="hero-btn-row">
-                    <a href="leadership.html" class="hero-btn hero-btn--secondary btn-lift inline-flex items-center justify-center gap-2 border border-black/[0.08] dark:border-white/10 text-ink dark:text-white font-semibold px-5 py-3 rounded-lg text-sm hover:border-gold transition-colors">View Experience</a>
-                    <a href="projects.html" class="hero-btn hero-btn--secondary btn-lift inline-flex items-center justify-center gap-2 border border-black/[0.08] dark:border-white/10 text-ink dark:text-white font-semibold px-5 py-3 rounded-lg text-sm hover:border-gold transition-colors">View Projects</a>
-                  </div>
-                  <a href="#contact" class="hero-btn hero-btn--link btn-lift inline-flex items-center gap-2 text-muted hover:text-gold font-medium px-1 py-2 text-sm transition-colors">Contact Vincent <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                  <a href="projects.html" class="hero-btn hero-btn--primary inline-flex items-center justify-center gap-2 bg-navy dark:bg-gold text-white dark:text-navy font-semibold px-6 py-3.5 rounded-xl text-sm">Explore My Work <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                  <a href="#about" class="hero-btn hero-btn--secondary inline-flex items-center justify-center gap-2 border border-navy/20 dark:border-white/20 text-navy dark:text-white font-semibold px-6 py-3.5 rounded-xl text-sm">View Profile</a>
+                  <a href="${s.linkedin}" target="_blank" rel="noopener noreferrer" class="hero-social-link" aria-label="View Vicent Manila on LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i><span>LinkedIn</span></a>
                 </div>
                 <div class="reveal hero-metrics pt-7 border-t border-black/[0.06] dark:border-white/10" style="--d:.22s">
                   ${d.hero.stats.map(st => `<div class="hero-metric"><p class="hero-metric__value text-2xl md:text-3xl font-bold text-navy dark:text-gold">${esc(st.value)}</p><p class="hero-metric__label text-xs text-muted mt-1 leading-snug">${esc(st.label)}</p></div>`).join('')}
@@ -159,7 +155,7 @@
           </div>
         </section>
 
-        <section class="py-7 border-y border-black/[0.06] dark:border-white/10 bg-canvas dark:bg-navy-secondary/30">
+        <section class="credibility-strip py-7 border-y border-black/[0.06] dark:border-white/10 bg-canvas dark:bg-navy-secondary/30" aria-label="Professional credibility">
           <div class="max-w-8xl mx-auto px-6">
             <p class="text-center text-xs font-semibold uppercase tracking-widest text-muted mb-5">Organizations Served</p>
             <div class="flex flex-wrap justify-center gap-x-8 gap-y-3">
@@ -257,8 +253,8 @@
               <div><p class="reveal section-label mb-3">Portfolio</p><h2 class="reveal section-title text-navy dark:text-white">Featured Projects</h2></div>
               <a href="projects.html" class="reveal text-sm font-semibold text-gold hover:underline flex items-center gap-1">All projects <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-              ${featured.map((p, i) => this.projectCard(p, i)).join('')}
+            <div class="featured-projects">
+              ${featured.map((p, i) => this.projectFeature(p, i)).join('')}
             </div>
           </div>
         </section>
@@ -412,6 +408,23 @@
             </h3>
             <p class="project-card__summary">${esc(p.summary)}</p>
             <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="project-card__cta">View case study <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i></a>
+          </div>
+        </article>`;
+    },
+
+    projectFeature(p, i) {
+      const pos = imgPos(p.imagePosition);
+      return `
+        <article class="reveal project-feature${i % 2 ? ' project-feature--reverse' : ''}" style="--d:${delay(i, 0.08)}; --img-pos:${pos}">
+          <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="project-feature__media" aria-label="${esc(p.title)} case study">
+            <img src="${esc(p.image)}" alt="${esc(p.title)}" width="1100" height="720" loading="lazy" decoding="async">
+            <span class="project-feature__number" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+          </a>
+          <div class="project-feature__body">
+            <p class="project-feature__eyebrow">Selected work <span></span> ${esc(p.category_label)}</p>
+            <h3 class="project-feature__title"><a href="project.html?slug=${encodeURIComponent(p.slug)}">${esc(p.title)}</a></h3>
+            <p class="project-feature__summary">${esc(p.summary)}</p>
+            <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="project-feature__cta">View project <i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i></a>
           </div>
         </article>`;
     },
