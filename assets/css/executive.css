@@ -353,19 +353,19 @@ a, button { transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !importan
     line-height: 1.5;
   }
   .hero-portrait-mobile {
-    order: 6;
+    order: 9;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem !important;
   }
   .hero-summary {
-    order: 7;
+    order: 6;
     margin-bottom: 1.5rem !important;
     max-width: none;
     font-size: 1rem;
     line-height: 1.65;
   }
   .hero-actions {
-    order: 8;
+    order: 7;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
@@ -399,7 +399,7 @@ a, button { transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !importan
     padding-left: 0;
   }
   .hero-metrics {
-    order: 9;
+    order: 8;
     padding-top: 1.25rem !important;
     gap: 0.5rem;
     align-items: start;

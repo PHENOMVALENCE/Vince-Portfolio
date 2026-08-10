@@ -134,7 +134,7 @@
                 <div class="reveal hero-actions mb-10" style="--d:.18s">
                   <a href="projects.html" class="hero-btn hero-btn--primary inline-flex items-center justify-center gap-2 bg-navy dark:bg-gold text-white dark:text-navy font-semibold px-6 py-3.5 rounded-xl text-sm">Explore My Work <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
                   <a href="#about" class="hero-btn hero-btn--secondary inline-flex items-center justify-center gap-2 border border-navy/20 dark:border-white/20 text-navy dark:text-white font-semibold px-6 py-3.5 rounded-xl text-sm">View Profile</a>
-                  <a href="${s.linkedin}" target="_blank" rel="noopener noreferrer" class="hero-social-link" aria-label="View Vicent Manila on LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i><span>LinkedIn</span></a>
+                  <a href="${s.linkedin}" target="_blank" rel="noopener noreferrer" class="hero-social-link" aria-label="View Vicent Manila on LinkedIn"><i data-lucide="external-link" class="w-4 h-4"></i><span>LinkedIn</span></a>
                 </div>
                 <div class="reveal hero-metrics pt-7 border-t border-black/[0.06] dark:border-white/10" style="--d:.22s">
                   ${d.hero.stats.map(st => `<div class="hero-metric"><p class="hero-metric__value text-2xl md:text-3xl font-bold text-navy dark:text-gold">${esc(st.value)}</p><p class="hero-metric__label text-xs text-muted mt-1 leading-snug">${esc(st.label)}</p></div>`).join('')}

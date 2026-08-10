@@ -168,7 +168,7 @@
 
                 <div class="connect-secondary">
                   <a href="${s.linkedin}" target="_blank" rel="noopener noreferrer" class="connect-secondary__btn">
-                    <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn
+                    <i data-lucide="external-link" class="w-4 h-4"></i> LinkedIn
                   </a>
                   <a href="${s.cv}" target="_blank" rel="noopener noreferrer" class="connect-secondary__btn connect-secondary__btn--gold">
                     <i data-lucide="file-text" class="w-4 h-4"></i> View my CV
