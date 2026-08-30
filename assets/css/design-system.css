@@ -1,0 +1,1073 @@
+/* ============================================================================
+   Vicent Manila — Design System
+   Implements DESIGN.md. Loaded BEFORE executive.css.
+
+   Every value here is semantic. Components must never use raw hex.
+   ========================================================================== */
+
+:root {
+  /* ---- Colour: light theme -------------------------------------------- */
+  --vm-canvas:          #F7F5F1;   /* warm paper, not cool white */
+  --vm-canvas-subtle:   #F1EEE8;
+  --vm-surface:         #FDFCFA;
+
+  --vm-ink:             #14243A;   /* warm navy-black, never jet */
+  --vm-ink-secondary:   #40506A;
+  --vm-ink-muted:       #6B7A90;
+
+  --vm-navy:            #0B1F3A;
+  --vm-navy-soft:       #16304F;
+
+  --vm-accent:          #B4893C;   /* gold — see DESIGN.md §3 */
+  --vm-accent-hover:    #96702E;
+  --vm-accent-subtle:   #EFE3CB;
+
+  --vm-border:          #DED8CD;
+  --vm-border-strong:   #B9AF9F;
+
+  --vm-on-navy:         #F3EFE7;
+  --vm-on-navy-muted:   #A9B6C7;
+
+  --vm-success:         #2F6F4F;
+  --vm-warning:         #8A6516;
+  --vm-error:           #9B2C2C;
+
+  /* ---- Typography ------------------------------------------------------ */
+  --vm-font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --vm-font-sans:  'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  --vm-display-xl: clamp(2.75rem, 6vw,   4.5rem);
+  --vm-display-lg: clamp(2.25rem, 4.4vw, 3.25rem);
+  --vm-display-md: clamp(1.75rem, 3vw,   2.375rem);
+  --vm-heading:    clamp(1.25rem, 2vw,   1.5rem);
+  --vm-lead:       clamp(1.125rem, 1.6vw, 1.3125rem);
+  --vm-body:       1rem;
+  --vm-body-sm:    0.875rem;
+  --vm-eyebrow:    0.75rem;
+  --vm-caption:    0.8125rem;
+
+  --vm-measure:    68ch;
+
+  /* ---- Geometry: near-square (DESIGN.md §6) ---------------------------- */
+  --vm-radius-sm:   2px;
+  --vm-radius-md:   4px;
+  --vm-radius-lg:   8px;   /* the largest radius in the system */
+  --vm-radius-img:  0;
+  --vm-radius-pill: 999px; /* genuine status chips only */
+
+  /* ---- Elevation: exactly one shadow ----------------------------------- */
+  --vm-shadow-image: 0 18px 44px rgba(11, 31, 58, 0.14);
+
+  /* ---- Layout ---------------------------------------------------------- */
+  --vm-max-w:        1320px;
+  --vm-max-w-wide:   1440px;
+  --vm-page-pad-x:   clamp(1.25rem, 4vw, 4rem);
+  --vm-gutter:       clamp(1rem, 2vw, 1.75rem);
+
+  /* Section rhythm — deliberately uneven (DESIGN.md §5) */
+  --vm-section-expansive: clamp(5rem,   10vw, 9rem);
+  --vm-section-standard:  clamp(4rem,   7vw,  6.5rem);
+  --vm-section-compact:   clamp(2.5rem, 4vw,  3.5rem);
+
+  --vm-transition: 160ms ease-out;
+}
+
+/* ---- Colour: dark theme — designed, not inverted (DESIGN.md §2) -------- */
+.dark {
+  --vm-canvas:        #0B1726;   /* deep navy, never pure black */
+  --vm-canvas-subtle: #0E1D30;
+  --vm-surface:       #132539;
+
+  --vm-ink:           #EDE8DF;   /* soft off-white, never #FFF */
+  --vm-ink-secondary: #B4BCCA;
+  --vm-ink-muted:     #8592A5;
+
+  --vm-navy:          #060F1B;
+  --vm-navy-soft:     #0E1D30;
+
+  --vm-accent:        #D0A857;
+  --vm-accent-hover:  #E3C079;
+  --vm-accent-subtle: #2A2417;
+
+  --vm-border:        #22344B;
+  --vm-border-strong: #3B5273;
+
+  --vm-on-navy:       #EDE8DF;
+  --vm-on-navy-muted: #8592A5;
+
+  --vm-shadow-image:  0 18px 44px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================================
+   Base
+   ========================================================================== */
+
+body {
+  background: var(--vm-canvas);
+  color: var(--vm-ink);
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-body);
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================================
+   Typography — serif for narrative, sans for structure (DESIGN.md §4)
+   The serif NEVER labels a control. The sans NEVER sets an editorial statement.
+   ========================================================================== */
+
+.vm-display,
+.vm-display-lg,
+.vm-display-md,
+.vm-quote {
+  font-family: var(--vm-font-serif);
+  font-weight: 400;            /* calm at scale — per IBM / WIRED */
+  color: var(--vm-ink);
+  text-wrap: balance;
+}
+
+.vm-display    { font-size: var(--vm-display-xl); line-height: 1.04; letter-spacing: -0.02em; }
+.vm-display-lg { font-size: var(--vm-display-lg); line-height: 1.08; letter-spacing: -0.018em; }
+.vm-display-md { font-size: var(--vm-display-md); line-height: 1.15; letter-spacing: -0.014em; }
+
+/* Section headings are SANS by default, so the serif retains its meaning. */
+.vm-heading {
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-heading);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--vm-ink);
+}
+
+.vm-eyebrow {
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-eyebrow);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vm-ink-muted);
+}
+
+/* Gold rule above a section eyebrow — one of gold's few sanctioned uses. */
+.vm-eyebrow--ruled::before {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--vm-accent);
+  margin-bottom: 0.875rem;
+}
+
+.vm-lead {
+  font-size: var(--vm-lead);
+  line-height: 1.6;
+  color: var(--vm-ink-secondary);
+  max-width: var(--vm-measure);
+}
+
+.vm-prose  { max-width: var(--vm-measure); color: var(--vm-ink-secondary); }
+.vm-prose p + p { margin-top: 1.15em; }
+
+.vm-caption {
+  font-size: var(--vm-caption);
+  line-height: 1.45;
+  color: var(--vm-ink-muted);
+}
+
+/* ============================================================================
+   Layout
+   ========================================================================== */
+
+.vm-container      { max-width: var(--vm-max-w);      margin-inline: auto; padding-inline: var(--vm-page-pad-x); }
+.vm-container--wide{ max-width: var(--vm-max-w-wide); margin-inline: auto; padding-inline: var(--vm-page-pad-x); }
+
+.vm-section            { padding-block: var(--vm-section-standard); }
+.vm-section--expansive { padding-block: var(--vm-section-expansive); }
+.vm-section--compact   { padding-block: var(--vm-section-compact); }
+
+/* Surface change is the section divider — no borders or frames needed. */
+.vm-section--subtle { background: var(--vm-canvas-subtle); }
+.vm-section--navy   { background: var(--vm-navy); color: var(--vm-on-navy); }
+.vm-section--navy .vm-display,
+.vm-section--navy .vm-display-lg,
+.vm-section--navy .vm-display-md,
+.vm-section--navy .vm-heading { color: var(--vm-on-navy); }
+.vm-section--navy .vm-lead,
+.vm-section--navy .vm-prose   { color: var(--vm-on-navy-muted); }
+
+.vm-rule        { border: 0; border-top: 1px solid var(--vm-border); margin: 0; }
+.vm-rule--strong{ border-top: 1px solid var(--vm-border-strong); }
+
+/* ============================================================================
+   Buttons — no gold fills, no pills (DESIGN.md §8)
+   ========================================================================== */
+
+.vm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--vm-radius-md);
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-body-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--vm-transition), color var(--vm-transition), border-color var(--vm-transition);
+}
+
+.vm-btn--primary {
+  background: var(--vm-navy);
+  color: var(--vm-on-navy);
+  border: 1px solid var(--vm-navy);
+}
+.vm-btn--primary:hover { background: var(--vm-navy-soft); border-color: var(--vm-navy-soft); }
+
+.dark .vm-btn--primary {
+  background: var(--vm-accent);
+  color: #14243A;
+  border-color: var(--vm-accent);
+}
+.dark .vm-btn--primary:hover { background: var(--vm-accent-hover); border-color: var(--vm-accent-hover); }
+
+.vm-btn--secondary {
+  background: transparent;
+  color: var(--vm-ink);
+  border: 1px solid var(--vm-border-strong);
+}
+.vm-btn--secondary:hover { border-color: var(--vm-ink); }
+
+/* Tertiary: text with a gold underline that thickens on hover. */
+.vm-btn--tertiary {
+  min-height: 0;
+  padding: 0.25rem 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--vm-accent);
+  border-radius: 0;
+  color: var(--vm-ink);
+}
+.vm-btn--tertiary:hover { border-bottom-width: 2px; }
+
+/* ============================================================================
+   Links
+   ========================================================================== */
+
+.vm-link {
+  color: var(--vm-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, currentColor 60%, transparent);
+  transition: text-decoration-color var(--vm-transition);
+}
+.vm-link:hover { text-decoration-color: currentColor; }
+
+/* ============================================================================
+   Metrics — hairline-separated row, never boxed (DESIGN.md §8)
+   ========================================================================== */
+
+.vm-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--vm-border);
+}
+
+.vm-metric {
+  padding: 1.75rem var(--vm-gutter) 1.75rem 0;
+  border-bottom: 1px solid var(--vm-border);
+}
+@media (min-width: 768px) {
+  .vm-metric + .vm-metric {
+    border-left: 1px solid var(--vm-border);
+    padding-left: var(--vm-gutter);
+  }
+}
+
+.vm-metric__value {
+  display: block;
+  font-family: var(--vm-font-serif);
+  font-size: var(--vm-display-md);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--vm-ink);
+}
+.vm-metric__label {
+  display: block;
+  margin-top: 0.625rem;
+  font-size: var(--vm-body-sm);
+  font-weight: 500;
+  color: var(--vm-ink);
+}
+.vm-metric__note {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: var(--vm-caption);
+  color: var(--vm-ink-muted);
+}
+
+/* ============================================================================
+   Photography (DESIGN.md §7) — square corners, explicit focal points
+   ========================================================================== */
+
+.vm-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--vm-radius-img);
+}
+
+.vm-img-frame { position: relative; overflow: hidden; background: var(--vm-canvas-subtle); }
+.vm-img-frame--shadow { box-shadow: var(--vm-shadow-image); }
+
+.vm-img--portrait-exec { aspect-ratio: 4 / 5; }
+.vm-img--portrait-ed   { aspect-ratio: 3 / 4; }
+.vm-img--case-hero     { aspect-ratio: 3 / 2; }
+.vm-img--event         { aspect-ratio: 4 / 3; }
+
+/* ============================================================================
+   Expertise index — numbered, not carded (DESIGN.md §8)
+   ========================================================================== */
+
+.vm-index { border-top: 1px solid var(--vm-border); }
+
+.vm-index__item {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: var(--vm-gutter);
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--vm-border);
+}
+@media (min-width: 900px) {
+  .vm-index__item { grid-template-columns: 4rem minmax(0, 22rem) 1fr; align-items: start; }
+}
+
+.vm-index__num {
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--vm-accent);
+  padding-top: 0.4rem;
+}
+.vm-index__title {
+  font-family: var(--vm-font-serif);
+  font-size: var(--vm-heading);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--vm-ink);
+}
+.vm-index__desc { color: var(--vm-ink-secondary); font-size: var(--vm-body-sm); max-width: 48ch; }
+.vm-index__comps {
+  margin-top: 0.5rem;
+  font-size: var(--vm-caption);
+  color: var(--vm-ink-muted);
+}
+
+/* ============================================================================
+   Career chronology — one continuous rule, no cards (DESIGN.md §8)
+   ========================================================================== */
+
+.vm-chrono { border-top: 1px solid var(--vm-border); }
+
+.vm-chrono__item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem var(--vm-gutter);
+  padding-block: 2.25rem;
+  border-bottom: 1px solid var(--vm-border);
+}
+@media (min-width: 900px) {
+  .vm-chrono__item { grid-template-columns: 11rem 1fr; }
+}
+
+.vm-chrono__period {
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vm-ink-muted);
+  padding-top: 0.3rem;
+}
+.vm-chrono__role {
+  font-family: var(--vm-font-serif);
+  font-size: var(--vm-heading);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--vm-ink);
+}
+.vm-chrono__org {
+  margin-top: 0.25rem;
+  font-size: var(--vm-body-sm);
+  font-weight: 500;
+  color: var(--vm-ink-secondary);
+}
+.vm-chrono__mandate { margin-top: 0.75rem; max-width: 62ch; color: var(--vm-ink-secondary); font-size: var(--vm-body-sm); }
+.vm-chrono__outcomes { margin-top: 0.875rem; padding: 0; list-style: none; max-width: 62ch; }
+.vm-chrono__outcomes li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-top: 0.4rem;
+  font-size: var(--vm-body-sm);
+  color: var(--vm-ink-secondary);
+}
+.vm-chrono__outcomes li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.62em;
+  width: 5px; height: 1px;
+  background: var(--vm-accent);
+}
+
+.vm-chrono__current {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--vm-accent);
+  border-radius: var(--vm-radius-pill);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vm-accent);
+  vertical-align: middle;
+}
+
+/* ============================================================================
+   Pull quote (DESIGN.md §8)
+   ========================================================================== */
+
+.vm-quote {
+  font-size: var(--vm-display-md);
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  max-width: 22ch;
+}
+.vm-quote--wide { max-width: 34ch; }
+.vm-quote::before {
+  content: '\201C';
+  display: block;
+  font-size: 2.5em;
+  line-height: 0.4;
+  color: var(--vm-accent);
+  margin-bottom: 0.25em;
+}
+
+/* ============================================================================
+   Accessibility (DESIGN.md §10)
+   ========================================================================== */
+
+:where(a, button, [tabindex], input, select, textarea):focus-visible {
+  outline: 2px solid var(--vm-accent);
+  outline-offset: 2px;
+  border-radius: var(--vm-radius-sm);
+}
+
+.vm-visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================================
+   Motion (DESIGN.md §9) — hard requirement, not an enhancement
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================================
+   Anti-pattern suppression (DESIGN.md §12)
+   Neutralises decorative vocabulary inherited from the previous design.
+   ========================================================================== */
+
+.vm-scope .blur-3xl,
+.vm-scope .blur-2xl,
+.vm-scope [class*='decor-blob'],
+.vm-scope .hero-glow {
+  display: none !important;
+}
+
+/* No horizontal overflow at any width — P0 (DESIGN.md §11). */
+html, body { overflow-x: clip; max-width: 100%; }
+img, svg, video { max-width: 100%; }
+
+/* ============================================================================
+   COMPONENTS — page composition
+   ========================================================================== */
+
+/* Spacing utilities */
+.vm-mt-sm { margin-top: 0.75rem; }
+.vm-mt-md { margin-top: 1.5rem; }
+.vm-mt-lg { margin-top: 2.5rem; }
+.vm-mb-lg { margin-bottom: 2.5rem; }
+
+/* ---- Hero ------------------------------------------------------------- */
+.vm-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .vm-hero__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.85fr); }
+}
+
+.vm-hero__name { margin-top: 0.5rem; }
+
+.vm-hero__headline {
+  margin-top: 0.875rem;
+  font-family: var(--vm-font-sans);
+  font-size: clamp(1.0625rem, 1.8vw, 1.375rem);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--vm-ink-secondary);
+  max-width: 30ch;
+}
+.vm-hero__summary  { margin-top: 1.25rem; max-width: 52ch; }
+.vm-hero__actions  { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.vm-hero__location {
+  margin-top: 1.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: var(--vm-caption);
+}
+
+/* Mobile: portrait leads (DESIGN.md §11) */
+@media (max-width: 899px) {
+  .vm-hero__grid    { display: flex; flex-direction: column; }
+  .vm-hero__portrait{ order: -1; width: min(100%, 22rem); align-self: flex-start; }
+}
+
+/* ---- Credibility strip ------------------------------------------------- */
+.vm-proof {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem var(--vm-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.vm-proof__item {
+  position: relative;
+  padding-left: 1rem;
+  font-size: var(--vm-body-sm);
+  font-weight: 500;
+  color: var(--vm-ink-secondary);
+}
+.vm-proof__item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.62em;
+  width: 6px; height: 1px;
+  background: var(--vm-accent);
+}
+
+/* ---- Selected work features -------------------------------------------- */
+.vm-features { display: grid; gap: clamp(3rem, 6vw, 5rem); }
+
+.vm-feature { display: grid; gap: 1.5rem; }
+@media (min-width: 900px) {
+  .vm-feature { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
+  /* Alternate only for rhythm, never mechanically on every row. */
+  .vm-feature:nth-child(even) .vm-feature__media { order: 2; }
+}
+
+.vm-feature__media { display: block; }
+.vm-feature__media img { transition: transform 400ms ease-out; }
+.vm-feature__media:hover img { transform: scale(1.02); }
+
+.vm-feature__num { color: var(--vm-accent); margin-right: 0.625rem; }
+
+.vm-feature__title {
+  margin-top: 0.75rem;
+  font-family: var(--vm-font-serif);
+  font-size: var(--vm-display-md);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.014em;
+}
+.vm-feature__title a { color: var(--vm-ink); text-decoration: none; }
+.vm-feature__title a:hover { text-decoration: underline; text-underline-offset: 0.12em; }
+
+.vm-feature__summary { margin-top: 0.875rem; max-width: 52ch; color: var(--vm-ink-secondary); font-size: var(--vm-body-sm); }
+
+.vm-feature__outcome {
+  margin-top: 1rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--vm-border);
+  max-width: 52ch;
+  font-size: var(--vm-body-sm);
+  font-weight: 500;
+  color: var(--vm-ink);
+}
+.vm-feature .vm-btn--tertiary { margin-top: 1.25rem; }
+
+/* ---- Executive profile -------------------------------------------------- */
+.vm-profile { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+@media (min-width: 900px) {
+  .vm-profile { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); align-items: start; }
+}
+.vm-profile__body { margin-top: 1.25rem; font-size: var(--vm-lead); line-height: 1.6; }
+
+.vm-facts { margin-top: 2.5rem; border-top: 1px solid var(--vm-border); }
+.vm-facts__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--vm-border);
+}
+@media (min-width: 600px) {
+  .vm-facts__row { grid-template-columns: 9rem 1fr; gap: var(--vm-gutter); align-items: baseline; }
+}
+.vm-facts__row dd { margin: 0; font-size: var(--vm-body-sm); color: var(--vm-ink); }
+
+/* ---- Leadership philosophy — signature editorial moment ----------------- */
+.vm-philosophy__grid { display: grid; gap: 1.5rem; }
+@media (min-width: 900px) {
+  .vm-philosophy__grid { grid-template-columns: 14rem 1fr; align-items: start; gap: clamp(2rem, 5vw, 4rem); }
+}
+
+/* ---- Geography index ---------------------------------------------------- */
+.vm-geo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--vm-border);
+}
+@media (min-width: 700px) {
+  .vm-geo { grid-template-columns: 12rem 1fr; gap: var(--vm-gutter); align-items: baseline; }
+}
+.vm-geo__country {
+  font-family: var(--vm-font-serif);
+  font-size: var(--vm-heading);
+  font-weight: 400;
+  color: var(--vm-ink);
+}
+.vm-geo__role { font-size: var(--vm-body-sm); color: var(--vm-ink-secondary); }
+
+/* ---- Partners — typographic index, not fake logos ----------------------- */
+.vm-partners { margin-top: 2.5rem; }
+.vm-partners__list {
+  margin-top: 0.875rem;
+  max-width: 70ch;
+  font-size: var(--vm-body-sm);
+  line-height: 1.9;
+  color: var(--vm-ink-secondary);
+}
+
+/* ---- Photography grid --------------------------------------------------- */
+.vm-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: var(--vm-gutter);
+}
+
+/* ---- Contact ------------------------------------------------------------ */
+.vm-contact { display: grid; gap: 2rem; }
+@media (min-width: 900px) {
+  .vm-contact { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(2rem, 5vw, 4rem); }
+}
+.vm-contact__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+.vm-btn--on-navy { color: var(--vm-on-navy); border-color: rgba(243, 239, 231, 0.35); }
+.vm-btn--on-navy:hover { border-color: var(--vm-on-navy); }
+
+/* ---- Page head ---------------------------------------------------------- */
+.vm-page-head { padding-top: clamp(7rem, 12vw, 10rem); }
+
+/* ============================================================================
+   Legacy suppression — the previous design's decorative vocabulary.
+   These rules exist because executive.css still ships; they neutralise the
+   anti-patterns listed in DESIGN.md §12 without a risky 87KB deletion.
+   ========================================================================== */
+
+.hero-orb, .hero-glow, .decor-blob, .section-orb,
+[class*='blur-3xl'], [class*='blur-2xl'] { display: none !important; }
+
+/* Collapse SaaS rounding inherited from executive.css */
+.card-executive, .stat-card, .project-card, .journey-panel,
+.media-editorial, .speaking-gallery-item {
+  border-radius: var(--vm-radius-lg) !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================================
+   NAVIGATION — calm executive bar (DESIGN.md §8)
+   Overrides the inherited floating rounded-pill header.
+   ========================================================================== */
+
+.site-header {
+  top: 0 !important;
+  padding-inline: 0 !important;
+  background: color-mix(in srgb, var(--vm-canvas) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--vm-border);
+}
+
+.site-header__nav {
+  max-width: var(--vm-max-w) !important;
+  margin-inline: auto;
+  padding: 0.75rem var(--vm-page-pad-x) !important;
+  min-height: 64px !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.site-header--scrolled .site-header__nav { min-height: 60px !important; }
+
+/* Active item: a 2px gold underline, one at a time. */
+.nav-link {
+  position: relative;
+  border-radius: 0 !important;
+  color: var(--vm-ink-secondary) !important;
+  font-weight: 500;
+}
+.nav-link:hover { color: var(--vm-ink) !important; }
+.nav-link.is-active { color: var(--vm-ink) !important; }
+.nav-link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0.75rem; right: 0.75rem; bottom: 0.15rem;
+  height: 2px;
+  background: var(--vm-accent);
+}
+
+.brand-name { color: var(--vm-ink) !important; }
+
+#theme-toggle,
+#nav-toggle {
+  border-radius: var(--vm-radius-md) !important;
+  border-color: var(--vm-border) !important;
+  color: var(--vm-ink);
+}
+#theme-toggle:hover,
+#nav-toggle:hover { background: var(--vm-canvas-subtle) !important; }
+
+/* Offset for the fixed header */
+:root { --vm-header-h: 64px; }
+main { padding-top: 0; }
+.vm-hero { padding-top: calc(var(--vm-header-h) + var(--vm-section-expansive)); }
+.vm-page-head { padding-top: calc(var(--vm-header-h) + clamp(3rem, 8vw, 6rem)); }
+
+/* Anchor targets clear the fixed header */
+[id] { scroll-margin-top: calc(var(--vm-header-h) + 1rem); }
+
+/* Mobile drawer surfaces */
+.nav-drawer__panel { background: var(--vm-canvas) !important; }
+.nav-mobile-link   { color: var(--vm-ink) !important; border-radius: var(--vm-radius-md) !important; }
+.nav-mobile-link.is-active { color: var(--vm-accent) !important; }
+
+/* Footer */
+.site-footer { background: var(--vm-navy) !important; border-top: 1px solid var(--vm-border) !important; }
+
+/* ============================================================================
+   FILTERS — genuine controls, so a pill radius is sanctioned here (DESIGN.md §6)
+   ========================================================================== */
+
+.vm-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--vm-border);
+}
+
+.vm-filter {
+  min-height: 40px;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid var(--vm-border);
+  border-radius: var(--vm-radius-pill);
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-body-sm);
+  font-weight: 500;
+  color: var(--vm-ink-secondary);
+  cursor: pointer;
+  transition: border-color var(--vm-transition), color var(--vm-transition), background var(--vm-transition);
+}
+.vm-filter:hover { border-color: var(--vm-border-strong); color: var(--vm-ink); }
+
+.vm-filter.is-active {
+  background: var(--vm-navy);
+  border-color: var(--vm-navy);
+  color: var(--vm-on-navy);
+}
+.dark .vm-filter.is-active {
+  background: var(--vm-accent);
+  border-color: var(--vm-accent);
+  color: #14243A;
+}
+
+.vm-project-item[hidden] { display: none; }
+
+/* ============================================================================
+   GALLERY — editorial archive, square crops (DESIGN.md §7, §34)
+   ========================================================================== */
+
+.gallery-masonry {
+  columns: 1;
+  column-gap: var(--vm-gutter);
+}
+@media (min-width: 640px)  { .gallery-masonry { columns: 2; } }
+@media (min-width: 1024px) { .gallery-masonry { columns: 3; } }
+
+.gallery-masonry > * {
+  break-inside: avoid;
+  margin-bottom: var(--vm-gutter);
+  border-radius: var(--vm-radius-img) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  background: var(--vm-canvas-subtle);
+}
+
+.gallery-masonry img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--vm-radius-img) !important;
+}
+
+.gallery-item__caption,
+.gallery-masonry figcaption {
+  padding: 0.75rem 0 0;
+  font-size: var(--vm-caption);
+  line-height: 1.45;
+  color: var(--vm-ink-muted);
+}
+
+/* ---- Lightbox ---------------------------------------------------------- */
+.lightbox { background: rgba(7, 16, 28, 0.94); }
+.lightbox__shell,
+.lightbox__figure { border-radius: var(--vm-radius-img) !important; }
+.lightbox__figure img { border-radius: var(--vm-radius-img) !important; }
+
+.lightbox__btn {
+  border-radius: var(--vm-radius-md) !important;
+  min-width: 44px;
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+.lightbox__btn:hover { background: rgba(255, 255, 255, 0.2); }
+
+.lightbox__caption h2 {
+  font-family: var(--vm-font-serif);
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: #fff;
+}
+.lightbox__caption p,
+.lightbox__counter { font-size: var(--vm-caption); color: rgba(255, 255, 255, 0.7); }
+
+/* ---- Speaking page residuals ------------------------------------------- */
+.speaking-topic,
+.speaking-engagement,
+.speaking-utility__panel {
+  border-radius: var(--vm-radius-lg) !important;
+  box-shadow: none !important;
+}
+
+/* Gallery caption: an image title is not a document heading (DESIGN.md §10). */
+.gallery-card__title {
+  margin-top: 0.35rem;
+  font-family: var(--vm-font-serif);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--vm-ink);
+}
+.gallery-card__caption {
+  margin-top: 0.2rem;
+  font-size: var(--vm-caption);
+  color: var(--vm-ink-muted);
+}
+.gallery-card { cursor: pointer; }
+.gallery-card:focus-visible { outline: 2px solid var(--vm-accent); outline-offset: 3px; }
+
+/* ---- Case study residuals (DESIGN.md §6) ------------------------------- */
+.project-gold-rule,
+.project-gallery__item,
+.project-hero__panel,
+.project-related__item {
+  border-radius: var(--vm-radius-img) !important;
+  box-shadow: none !important;
+}
+.project-gallery__item img { border-radius: var(--vm-radius-img) !important; }
+
+/* Case-study prose: readable measure and the serif/sans split */
+.prose-cs { max-width: var(--vm-measure); }
+.prose-cs h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.625rem;
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vm-ink-muted);
+}
+.prose-cs h2:first-child { margin-top: 0; }
+.prose-cs p, .prose-cs li { color: var(--vm-ink-secondary); }
+.prose-cs ul { padding-left: 1.1rem; }
+.prose-cs li { margin-top: 0.35rem; }
+.project-impact-item,
+.project-related,
+.project-related img,
+.project-hero__media,
+.project-summary-card {
+  border-radius: var(--vm-radius-lg) !important;
+  box-shadow: none !important;
+}
+.project-related, .project-related img { border-radius: var(--vm-radius-img) !important; }
+
+/* ============================================================================
+   ACCESSIBILITY CORRECTIONS — measured, not assumed (WCAG 2.2 AA)
+   Verified in-browser against the real rendered surfaces.
+   ========================================================================== */
+
+:root {
+  /* #6B7A90 measured only 4.01:1 on --vm-canvas. */
+  --vm-ink-muted: #5A6675;          /* 5.37:1 canvas / 5.05:1 subtle */
+
+  /* Gold as TEXT measured 2.93:1 and fails AA. --vm-accent stays the
+     decorative rule/border colour; text gold gets its own darker token. */
+  --vm-accent-text: #7E6029;        /* 5.37:1 canvas / 5.05:1 subtle */
+}
+
+.dark {
+  --vm-accent-text: #D0A857;        /* 8.09:1 on dark canvas */
+}
+
+.vm-index__num,
+.vm-feature__num,
+.vm-chrono__current { color: var(--vm-accent-text); }
+.vm-chrono__current { border-color: var(--vm-accent-text); }
+
+/* Eyebrow and caption on inverse surfaces must use the on-navy scale. */
+.vm-section--navy .vm-eyebrow,
+.vm-section--navy .vm-caption { color: var(--vm-on-navy-muted); }
+
+/* The :root correction above sits later in the file than the .dark block and,
+   at equal specificity, was overriding it. Restore the dark-mode muted value. */
+.dark {
+  --vm-ink-muted: #8592A5;          /* 5.71:1 on --vm-canvas dark */
+  --vm-accent-text: #D0A857;        /* 8.09:1 */
+}
+
+/* executive.css targets `.gallery-card__meta p` (0,2,0) and wins over a single
+   class. Match its specificity so the themed tokens apply in both modes. */
+.gallery-card__meta .gallery-card__title { color: var(--vm-ink); }
+.gallery-card__meta .gallery-card__caption { color: var(--vm-ink-muted); }
+.gallery-card__meta .vm-eyebrow { color: var(--vm-ink-muted); }
+.gallery-card { background: var(--vm-surface); }
+
+/* Gold text on a navy surface needs the lifted gold: the light-theme
+   --vm-accent-text (#7E6029) measures only 2.83:1 on --vm-navy. */
+.site-footer .text-gold,
+.site-footer .text-gold\/90,
+.vm-section--navy .text-gold,
+.vm-section--navy .vm-index__num,
+.vm-section--navy .vm-feature__num { color: #D0A857; }
+
+/* ============================================================================
+   APPENDIX — document index (DESIGN.md §8)
+   A downloadable resource is a genuine independent unit, so hairline-separated
+   rows are used rather than cards, consistent with the rest of the system.
+   ========================================================================== */
+
+.vm-docs { border-top: 1px solid var(--vm-border); }
+
+.vm-doc {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--vm-border);
+}
+@media (min-width: 900px) {
+  .vm-doc {
+    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+    gap: var(--vm-gutter);
+    align-items: start;
+  }
+}
+
+.vm-doc__num {
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--vm-accent-text);
+  padding-top: 0.35rem;
+}
+
+.vm-doc__title {
+  font-family: var(--vm-font-serif);
+  font-size: var(--vm-heading);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--vm-ink);
+}
+.vm-doc__role {
+  margin-top: 0.3rem;
+  font-size: var(--vm-body-sm);
+  font-weight: 500;
+  color: var(--vm-ink-secondary);
+}
+.vm-doc__summary {
+  margin-top: 0.7rem;
+  max-width: 62ch;
+  font-size: var(--vm-body-sm);
+  color: var(--vm-ink-secondary);
+}
+.vm-doc__meta {
+  margin-top: 0.75rem;
+  font-size: var(--vm-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--vm-ink-muted);
+}
+
+.vm-doc__action { align-self: center; }
+.vm-doc__action .vm-btn { white-space: nowrap; }
+
+/* Weight is stated on the control itself — a 12MB download should never be a
+   surprise, particularly on a metered mobile connection. */
+.vm-doc__size {
+  font-size: var(--vm-caption);
+  font-weight: 400;
+  color: var(--vm-ink-muted);
+}
+
+/* The "on request" rows carry sentences, not short labels, so the serif
+   country-style treatment is relaxed to a readable sans line. */
+.vm-doc__req-title {
+  font-family: var(--vm-font-sans);
+  font-size: var(--vm-body);
+  font-weight: 600;
+  line-height: 1.35;
+}
