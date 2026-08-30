@@ -79,7 +79,6 @@
       if (page === 'projects') this.initProjectFilters();
       if (page === 'gallery') this.initGallery();
       if (page === 'project') this.initProjectRedirect();
-      this.fillContactCTAs();
       VM.ui?.refreshIcons?.();
       VM.ui?.initReveal?.();
       this.applyInitialHash();
@@ -97,13 +96,6 @@
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       requestAnimationFrame(() => {
         target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-      });
-    },
-
-    fillContactCTAs() {
-      document.querySelectorAll('#contact-ctas, .contact-ctas-slot').forEach(el => {
-        const compact = el.dataset.compact === 'true';
-        el.innerHTML = VM.layout.contactCTAs(compact);
       });
     },
 
@@ -309,12 +301,37 @@
               <p class="vm-lead vm-mt-sm">Open to conversations on strategic partnerships, business development, and speaking engagements.</p>
             </div>
             <div class="vm-contact__actions">
-              <a class="vm-btn vm-btn--primary" href="${esc(s.contact.mailto)}">Discuss a Partnership</a>
-              <a class="vm-btn vm-btn--secondary vm-btn--on-navy" href="${esc(s.linkedin)}" rel="noopener" target="_blank">Connect on LinkedIn</a>
-              <a class="vm-btn vm-btn--secondary vm-btn--on-navy" href="speaking.html">Book a Speaking Engagement</a>
+              <a class="vm-btn vm-btn--primary" href="${esc(s.contact.mailto)}">Email</a>
+              ${VM.pages.contactDirect(true)}
+              <a class="vm-btn vm-btn--secondary vm-btn--on-navy" href="${esc(s.linkedin)}" rel="noopener" target="_blank">LinkedIn</a>
             </div>
           </div>
+          <div class="vm-container">
+            <p class="vm-caption vm-contact__number">${esc(s.contact.phone)} · Dar es Salaam, Tanzania</p>
+          </div>
         </section>`;
+    },
+
+    /**
+     * Direct-contact actions. WhatsApp and phone are the primary channels in
+     * this market, so they are surfaced as buttons rather than buried in text.
+     * @param {boolean} onNavy Use the inverse-surface button variant.
+     */
+    contactDirect(onNavy) {
+      const c = S().contact;
+      const v = onNavy ? ' vm-btn--on-navy' : '';
+      return `
+        <a class="vm-btn vm-btn--secondary${v}" href="${esc(c.whatsapp)}"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Message Vicent Manila on WhatsApp at ${esc(c.phone)}">
+          <i data-lucide="message-circle" class="w-4 h-4" aria-hidden="true"></i>
+          WhatsApp
+        </a>
+        <a class="vm-btn vm-btn--secondary${v}" href="${esc(c.tel)}"
+           aria-label="Call Vicent Manila on ${esc(c.phone)}">
+          <i data-lucide="phone" class="w-4 h-4" aria-hidden="true"></i>
+          Call
+        </a>`;
     },
 
     /** One chronology entry. Shared by home and leadership. No cards. */
@@ -457,6 +474,7 @@
             </div>
             <div class="vm-contact__actions">
               <a class="vm-btn vm-btn--primary" href="index.html#contact">Get in Touch</a>
+              ${VM.pages.contactDirect(true)}
               <a class="vm-btn vm-btn--secondary vm-btn--on-navy" href="projects.html">View Selected Work</a>
             </div>
           </div>
@@ -497,6 +515,7 @@
             <div><h2 class="vm-display-md">Discuss a partnership</h2></div>
             <div class="vm-contact__actions">
               <a class="vm-btn vm-btn--primary" href="index.html#contact">Get in Touch</a>
+              ${VM.pages.contactDirect(true)}
             </div>
           </div>
         </section>`;
@@ -993,9 +1012,9 @@
               <p class="vm-lead vm-mt-sm">Available for keynotes, panels, facilitation and workshops.</p>
             </div>
             <div class="vm-contact__actions">
-              <a class="vm-btn vm-btn--primary" href="${esc(s.contact.mailto)}">Get in Touch</a>
+              <a class="vm-btn vm-btn--primary" href="${esc(s.contact.mailto)}">Email</a>
+              ${VM.pages.contactDirect(true)}
               <a class="vm-btn vm-btn--secondary vm-btn--on-navy" href="${esc(s.cv)}" target="_blank" rel="noopener noreferrer">Download CV</a>
-              <a class="vm-btn vm-btn--secondary vm-btn--on-navy" href="${esc(s.linkedin)}" target="_blank" rel="noopener">Connect on LinkedIn</a>
             </div>
           </div>
         </section>`;
@@ -1067,7 +1086,8 @@
               <p class="vm-lead vm-mt-sm">Happy to share signed agreements and audited reports directly with partners, recruiters and institutions.</p>
             </div>
             <div class="vm-contact__actions">
-              <a class="vm-btn vm-btn--primary" href="${esc(s.contact.mailto)}">Get in Touch</a>
+              <a class="vm-btn vm-btn--primary" href="${esc(s.contact.mailto)}">Email</a>
+              ${VM.pages.contactDirect(true)}
               <a class="vm-btn vm-btn--secondary vm-btn--on-navy" href="${esc(s.cv)}" target="_blank" rel="noopener noreferrer">Download CV</a>
             </div>
           </div>
