@@ -1,76 +1,67 @@
-﻿# Changelog
+# Changelog
 
-All notable changes to the Vincent Manila Portfolio are documented here.  
-Format based on [Keep a Changelog](https://keepachangelog.com/). Versioning follows [SemVer](https://semver.org/).
+Newest first. Versions track the asset `?v=` query.
 
 ---
 
-## [1.2.0] — 2026-07-24
+## 5.0.4 — Navigation revision, light-only theme, documentation
 
-### Added
+### Fixed — critical
 
-- Complete `/documentation` suite for handover and long-term maintenance
-- `VM.version` constant (`1.2.0`) surfaced in the site footer
-- `robots.txt`, `sitemap.xml` (domain placeholders), and `.gitignore`
-- Project galleries with lightbox on case-study pages
-- Configurable `imagePosition` / gallery `position` for smarter crops
-- Premium Core Competencies navy section
-- Mobile navigation drawer outside header (viewport-safe)
-- Global mobile polish utilities (`--page-pad-x`, lightbox z-index scale)
-
-### Changed
-
-- Contact details → Tanzania numbers and `manilavicent@gmail.com`
-- Featured project cards and project heroes for photography-first presentation
-- Connect section order and responsive card layout
-- Testimonials carousel (swipe + stable slide widths)
-- Lightbox stacking above fixed header
+- **The entire navbar was unclickable.** `executive.css` sets `pointer-events: none` on `.site-header`; the old floating-pill child re-enabled it. The rebuilt header has no such child, so every control — brand, links, CTA, toggle — was inert while looking correct. Synthetic `.click()` bypasses `pointer-events`, so scripted tests passed; only a hit test caught it.
+- **The header was not fixed.** The rebuild dropped Tailwind's `fixed inset-x-0 top-0`, and `executive.css` never set `position` itself, so the bar scrolled away.
 
 ### Fixed
 
-- Mobile menu clipped by header `backdrop-filter` containing block
-- Project hero text clipping on short phones
-- Hero CTA overflow from `white-space: nowrap`
-- Connect three-column density on mid-width tablets
-
----
-
-## [1.1.0] — 2026-07
-
-### Added
-
-- Official logo integration across nav/footer
-- Gallery page with filters, thumbs, and lightbox
-- Homepage “Leadership in Action” strip
-- Web-optimized image pipeline folders under `Vince/web/`
-- Dark mode theme toggle with persistence
+- Drawer focus no longer depends on frame timing. `visibility` was being transitioned, and hidden elements silently reject `.focus()`, stranding focus behind the open menu. Now `transform` only.
+- Focus restoration never lands on `document.body` — falls back to the toggle.
+- Tertiary buttons 32px → 44px; the gold underline moved to `::after` pinned under the text so the target grows without the rule drifting.
+- Filter pills 41px → 44px.
 
 ### Changed
 
-- Location copy → Dar es Salaam, Tanzania
-- CV label → “View my CV”
-- Executive UI refinement across hero, about, projects, media, contact
+- **Dark theme removed.** The site ships a single light theme. Toggle, stored preference, inline bootstrap script and all `.dark` token overrides are gone. `executive.css` retains inert `.dark` rules.
+- Navigation breakpoint 1024px → **900px** — measured, the content occupies 801px of 895px at 900px, so tablets get real navigation.
+- Brand name now visible at every width including 320px (95px of slack). The previous 380px cutoff hid it on common devices.
 
-### Removed
+### Documentation
 
-- “Schedule a Meeting” style booking CTAs (direct WhatsApp / Call / Email only)
-
----
-
-## [1.0.0] — Initial portfolio
-
-### Added
-
-- Multi-page static portfolio foundation
-- Home, Leadership, Projects, Project detail, Media, Speaking shells
-- Data-driven content modules (`config.js`, `data.js`)
-- Shared header/footer architecture
-- Tailwind CDN + custom executive styling baseline
+- New [NAVIGATION.md](./NAVIGATION.md).
+- Rewritten: ARCHITECTURE, TECHNOLOGY_STACK, RESPONSIVE_GUIDE, ACCESSIBILITY, PERFORMANCE, FEATURES, COMPONENT_DOCUMENTATION, PAGE_DOCUMENTATION, DESIGN_SYSTEM, KNOWN_ISSUES, README, DOCUMENTATION_INDEX — all described the pre-redesign site.
+- `DESIGN.md` synced to the shipped tokens.
 
 ---
 
-## Unreleased
+## 4.6.0 — Header rebuild and contact CTAs
 
-- Replace `example.com` in `robots.txt` / `sitemap.xml` with the live domain
-- Ensure CV PDF is committed under `assets/cv/`
-- Capture screenshots into `documentation/screenshots/`
+- Rebuilt the header on semantic classes after `.hidden { !important }` beat the non-important `.lg:*` variants and hid the desktop nav at **every** width.
+- Added WhatsApp and phone CTAs on +255 713 582 606 across contact, speaking, appendix, leadership and the drawer.
+- Removed the orphaned `contactCTAs` renderer — nothing emitted its mount point.
+- Active nav item: ink text with a gold underline, plus `aria-current="page"` on desktop.
+
+---
+
+## 4.0.0 — Redesign and content correction
+
+### Design
+
+- New design system from the `awesome-design-md` reference library. Warm paper canvas replacing the cool `#F8FAFC` SaaS tint; radius capped at 8px (was 18/26px); one shadow, photographs only; serif reserved for editorial voice.
+- De-carded the profile, philosophy, expertise, metrics and chronology into hairline-separated editorial layouts.
+- Removed the autoplay expertise carousel, count-up counters and testimonial carousel. `prefers-reduced-motion` enforced.
+
+### Content
+
+- Repositioned as management consultant; AIESEC became a chapter of a broader career.
+- Added roles absent from the site entirely: INNOVEX, MigLine, VMAN Enterprises, and the 2019–2022 AIESEC progression.
+- Removed 3 unverifiable testimonials, 5 media items with no source URLs, the media route, "AIESEC in Belarus", and unsupported metrics.
+
+### Fixed
+
+- LinkedIn links pointed at `/in/vicentmanila` — not the profile.
+- "Download CV" returned 404 sitewide; a redacted CV is now published with date of birth, marital status and the referees block removed.
+- Duplicate `id="contact"`; hash links dead on load; telephone removed from `Person` schema.
+- `.gitattributes` added — git sniffed the PDFs as text and would have corrupted them via CRLF conversion.
+
+### Performance
+
+- Removed the runtime Tailwind CDN for a ~7KB reset + utility layer.

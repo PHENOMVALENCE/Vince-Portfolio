@@ -1,6 +1,8 @@
 /**
  * Vicent Manila — Site interactions (vanilla JS)
- * Theme, mobile navigation, reveal, back-to-top.
+ * Mobile navigation, reveal, back-to-top.
+ * The site ships a single light theme; the dark theme and its toggle
+ * were removed deliberately.
  * Count-up, timeline animation and the testimonial carousel were removed:
  * see DESIGN.md §9 (motion) and documentation/CONTENT_VERIFICATION.md.
  * @see documentation/COMPONENT_DOCUMENTATION.md
@@ -16,18 +18,7 @@
       if (window.lucide) lucide.createIcons();
     },
 
-    setTheme(dark) {
-      document.documentElement.classList.toggle('dark', dark);
-      localStorage.setItem('vm-theme', dark ? 'dark' : 'light');
-      document.querySelectorAll('.icon-theme-dark').forEach(el => el.classList.toggle('hidden', dark));
-      document.querySelectorAll('.icon-theme-light').forEach(el => el.classList.toggle('hidden', !dark));
-    },
 
-    toggleTheme() {
-      const dark = !document.documentElement.classList.contains('dark');
-      this.setTheme(dark);
-      this.refreshIcons();
-    },
 
     _navScrollY: 0,
     _navLastFocus: null,
@@ -87,12 +78,18 @@
 
       this.refreshIcons();
 
-      // Focus on the next frame: the drawer is still visibility:hidden at this
-      // point in the transition, and hidden elements silently reject focus.
-      requestAnimationFrame(() => {
+      // Visibility is no longer transitioned (see design-system.css), so the
+      // drawer is focusable the instant .is-open lands. The retries cover
+      // throttled frames where the first attempt could still miss.
+      const focusFirst = () => {
         const focusables = this.getNavFocusable();
         (focusables[0] || drawer).focus?.();
-      });
+      };
+      focusFirst();
+      if (!drawer.contains(document.activeElement)) {
+        requestAnimationFrame(focusFirst);
+        setTimeout(focusFirst, 60);
+      }
     },
 
     closeNav() {
@@ -121,7 +118,14 @@
         this._navKeyHandler = null;
       }
 
-      (this._navLastFocus || toggle)?.focus?.();
+      // Return focus to whatever opened the drawer. If that is no longer a
+      // real focus target (document.body, or an element since re-rendered),
+      // fall back to the toggle so focus never lands on the document.
+      const prev = this._navLastFocus;
+      const restore = (prev && prev !== document.body && document.contains(prev))
+        ? prev
+        : toggle;
+      restore?.focus?.();
       this._navLastFocus = null;
     },
 
@@ -176,13 +180,6 @@
       onScroll();
     },
 
-    initTheme() {
-      const stored = localStorage.getItem('vm-theme');
-      const dark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      this.setTheme(dark);
-      document.getElementById('theme-toggle')?.addEventListener('click', () => this.toggleTheme());
-      document.getElementById('theme-toggle-mobile')?.addEventListener('click', () => this.toggleTheme());
-    },
 
     initNav() {
       document.getElementById('nav-toggle')?.addEventListener('click', () => this.toggleNav());
@@ -228,7 +225,6 @@
   };
 
   document.addEventListener('DOMContentLoaded', () => {
-    VM.ui.initTheme();
     VM.ui.initNav();
     VM.ui.initHeader();
     VM.ui.initBackToTop();

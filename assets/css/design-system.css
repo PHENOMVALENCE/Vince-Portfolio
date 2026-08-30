@@ -13,7 +13,7 @@
 
   --vm-ink:             #14243A;   /* warm navy-black, never jet */
   --vm-ink-secondary:   #40506A;
-  --vm-ink-muted:       #6B7A90;
+  --vm-ink-muted:       #5A6675;   /* 5.37:1 on canvas - measured */
 
   --vm-navy:            #0B1F3A;
   --vm-navy-soft:       #16304F;
@@ -73,30 +73,6 @@
 }
 
 /* ---- Colour: dark theme — designed, not inverted (DESIGN.md §2) -------- */
-.dark {
-  --vm-canvas:        #0B1726;   /* deep navy, never pure black */
-  --vm-canvas-subtle: #0E1D30;
-  --vm-surface:       #132539;
-
-  --vm-ink:           #EDE8DF;   /* soft off-white, never #FFF */
-  --vm-ink-secondary: #B4BCCA;
-  --vm-ink-muted:     #8592A5;
-
-  --vm-navy:          #060F1B;
-  --vm-navy-soft:     #0E1D30;
-
-  --vm-accent:        #D0A857;
-  --vm-accent-hover:  #E3C079;
-  --vm-accent-subtle: #2A2417;
-
-  --vm-border:        #22344B;
-  --vm-border-strong: #3B5273;
-
-  --vm-on-navy:       #EDE8DF;
-  --vm-on-navy-muted: #8592A5;
-
-  --vm-shadow-image:  0 18px 44px rgba(0, 0, 0, 0.5);
-}
 
 /* ============================================================================
    Base
@@ -229,12 +205,6 @@ body {
 }
 .vm-btn--primary:hover { background: var(--vm-navy-soft); border-color: var(--vm-navy-soft); }
 
-.dark .vm-btn--primary {
-  background: var(--vm-accent);
-  color: #14243A;
-  border-color: var(--vm-accent);
-}
-.dark .vm-btn--primary:hover { background: var(--vm-accent-hover); border-color: var(--vm-accent-hover); }
 
 .vm-btn--secondary {
   background: transparent;
@@ -796,7 +766,7 @@ main { padding-top: 0; }
 }
 
 .vm-filter {
-  min-height: 40px;
+  min-height: 44px;   /* touch target minimum (DESIGN.md 10) */
   padding: 0.5rem 1rem;
   background: transparent;
   border: 1px solid var(--vm-border);
@@ -814,11 +784,6 @@ main { padding-top: 0; }
   background: var(--vm-navy);
   border-color: var(--vm-navy);
   color: var(--vm-on-navy);
-}
-.dark .vm-filter.is-active {
-  background: var(--vm-accent);
-  border-color: var(--vm-accent);
-  color: #14243A;
 }
 
 .vm-project-item[hidden] { display: none; }
@@ -950,17 +915,11 @@ main { padding-top: 0; }
    ========================================================================== */
 
 :root {
-  /* #6B7A90 measured only 4.01:1 on --vm-canvas. */
-  --vm-ink-muted: #5A6675;          /* 5.37:1 canvas / 5.05:1 subtle */
-
   /* Gold as TEXT measured 2.93:1 and fails AA. --vm-accent stays the
      decorative rule/border colour; text gold gets its own darker token. */
   --vm-accent-text: #7E6029;        /* 5.37:1 canvas / 5.05:1 subtle */
 }
 
-.dark {
-  --vm-accent-text: #D0A857;        /* 8.09:1 on dark canvas */
-}
 
 .vm-index__num,
 .vm-feature__num,
@@ -971,15 +930,8 @@ main { padding-top: 0; }
 .vm-section--navy .vm-eyebrow,
 .vm-section--navy .vm-caption { color: var(--vm-on-navy-muted); }
 
-/* The :root correction above sits later in the file than the .dark block and,
-   at equal specificity, was overriding it. Restore the dark-mode muted value. */
-.dark {
-  --vm-ink-muted: #8592A5;          /* 5.71:1 on --vm-canvas dark */
-  --vm-accent-text: #D0A857;        /* 8.09:1 */
-}
-
 /* executive.css targets `.gallery-card__meta p` (0,2,0) and wins over a single
-   class. Match its specificity so the themed tokens apply in both modes. */
+   class. Match its specificity so the design tokens apply. */
 .gallery-card__meta .gallery-card__title { color: var(--vm-ink); }
 .gallery-card__meta .gallery-card__caption { color: var(--vm-ink-muted); }
 .gallery-card__meta .vm-eyebrow { color: var(--vm-ink-muted); }
@@ -1194,3 +1146,80 @@ main { padding-top: 0; }
   letter-spacing: 0.04em;
 }
 .vm-section--navy .vm-contact__number { color: var(--vm-on-navy-muted); }
+
+/* ============================================================================
+   DRAWER — visibility must not be transitioned
+   ============================================================================
+   executive.css transitions `visibility` alongside `transform`. During that
+   window the drawer is still visibility:hidden, and hidden elements silently
+   reject focus — which is why opening the menu left focus behind it. Animate
+   transform only, so the drawer is focusable the instant `.is-open` lands and
+   focus management no longer depends on frame timing.
+   ========================================================================== */
+.nav-drawer {
+  transition: transform 0.3s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-drawer { transition: none !important; }
+}
+
+/* ============================================================================
+   HEADER — authoritative layout
+   ============================================================================
+   executive.css styles .site-header for the previous floating-pill design: it
+   sets `pointer-events: none` on the header (the pill child re-enabled them),
+   offsets `top` on small screens, and never sets `position` itself — the old
+   markup carried Tailwind's `fixed inset-x-0 top-0`.
+
+   The rebuilt header has no pill child and no utility classes, so those
+   assumptions left the bar static AND completely unclickable. Everything the
+   header needs is declared here so it no longer depends on executive.css.
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0 !important;          /* executive.css offsets this under 768px */
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  padding-inline: 0 !important;
+  pointer-events: auto !important;
+}
+
+/* Re-enable interaction for every descendant the inherited `none` disabled. */
+.site-header * { pointer-events: auto; }
+
+.vm-nav,
+.vm-nav a,
+.vm-nav button { pointer-events: auto; }
+
+/* ============================================================================
+   TERTIARY BUTTON — touch target
+   ============================================================================
+   The tertiary variant is a text link with a gold underline, so it was set to
+   min-height:0 to keep the rule tight against the text. That produced a 32px
+   tap target, below the 44px minimum (DESIGN.md §10).
+
+   The anchor is padded to 44px and the underline moves to a pseudo-element
+   pinned just under the text, so the target grows without the rule drifting
+   away from the words.
+   ========================================================================== */
+
+.vm-btn--tertiary {
+  position: relative;
+  min-height: 44px;
+  padding: 0.625rem 0;
+  border-bottom: 0;
+  align-items: center;
+}
+.vm-btn--tertiary::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(50% - 0.85em);   /* sits just below the text, not the box */
+  height: 1px;
+  background: var(--vm-accent);
+  transition: height var(--vm-transition);
+}
+.vm-btn--tertiary:hover::after { height: 2px; }

@@ -1,114 +1,105 @@
-﻿# Component Documentation
+# Components
 
-**Version:** 1.2.0
+**Status:** current as of v5.0.4 · Defined in `assets/css/design-system.css`, rendered from `assets/js/pages.js` and `layout.js`
 
-This project does not use a React/Vue component framework. “Components” are **reusable JS render functions and CSS patterns**.
-
----
-
-## Table of contents
-
-1. [Module components](#module-components)
-2. [UI patterns](#ui-patterns)
-3. [Page modules](#page-modules)
+Full visual rules live in [`../DESIGN.md`](../DESIGN.md). This file covers what each component *is* and the constraints that are easy to break.
 
 ---
 
-## Module components
+## Layout primitives
 
-### `VM.layout.renderHeader(currentPage)`
+| Class | Purpose |
+|---|---|
+| `.vm-container` | 1320px max, page padding |
+| `.vm-container--wide` | 1440px, for wide media |
+| `.vm-section` | Standard vertical rhythm |
+| `.vm-section--expansive` | Hero, selected work, photography |
+| `.vm-section--compact` | Credibility strip, contact |
+| `.vm-section--subtle` | Alternate surface — **the section divider** |
+| `.vm-section--navy` | Inverse surface |
 
-| | |
-|--|--|
-| **Purpose** | Fixed site header + mobile overlay/drawer markup |
-| **Inputs** | `currentPage` string (`body.dataset.page`) |
-| **Outputs** | HTML string (header + overlay + drawer) |
-| **Dependencies** | `VM.site`, logo path, Lucide |
-| **Responsive** | Desktop nav `lg+`; drawer `<1024px` |
-| **Interactions** | Toggle wired in `VM.ui.initNav` |
+Sections are separated by a **surface change**, not a border. Adding a rule between sections is redundant.
 
-### `VM.layout.renderFooter()`
-
-| | |
-|--|--|
-| **Purpose** | Connect section + site footer + back-to-top |
-| **Inputs** | `VM.site`, `VM.images`, `VM.version` |
-| **Outputs** | HTML string injected into `#site-footer` |
-| **Dependencies** | Contact URLs, portrait image |
-
-### `VM.layout.contactCTAs(compact)`
-
-| | |
-|--|--|
-| **Purpose** | Compact WhatsApp / Call / Email button grid |
-| **Inputs** | `compact` boolean (CSS density) |
-| **Used by** | Speaking booking area via `.contact-ctas-slot` |
-
-### `VM.pages.projectCard(p, i)`
-
-| | |
-|--|--|
-| **Purpose** | Project teaser card |
-| **Inputs** | Project object, index (animation delay) |
-| **Outputs** | Article HTML with `--img-pos` |
-| **Styling** | `.project-card*` |
-
-### Gallery / project lightbox controllers
-
-| | |
-|--|--|
-| **Purpose** | Full-screen image viewer |
-| **Inputs** | Image list `{src, alt, …}` |
-| **Behaviours** | Prev/next, Escape, backdrop, swipe, focus return |
-| **Files** | `initGallery`, `initProjectGallery` |
-
-### `VM.ui` methods
-
-| Method | Role |
-|--------|------|
-| `refreshIcons` | `lucide.createIcons()` |
-| `setTheme` / `toggleTheme` | Dark mode |
-| `openNav` / `closeNav` / `toggleNav` | Mobile menu + scroll lock + focus trap |
-| `initReveal` | Scroll fade-up |
-| `initCounters` | Metric count-up |
-| `initTimeline` | Timeline progress |
-| `initTestimonials` | Carousel |
-| `initBackToTop` | Floating control |
+Rhythm is uneven **on purpose**. Uniform padding is what makes a page feel templated.
 
 ---
 
-## UI patterns
+## Typography
 
-| Pattern | CSS / markup | Notes |
-|---------|--------------|-------|
-| Section label | `.section-label` | Gold uppercase eyebrow |
-| Section title | `.section-title` | Serif display |
-| Executive card | `.card-executive` | White/navy card shell |
-| Portrait frame | `.portrait-frame*` | Gold ring framing |
-| Skill card | `.skills-card*` | Competency feature card |
-| Connect card | `.connect-card*` | Contact channels |
-| Stat card | `.stat-card` | Metric tile |
-| Filter chip | `.filter-btn` / `.gallery-filter-btn` | Active gold state |
-| Reveal | `.reveal` / `.reveal.in` | Entrance motion |
+| Class | Family | Use |
+|---|---|---|
+| `.vm-display` / `-lg` / `-md` | Serif 400 | Authored thought only |
+| `.vm-heading` | **Sans** 600 | Section headings |
+| `.vm-eyebrow` | Sans 600, tracked | Category labels |
+| `.vm-lead` / `.vm-prose` | Sans | Body, capped at `68ch` |
+| `.vm-caption` | Sans | Metadata |
 
-### Example usage (conceptual)
+**The hard rule:** serif for narrative, sans for structure. Section headings are sans *by default* so that when the serif appears it signifies. A serif never labels a control.
 
-```js
-const html = VM.pages.projectCard(VM.getProject('leading-aiesec-rwanda'), 0);
-```
+`.vm-eyebrow--ruled` adds the gold rule above — one of gold's few sanctioned uses.
 
 ---
 
-## Page modules
+## Buttons
 
-| Function | Page |
-|----------|------|
-| `renderHome` | Home |
-| `renderLeadership` | Leadership |
-| `renderProjects` | Projects list |
-| `renderProject` + `initProjectRedirect` | Case study |
-| `renderGallery` + `initGallery` | Gallery |
-| `renderMedia` | Insights |
-| `renderSpeaking` | Speaking |
+| Variant | Treatment |
+|---|---|
+| `--primary` | Navy fill |
+| `--secondary` | Transparent, 1px border |
+| `--tertiary` | Text with gold underline via `::after` |
+| `--on-navy` | Modifier for inverse surfaces |
 
-Each returns an HTML string assigned to `#main-content` (except project detail, which fills `#project-root` after render).
+All meet 44×44px. **No gold-filled buttons** — solid gold reads as a discount badge.
+
+`--tertiary` puts its underline on `::after` rather than `border-bottom` so the anchor can be padded to 44px without the rule drifting away from the text.
+
+---
+
+## Content components
+
+| Component | Shape | Constraint |
+|---|---|---|
+| `.vm-metrics` / `.vm-metric` | Hairline-separated row | Never boxed, never a dark band, never count-up animated. Every metric needs a label saying what it measures. |
+| `.vm-index` / `.vm-index__item` | Numbered `01`–`06` | Not cards, not pills, not a carousel |
+| `.vm-chrono` / `.vm-chrono__item` | One continuous rule, period on a left rail | No cards, no nested boxes, max three outcomes |
+| `.vm-feature` | Full-bleed image, then text | Alternates for rhythm, not mechanically |
+| `.vm-quote` | Serif 400, gold opening mark | The philosophy's signature moment |
+| `.vm-proof` | Hairline-marked list | Verifiable role facts, not counters |
+| `.vm-docs` / `.vm-doc` | Hairline rows | States file weight on the control — a 12MB download should never surprise anyone on mobile data |
+| `.vm-filter` | Pill, `aria-pressed` | The one sanctioned pill: a genuine control |
+
+`chronoItem` renders `mandate` and `outcomes` conditionally — some roles legitimately have neither, and empty markup would leave stray bullets.
+
+---
+
+## Navigation
+
+Documented in full in [`NAVIGATION.md`](./NAVIGATION.md). Two constraints worth repeating:
+
+- **Never** control navigation visibility with utility classes. One media query owns it.
+- The header is styled entirely in `design-system.css` and must not rely on `executive.css`, which assumes the old floating-pill design.
+
+---
+
+## Behaviour (`site.js`)
+
+| Function | Role |
+|---|---|
+| `openNav` / `closeNav` / `toggleNav` | Drawer state, focus, scroll lock |
+| `handleNavKeydown` | Escape + focus trap |
+| `initHeader` | Scrolled state; closes drawer at ≥900px |
+| `initNav` | Toggle, overlay and link listeners |
+| `initReveal` | Single intersection-based fade; skipped under reduced motion |
+| `initBackToTop` | Back-to-top control |
+
+**Removed deliberately:** `setTheme` / `toggleTheme` / `initTheme` (single light theme), `initCounters` (count-up is spectacle), `initTestimonials` (autoplay carousel), `initTimeline`.
+
+---
+
+## Adding a component
+
+1. Check whether layout, typography and whitespace already do the job. Most "components" are a grid and a hairline.
+2. Use existing tokens. **Never a raw hex value.**
+3. Radius ≤ 8px. Shadows only on photographs.
+4. Verify contrast against the rendered surface, and touch targets at 320px.
+5. Confirm real clickability with `document.elementFromPoint`, not a synthetic `.click()`.

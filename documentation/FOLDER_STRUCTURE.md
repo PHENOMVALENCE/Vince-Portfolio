@@ -23,7 +23,7 @@ Vince-Portfolio/
 ├── projects.html
 ├── project.html
 ├── gallery.html
-├── media.html
+├── appendix.html          # primary-source evidence (replaced media.html)
 ├── speaking.html
 ├── site.webmanifest
 ├── .htaccess

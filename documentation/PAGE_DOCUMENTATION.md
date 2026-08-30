@@ -1,127 +1,94 @@
-﻿# Page Documentation
+# Pages
 
-**Version:** 1.2.0
+**Status:** current as of v5.0.4 · Renderers in `assets/js/pages.js`
 
----
-
-## Table of contents
-
-1. [Shared shell](#shared-shell)
-2. [Home](#home-indexhtml)
-3. [Leadership](#leadership-leadershiphtml)
-4. [Projects](#projects-projectshtml)
-5. [Project detail](#project-detail-projecthtml)
-6. [Gallery](#gallery-galleryhtml)
-7. [Insights / Media](#insights--media-mediahtml)
-8. [Speaking](#speaking-speakinghtml)
+Every route is a shell containing `<head>` metadata plus three mount points. `data-page` on `<body>` selects the renderer.
 
 ---
 
-## Shared shell
+## Shared head
 
-Every page includes:
+Every shell carries: charset, viewport, description, Open Graph (absolute image URL), Twitter card, canonical, favicons, manifest, three stylesheets, then six scripts.
 
-- Skip link → `#main-content`
-- `#site-header` / `#main-content` / `#site-footer`
-- Theme bootstrap, Tailwind, Lucide, fonts, favicons, `executive.css`
-- Scripts: `config` → `data` → (`gallery-data`) → `layout` → `pages` → `site`
+Only `index.html` carries the `Person` structured data. Titles and descriptions are **unique per page** — reusing the homepage title across routes is an SEO defect.
 
-SEO: each page sets `<title>` and `<meta name="description">`. Theme color `#0B1F3A`.
+There is no inline theme bootstrap; the site has a single light theme.
 
 ---
 
-## Home (`index.html`)
+## `index.html` — `home`
 
-| | |
-|--|--|
-| **Purpose** | Primary landing / executive narrative |
-| **URL** | `/` or `index.html` |
-| **data-page** | `home` |
-| **Scripts** | Includes `gallery-data.js` |
+The homepage answers, in about ten seconds: who he is, what he does, at what level, what he achieved, and where to go next.
 
-**Sections:** `#hero`, organizations strip, `#about`, `#experience`, `#projects`, `#leadership-action`, `#impact`, `#skills`, `#testimonials`, `#insights`, plus Connect in footer (`#contact`).
+| Section | Pacing |
+|---|---|
+| Hero — name, headline, summary, CTAs | Expansive |
+| Credibility strip — verifiable role facts | Compact |
+| Selected work — three case studies | Expansive |
+| Executive profile — prose + facts | Standard |
+| Leadership philosophy — pull quote | Standard |
+| Expertise index `01`–`06` | Standard |
+| Selected impact — four metrics | Standard |
+| Career chronology — first four roles | Standard |
+| International footprint + partners | Standard |
+| Photography | Expansive |
+| Contact — email, WhatsApp, call, LinkedIn | Compact, inverse |
 
-**SEO:** JSON-LD `Person` (name, image, jobTitle, address TZ, email, telephone, sameAs LinkedIn, brand logo).
-
-**Responsive:** Dedicated mobile hero order and portrait; see Responsive Guide.
-
----
-
-## Leadership (`leadership.html`)
-
-| | |
-|--|--|
-| **Purpose** | Deep leadership journey |
-| **data-page** | `leadership` |
-
-**Sections:** Intro, impact stats, full timeline, organizations served, global contributions.
-
-**Navigation:** Primary nav “Leadership”.
+`#profile`, `#work`, `#expertise`, `#experience` and `#contact` are anchor targets. They work on first load only because of `applyInitialHash`.
 
 ---
 
-## Projects (`projects.html`)
+## `leadership.html` — `leadership`
 
-| | |
-|--|--|
-| **Purpose** | Filterable project index |
-| **data-page** | `projects` |
-
-**Sections:** Header, `#project-filters`, `#projects-grid` of `projectCard`.
-
-**Filters:** Keys from `projectCategories` (`all`, leadership, business-development, …).
+Thesis → philosophy → metrics → **full** chronology → footprint → CTA. The homepage shows the first four roles; this page shows all nine.
 
 ---
 
-## Project detail (`project.html`)
+## `projects.html` — `projects`
 
-| | |
-|--|--|
-| **Purpose** | Case study |
-| **URL** | `project.html?slug=<slug>` |
-| **data-page** | `project` |
+Case-study index with category filters. Filters expose `aria-pressed` and announce results through a polite live region.
 
-**Sections:** Full-bleed hero, overview→execution prose, Project Gallery + lightbox, Impact Metrics, Related Projects.
-
-**Images:** `project.image` + `project.gallery[]` with `position`.
-
-**Limitation:** Missing slug redirects to projects list.
+`projectFeature` is called with heading level **2** here — there is no intermediate `h2`, so level 3 would skip a level.
 
 ---
 
-## Gallery (`gallery.html`)
+## `project.html` — `project`
 
-| | |
-|--|--|
-| **Purpose** | Photography collection |
-| **data-page** | `gallery` |
-| **Scripts** | Requires `gallery-data.js` |
+Reads `?slug=`, looks up `VM.getProject`, and redirects to the index if the slug is unknown. Sets `document.title` dynamically.
 
-**Sections:** Intro, horizontal/wrapping filters, masonry `#gallery-grid`, lightbox.
+Structure: hero → context/challenge/objectives/role/strategy/execution → results → impact → gallery → related. Section headings are `h2`; the case-study title is the `h1`.
 
-**Data:** 13 images in `VM.galleryImages` (categories: speaking, leadership, partnerships, events, recognition).
+Includes its own lightbox with focus trap and Escape handling.
 
 ---
 
-## Insights / Media (`media.html`)
+## `gallery.html` — `gallery`
 
-| | |
-|--|--|
-| **Purpose** | Thought leadership / press-style cards |
-| **data-page** | `media` |
+Masonry archive from `VM.galleryImages` (`gallery-data.js`) — 1 / 2 / 3 columns. Category filters, and a lightbox with focus trap, Escape and focus return.
 
-**Sections:** Filters (`mediaFilters`), `#media-grid` editorial cards from `mediaItems`.
+The grid renders `thumb`; `src` (full size) loads only when the lightbox opens. Image titles are `<p>`, not headings — a caption is not a document heading.
 
 ---
 
-## Speaking (`speaking.html`)
+## `speaking.html` — `speaking`
 
-| | |
-|--|--|
-| **Purpose** | Speaking topics, engagements, booking CTAs |
-| **data-page** | `speaking` |
-| **Nav** | Footer (not primary header nav) |
+Positioning → topics `01`–`04` → engagements → photography → booking. Booking carries email, WhatsApp, call and CV.
 
-**Sections:** Topics, engagements, optional gallery strip, `#booking` with `contactCTAs`.
+---
 
-**CTA copy:** “Book a Speaking Engagement” (no calendly / Schedule a Meeting).
+## `appendix.html` — `appendix`
+
+Primary-source evidence. Five published documents, each with page count and **file weight stated on the control**. Then "available on request": signed agreements and audit reports, deliberately not published.
+
+Linked from the footer and mobile drawer, not the top bar — that keeps the top level at six items.
+
+---
+
+## Adding a page
+
+1. Copy an existing shell; set `data-page`.
+2. Add a renderer in `pages.js` and register it in `init`.
+3. Add unique title, description, canonical and OG tags.
+4. Add to `sitemap.xml`.
+5. Add to `VM.site.nav` **only** if it belongs in the top six — otherwise footer and drawer.
+6. Verify: one `h1`, no skipped levels, no overflow at 320px, contrast, and 44px targets.

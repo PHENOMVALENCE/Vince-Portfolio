@@ -14,7 +14,7 @@
 6. [Experience timeline](#experience-timeline)
 7. [Projects](#projects)
 8. [Gallery](#gallery)
-9. [Testimonials](#testimonials)
+9. [Testimonials](#testimonials) — *none published; see below*
 10. [Media / Insights](#media--insights)
 11. [Speaking](#speaking)
 12. [Navigation](#navigation)
@@ -95,7 +95,9 @@ Edit `VM.data.experience` array (period, title, organization, country, overview,
 
 ## Testimonials
 
-Edit `VM.data.testimonials` (`name`, `position`, `organization`, `quote`, `initials`).
+**There are no published testimonials.** All three previously on the site were unverifiable — one cited the placeholder string "Leading Financial Institution" as an organization — and were removed.
+
+Before adding one, you need: the real name, real role, real organization, the verbatim quotation, and documented approval to publish it. Record the source in `CONTENT_VERIFICATION.md`. A smaller number of verified endorsements is more credible than several unverifiable ones.
 
 ---
 
@@ -122,7 +124,7 @@ Edit `VM.site.nav` in `config.js`. Footer links are duplicated in `layout.js` `r
 | Asset | Location |
 |-------|----------|
 | Logo | `assets/images/vincelogo.png` |
-| Colours | `:root` in `executive.css` + Tailwind config in HTML |
+| Colours | `:root` in `assets/css/design-system.css` (see `../DESIGN.md`) |
 | Fonts | Google Fonts link in HTML heads |
 
 ---

@@ -23,7 +23,7 @@ The site reads as **a printed executive profile that happens to be on the web**.
 
 All colour is declared as semantic tokens. **Never write a raw hex value in a component.**
 
-### Light theme (`:root`)
+### Colour tokens (`:root`)
 
 | Token | Value | Role |
 |---|---|---|
@@ -32,7 +32,7 @@ All colour is declared as semantic tokens. **Never write a raw hex value in a co
 | `--vm-surface` | `#FDFCFA` | Lifted surface — paper laid on paper. |
 | `--vm-ink` | `#14243A` | Headlines and body. Warm navy-black, never jet. |
 | `--vm-ink-secondary` | `#40506A` | Supporting copy, lead paragraphs. |
-| `--vm-ink-muted` | `#6B7A90` | Metadata, captions, eyebrows. |
+| `--vm-ink-muted` | `#5A6675` | Metadata, captions, eyebrows. 5.37:1 — measured. |
 | `--vm-navy` | `#0B1F3A` | Inverse surfaces, footer, dark bands. |
 | `--vm-navy-soft` | `#16304F` | Second dark step for nested inverse surfaces. |
 | `--vm-accent` | `#B4893C` | Gold. Prestige accent only — see §3. |
@@ -41,23 +41,24 @@ All colour is declared as semantic tokens. **Never write a raw hex value in a co
 | `--vm-border` | `#DED8CD` | The 1px hairline. Warm, matches the canvas. |
 | `--vm-border-strong` | `#B9AF9F` | Emphasised rule; section openers. |
 
-### Dark theme (`.dark`)
+### Gold as text
 
-Dark mode is a **designed theme, not an inversion**. Every token is redefined deliberately.
+Gold splits into two tokens, and the distinction is not cosmetic.
 
-| Token | Value | Role |
+| Token | Use | Contrast |
 |---|---|---|
-| `--vm-canvas` | `#0B1726` | Deep navy floor. Never pure black. |
-| `--vm-canvas-subtle` | `#0E1D30` | Alternating band. |
-| `--vm-surface` | `#132539` | Lifted surface. |
-| `--vm-ink` | `#EDE8DF` | Soft off-white. Never pure `#FFF` — it glares against navy. |
-| `--vm-ink-secondary` | `#B4BCCA` | Supporting copy. |
-| `--vm-ink-muted` | `#8592A5` | Metadata. |
-| `--vm-accent` | `#D0A857` | Gold lifted for contrast on dark. |
-| `--vm-accent-hover` | `#E3C079` | |
-| `--vm-accent-subtle` | `#2A2417` | Gold wash on dark. |
-| `--vm-border` | `#22344B` | |
-| `--vm-border-strong` | `#35496380` | |
+| `--vm-accent` `#B4893C` | Rules, borders, decoration — **never words** | 2.93:1 — fails AA as text |
+| `--vm-accent-text` `#7E6029` | Anywhere gold carries text | 5.37:1 on canvas |
+
+On inverse (navy) surfaces, gold text lifts to `#D0A857` — the light-theme text gold measures only 2.83:1 against navy.
+
+### One theme
+
+The site ships **a single light theme**. A dark theme previously existed and was removed at the owner's preference.
+
+If a second theme is ever reintroduced, it must be a *designed* theme rather than an inversion — every token redefined deliberately, and contrast re-measured against the rendered surfaces in both modes. A half-maintained second theme is worse than not having one.
+
+**Do not add `@media (prefers-color-scheme: dark)` overrides.** `executive.css` still contains inert `.dark` rules; the class is never applied.
 
 ### Semantic
 
@@ -268,7 +269,7 @@ This is a hard requirement, not an enhancement.
 
 Target **WCAG 2.2 AA**.
 
-- Body text meets 4.5:1; large display meets 3:1 — **in both themes**.
+- Body text meets 4.5:1; large display meets 3:1 — measured against the rendered surface, not assumed.
 - A visible focus ring on every interactive element: `2px solid var(--vm-accent)` at `2px` offset. Focus is never removed.
 - One `<h1>` per page; heading levels never skip.
 - Landmarks: `header` / `nav` / `main` / `footer`. Skip link retained.
@@ -282,7 +283,9 @@ Target **WCAG 2.2 AA**.
 
 ## 11. Responsive
 
-Verified at **320 · 360 · 375 · 390 · 430 · 768 · 1024 · 1280 · 1440 · 1920**.
+Verified at **320 · 360 · 375 · 390 · 430 · 768 · 900 · 1024 · 1280 · 1440 · 1920**.
+
+**Navigation switches at 900px** — inline links above, drawer below. Three places must agree on that number; see [documentation/NAVIGATION.md](./documentation/NAVIGATION.md).
 
 **No horizontal overflow at 320px** — treated as a P0 defect.
 
