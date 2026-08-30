@@ -87,8 +87,12 @@
 
       this.refreshIcons();
 
-      const focusables = this.getNavFocusable();
-      (focusables[0] || drawer).focus?.();
+      // Focus on the next frame: the drawer is still visibility:hidden at this
+      // point in the transition, and hidden elements silently reject focus.
+      requestAnimationFrame(() => {
+        const focusables = this.getNavFocusable();
+        (focusables[0] || drawer).focus?.();
+      });
     },
 
     closeNav() {
@@ -165,7 +169,7 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', () => {
         this.syncMobileHeaderHeight();
-        if (window.matchMedia('(min-width: 1024px)').matches && this.isNavOpen()) {
+        if (window.matchMedia('(min-width: 900px)').matches && this.isNavOpen()) {
           this.closeNav();
         }
       });

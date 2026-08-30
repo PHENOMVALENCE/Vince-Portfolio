@@ -1071,3 +1071,126 @@ main { padding-top: 0; }
   font-weight: 600;
   line-height: 1.35;
 }
+
+/* ============================================================================
+   NAVIGATION v2 — semantic, single source of truth for visibility
+   ============================================================================
+   Visibility is owned here by one media query, not by utility classes that a
+   component rule can override. Breakpoint is 900px rather than 1024px: five
+   links plus the CTA fit comfortably, so tablets get real navigation instead
+   of a hamburger.
+   ========================================================================== */
+
+.vm-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: var(--vm-max-w);
+  margin-inline: auto;
+  padding: 0.6rem var(--vm-page-pad-x);
+  min-height: 64px;
+}
+
+/* ---- Brand -------------------------------------------------------------- */
+.vm-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.vm-nav__brand .brand-logo--nav { height: 34px; width: auto; border-radius: var(--vm-radius-sm); }
+.vm-nav__brand .brand-name {
+  display: block;               /* was hidden on mobile; the name is the brand */
+  font-family: var(--vm-font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--vm-ink);
+  white-space: nowrap;
+}
+/* The name is the brand, so it stays visible: measured, the lockup plus both
+   44px controls fits inside 320px with room to spare. */
+
+/* ---- Links -------------------------------------------------------------- */
+.vm-nav__links {
+  display: none;                /* shown at >=900px */
+  align-items: center;
+  gap: 0.15rem;
+  margin: 0 auto 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.vm-nav__link {
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 0.7rem;
+  font-family: var(--vm-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--vm-ink-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--vm-transition);
+}
+.vm-nav__link:hover { color: var(--vm-ink); }
+
+/* Active state: ink text with a gold underline. The text itself is NOT gold —
+   the underline alone carries the signal, keeping gold scarce (DESIGN.md §3). */
+.vm-nav__link.is-active { color: var(--vm-ink); font-weight: 600; }
+.vm-nav__link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0.7rem; right: 0.7rem; bottom: 0.1rem;
+  height: 2px;
+  background: var(--vm-accent);
+}
+
+/* ---- Actions ------------------------------------------------------------ */
+.vm-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.vm-nav__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--vm-border);
+  border-radius: var(--vm-radius-md);
+  background: transparent;
+  color: var(--vm-ink);
+  cursor: pointer;
+  transition: background var(--vm-transition), border-color var(--vm-transition);
+}
+.vm-nav__icon-btn:hover { background: var(--vm-canvas-subtle); border-color: var(--vm-border-strong); }
+
+.vm-nav__cta { display: none; }   /* shown at >=900px */
+
+/* ---- Breakpoint --------------------------------------------------------- */
+@media (min-width: 900px) {
+  .vm-nav__links  { display: flex; }
+  .vm-nav__cta    { display: inline-flex; }
+  .vm-nav__toggle { display: none; }
+}
+
+
+/* The drawer and overlay are mobile-only. executive.css hides them from 1024px,
+   but the nav breakpoint is 900px — realign so the two cannot both be active. */
+@media (min-width: 900px) {
+  .nav-overlay, .nav-drawer { display: none !important; }
+}
+
+/* Phone number stated in the contact band; the buttons above act on it. */
+.vm-contact__number {
+  margin-top: 1.25rem;
+  letter-spacing: 0.04em;
+}
+.vm-section--navy .vm-contact__number { color: var(--vm-on-navy-muted); }
