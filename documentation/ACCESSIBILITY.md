@@ -1,89 +1,115 @@
-﻿# Accessibility
+# Accessibility
 
-**Version:** 1.2.0
-
----
-
-## Table of contents
-
-1. [Standards intent](#standards-intent)
-2. [Structure](#structure)
-3. [Keyboard](#keyboard)
-4. [ARIA](#aria)
-5. [Focus](#focus)
-6. [Images](#images)
-7. [Colour and motion](#colour-and-motion)
-8. [Touch targets](#touch-targets)
-9. [Testing](#testing)
+**Target:** WCAG 2.2 AA · **Status:** current as of v5.0.4
 
 ---
 
-## Standards intent
+## 1. Contrast — measured, not assumed
 
-Aim for WCAG 2.2 AA patterns where practical for a marketing/portfolio site.
+**Zero AA failures on every page.** This is verified against *rendered* surfaces rather than reasoned about, because reasoning missed three real failures:
 
----
+| Token / element | Was | Now |
+|---|---|---|
+| `--vm-ink-muted` | `#6B7A90` — 4.01:1 | `#5A6675` — 5.37:1 |
+| Gold as body text | `#B4893C` — 2.93:1 | `--vm-accent-text` `#7E6029` — 5.37:1 |
+| Gold text on navy | 2.83:1 | `#D0A857` on inverse surfaces |
 
-## Structure
+Gold splits into two tokens deliberately: `--vm-accent` for rules, borders and decoration where contrast rules do not apply, and `--vm-accent-text` wherever gold carries words.
 
-- Landmark regions: header, main, footer, nav labels
-- Skip link to `#main-content`
-- Heading hierarchy per page (H1 in hero / page title)
-- Lists for nav and skill tags where marked up as `<ul>`
+### Re-running the check
 
----
+```js
+function lum(c){const m=c.match(/[\d.]+/g).map(Number);const f=m.slice(0,3).map(v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)});return 0.2126*f[0]+0.7152*f[1]+0.0722*f[2];}
+function ratio(a,b){const l1=lum(a),l2=lum(b);return (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);}
+function bgOf(el){let e=el;while(e){const b=getComputedStyle(e).backgroundColor;if(b&&!/rgba\(0, 0, 0, 0\)|transparent/.test(b)){const m=b.match(/[\d.]+/g);if(!m[3]||parseFloat(m[3])>0.5)return b;}e=e.parentElement;}return getComputedStyle(document.body).backgroundColor;}
 
-## Keyboard
+[...document.querySelectorAll('body *')].filter(e => {
+  if (![...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) return false;
+  const cs = getComputedStyle(e);
+  if (cs.visibility === 'hidden' || cs.display === 'none') return false;
+  const px = parseFloat(cs.fontSize), bold = parseInt(cs.fontWeight) >= 700;
+  const need = (px >= 24 || (px >= 18.66 && bold)) ? 3 : 4.5;
+  return ratio(cs.color, bgOf(e)) < need;
+});
+```
 
-| Control | Keys |
-|---------|------|
-| Mobile menu | Enter/Space on toggle; Escape closes; Tab cycles (focus trap) |
-| Lightbox | Escape, ArrowLeft, ArrowRight |
-| Filters / dots | Button focus + Enter/Space |
-
----
-
-## ARIA
-
-| Pattern | Attributes |
-|---------|------------|
-| Menu button | `aria-expanded`, `aria-controls="nav-drawer"`, `aria-label` |
-| Drawer | `role="dialog"`, `aria-modal`, `aria-label="Mobile navigation"` |
-| Lightbox | `role="dialog"`, `aria-modal`, live counter |
-| Gallery cards | `role="button"`, `tabindex="0"`, descriptive `aria-label` |
-| Theme toggle | `aria-label="Toggle dark mode"` |
+Walk to the nearest **opaque** ancestor. A translucent header background produces a nonsense ratio if treated as the backdrop.
 
 ---
 
-## Focus
+## 2. Structure
 
-- Visible `:focus-visible` styles on interactive controls
-- Focus moves into menu/lightbox on open
-- Focus returns to trigger on close
-
----
-
-## Images
-
-Meaningful `alt` text on content images; decorative icons marked `aria-hidden="true"`.
+- One `<h1>` per page; **no skipped heading levels**.
+- `projectFeature` takes a heading level, because the same component sits under an `h2` on the homepage and directly under the `h1` on the projects index.
+- Landmarks: `header`, `nav`, `main`, `footer`. Skip link to `#main-content` on every page.
+- Image titles in the gallery are `<p>`, not headings — a caption is not a document heading.
 
 ---
 
-## Colour and motion
+## 3. Navigation and the drawer
 
-- Do not rely on colour alone for active nav (underline / gold weight)
-- `@media (prefers-reduced-motion: reduce)` disables or shortens transitions and autoplay
+| Requirement | Implementation |
+|---|---|
+| Toggle is a real `<button>` | keyboard-activatable by default |
+| `aria-expanded` | synced on open/close |
+| `aria-controls` | points to `#nav-drawer` |
+| `aria-label` | "Open menu" / "Close menu" |
+| Drawer `aria-hidden` | synced |
+| Escape closes | `handleNavKeydown` |
+| Focus trap | cycles `[toggle, ...focusables]` |
+| Focus in | first focusable, else the drawer (`tabindex="-1"`) |
+| Focus out | opener, else the toggle — never `document.body` |
+| Active item | `aria-current="page"`, desktop **and** mobile |
+
+### Two failures worth remembering
+
+**Focus was stranded behind the open menu.** `visibility` was being transitioned, and hidden elements silently reject `.focus()`. Fixed by transitioning `transform` only.
+
+**The entire navbar was unclickable** while looking correct — inherited `pointer-events: none`. Synthetic `.click()` bypasses pointer-events, so scripted tests passed. Only a hit test caught it:
+
+```js
+const r = el.getBoundingClientRect();
+document.elementFromPoint(r.left + r.width/2, r.top + r.height/2);
+```
+
+**Test interactive elements with a hit test, not a synthetic click.**
 
 ---
 
-## Touch targets
+## 4. Targets
 
-Primary controls target ≥44×44px (nav toggle, CTAs, lightbox buttons, testimonial controls).
+All interactive elements meet 44×44px. See `RESPONSIVE_GUIDE.md` §4 for the two components that needed deliberate handling.
 
 ---
 
-## Testing
+## 5. Focus visibility
 
-- Keyboard-only pass on Home, Projects, Gallery, Connect
-- Screen reader spot-check of menu and lightbox
-- Contrast check for gold text on navy and body text on canvas
+```css
+:where(a, button, [tabindex], input, select, textarea):focus-visible {
+  outline: 2px solid var(--vm-accent);
+  outline-offset: 2px;
+}
+```
+
+Focus is never removed. Gallery cards carry their own `:focus-visible` ring since they act as buttons.
+
+---
+
+## 6. Motion
+
+`prefers-reduced-motion: reduce` collapses all animation and transition durations, and disables smooth scrolling. Enforced globally, treated as a requirement rather than an enhancement.
+
+Removed outright: autoplay carousels, count-up counters, scroll-triggered section reveals. Content is never gated behind an animation that may not run.
+
+---
+
+## 7. Colour independence
+
+Colour is never the sole carrier of meaning. The active nav item is bold **and** underlined **and** marked `aria-current`. Filters expose `aria-pressed`, and results are announced through a polite live region.
+
+---
+
+## 8. Known gaps
+
+- `executive.css` retains rules for components no longer rendered; inert but unaudited.
+- Screen-reader testing has been programmatic (roles, ARIA state, focus order). No manual pass with NVDA/JAWS/VoiceOver has been done.

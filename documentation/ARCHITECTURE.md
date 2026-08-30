@@ -1,198 +1,100 @@
 # Architecture
 
-**Version:** 1.2.0
+**Status:** current as of v5.0.4
+
+A static, data-driven site. No build step, no framework, no runtime dependencies beyond a font stylesheet and an icon script.
 
 ---
 
-## Table of contents
+## 1. Shape
 
-1. [Overview](#overview)
-2. [Application structure](#application-structure)
-3. [Routing](#routing)
-4. [Boot sequence](#boot-sequence)
-5. [Module map](#module-map)
-6. [Component hierarchy](#component-hierarchy)
-7. [Data flow](#data-flow)
-8. [Asset organization](#asset-organization)
-9. [Navigation flow](#navigation-flow)
-10. [Responsive strategy](#responsive-strategy)
-11. [Configuration](#configuration)
-12. [Diagrams](#diagrams)
+Each route is a thin HTML shell containing only `<head>` metadata and three mount points. All body content is rendered by JavaScript from a central data module.
 
----
+```
+index.html  leadership.html  projects.html  project.html
+gallery.html  speaking.html  appendix.html
+        │
+        │  <div id="site-header">   <main id="main-content">   <div id="site-footer">
+        ▼
+assets/js/
+  config.js        site identity, navigation, contact, image paths
+  data.js          all professional content (single source of truth)
+  gallery-data.js  gallery manifest
+  layout.js        header, drawer, footer markup
+  pages.js         one renderer per route + case-study lightbox
+  site.js          navigation behaviour, reveal, back-to-top
 
-## Overview
-
-The site is a **static multi-page application**. Each HTML file is a thin shell. Shared chrome and page bodies are injected by JavaScript into `#site-header`, `#main-content`, and `#site-footer`.
-
-Global namespace: `window.VM`.
-
----
-
-## Application structure
-
-```text
-HTML shell (data-page="…")
-  ├── config.js      → VM.site, VM.images, VM.version
-  ├── data.js        → VM.data + helpers
-  ├── gallery-data.js→ VM.galleryImages (home/gallery/speaking)
-  ├── layout.js      → header, footer, Connect, CTAs
-  ├── pages.js       → page HTML + filters/lightbox
-  └── site.js        → theme, nav, reveal, counters, carousel
+assets/css/
+  executive.css     legacy — predates the redesign, still loaded (see §5)
+  utilities.css     reset + the small utility set the markup still uses
+  design-system.css the design system; loads last and wins
 ```
 
-Styling: Tailwind utility classes in templates + `assets/css/executive.css` for brand and complex layouts.
+## 2. Load order
 
----
+Order is deliberate and load-bearing.
 
-## Routing
+**Stylesheets** — `executive.css` → `utilities.css` → `design-system.css`
 
-There is **no client-side router**.
+`design-system.css` is last so its tokens and components override the legacy sheet. Several rules in it exist specifically to neutralise `executive.css` assumptions; each is commented with the reason.
 
-| URL | Mechanism |
-|-----|-----------|
-| `*.html` | Direct page load |
-| `project.html?slug=…` | Query param; `VM.pages.initProjectRedirect()` |
-| Hash links (`#about`, `#contact`) | Native scroll + `scroll-padding-top` |
-| Apache clean URLs | Optional `.htaccess` rewrites to `.html` |
+**Scripts** — `config.js` → `data.js` → `gallery-data.js` → `layout.js` → `pages.js` → `site.js`
 
-Invalid project slug → redirect to `projects.html`.
+Each attaches to the `window.VM` namespace and depends on the previous. On `DOMContentLoaded`, `layout.js` injects the header and footer, `pages.js` renders the route body from `document.body.dataset.page`, then `site.js` wires behaviour.
 
----
+## 3. Rendering
 
-## Boot sequence
+`pages.js` maps `data-page` to a renderer:
 
-1. Inline script applies `dark` class from `localStorage` (`vm-theme`) before paint.
-2. Tailwind CDN + Lucide + fonts + `executive.css` load.
-3. Body scripts run in order (gallery-data only on pages that need it).
-4. `layout.js` replaces `#site-header` and fills `#site-footer` (includes Connect).
-5. `pages.js` fills `#main-content` based on `document.body.dataset.page`.
-6. `site.js` wires theme, nav, reveal, counters, timeline, testimonials, back-to-top.
-7. Lucide icons refreshed via `VM.ui.refreshIcons()`.
+| `data-page` | Renderer |
+|---|---|
+| `home` | `renderHome` |
+| `leadership` | `renderLeadership` |
+| `projects` | `renderProjects` |
+| `project` | `renderProject` (reads `?slug=`) |
+| `gallery` | `renderGallery` |
+| `speaking` | `renderSpeaking` |
+| `appendix` | `renderAppendix` |
 
----
+After render, `afterRender` initialises page-specific behaviour and calls `applyInitialHash`.
 
-## Module map
+### Why `applyInitialHash` exists
 
-| Module | Responsibility |
-|--------|----------------|
-| `config.js` | Site identity, contact URLs, image path map, version |
-| `data.js` | Portfolio content; `getProject`, `featuredProjects` |
-| `gallery-data.js` | Gallery catalogue + filters + `galleryFeatured` |
-| `layout.js` | Header / drawer / Connect / footer / compact CTAs |
-| `pages.js` | Page renderers, project case study, gallery UI, filters |
-| `site.js` | Interactions and progressive enhancement |
+Content is rendered *after* `DOMContentLoaded`, so the browser's native hash scroll runs before the target element exists. Without re-applying it, every `#anchor` link into a page fails on first load.
 
----
+## 4. Content model
 
-## Component hierarchy
+All professional content lives in `VM.data` (`data.js`). Markup never hard-codes a claim.
 
-```text
-document
-├── skip-link
-├── #site-header → <header.site-header>
-│   └── nav.site-header__nav (desktop links + CV + hamburger)
-├── #nav-overlay (sibling of header — not nested)
-├── #nav-drawer (mobile panel)
-├── #main-content → page sections from VM.pages
-└── #site-footer
-    ├── #contact.connect-section
-    ├── footer.site-footer
-    └── #back-to-top
-```
+This matters beyond tidiness: every claim must be traceable to a primary source. Centralising the content makes an audit possible. See `CONTENT_VERIFICATION.md` and `CONTENT_NEEDS_VERIFICATION.md`.
 
-Mobile drawer and overlay are **siblings of the header** (not children) so `backdrop-filter` on the scrolled header cannot clip `position: fixed` menu panels.
+## 5. `executive.css` — legacy
 
----
+87KB predating the redesign, structured as accreted override layers ("Premium editorial redesign", "Expertise editorial reversal", "Legacy alias") with `!important` throughout.
 
-## Data flow
+It still ships because deleting it wholesale is riskier than overriding it. `design-system.css` loads afterwards and wins. Retiring it is worthwhile follow-up work.
 
-```mermaid
-flowchart LR
-  config[config.js] --> layout[layout.js]
-  config --> pages[pages.js]
-  data[data.js] --> pages
-  gallery[gallery-data.js] --> pages
-  pages --> main[#main-content]
-  layout --> header[#site-header]
-  layout --> footer[#site-footer]
-  site[site.js] --> ui[DOM interactions]
-```
+**Two traps it has already caused**, both now neutralised and commented in `design-system.css`:
 
-Content updates are made in data modules; renderers read them on each page load (no hydration framework).
+- `pointer-events: none` on `.site-header` — made the entire navbar unclickable after the header rebuild removed the pill child that used to re-enable pointers.
+- `visibility` included in the drawer transition — made the drawer briefly unfocusable, stranding keyboard focus behind the open menu.
 
----
+When something behaves oddly, check whether `executive.css` has an opinion about it.
 
-## Asset organization
+## 6. Theming
 
-| Area | Path | Role |
-|------|------|------|
-| Brand | `assets/images/vincelogo.png` | Logo |
-| Favicons | `assets/images/favicon*` + android chrome | PWA / tabs |
-| Web photos | `assets/images/Vince/web/` | Site-facing optimized |
-| Gallery sources | `assets/images/Vince/gallery/` | Full gallery sources |
-| Thumbs | `assets/images/Vince/gallery/thumbs/` | Lightweight grid thumbs |
-| CV | `assets/cv/vicent-manila-cv.pdf` | Download target (file must be present) |
+**A single light theme.** The dark theme and its toggle were removed at the owner's request; a half-maintained second theme is worse than none. All colour flows from semantic tokens on `:root` in `design-system.css`.
 
-See [IMAGE_ASSETS.md](./IMAGE_ASSETS.md).
+`executive.css` still contains `.dark` rules. They are inert — the class is never applied.
 
----
+## 7. No build step
 
-## Navigation flow
+Serve the repository root over HTTP. There is nothing to compile.
 
-**Primary nav** (`VM.site.nav`): About, Leadership, Experience, Projects, Gallery, Insights, Contact (CTA).
+The runtime Tailwind CDN was removed: it shipped the full engine and compiled classes in-browser on every load, blocking render. `utilities.css` (~7KB) implements the reset and the exact utilities the markup still uses.
 
-**Footer-only extras:** Speaking (and full link set).
+## 8. Deployment
 
-**Mobile:** Full-height drawer below header; closes on link, Escape, backdrop, desktop resize.
+Static hosting; currently Vercel. `sitemap.xml` and `robots.txt` are maintained by hand — add new routes to both.
 
----
-
-## Responsive strategy
-
-- Desktop layouts preserved from ~1024px upward.
-- Dedicated mobile rules for hero, Connect, project hero, nav, spacing.
-- Prefer `clamp()`, CSS Grid / Flex, `aspect-ratio`, `100dvh` for viewports.
-- Details: [RESPONSIVE_GUIDE.md](./RESPONSIVE_GUIDE.md).
-
----
-
-## Configuration
-
-Primary config object: `VM.site` in `assets/js/config.js`.
-
-Also:
-
-- `VM.version` — semantic version string
-- `VM.images` — named image shortcuts
-- Tailwind `tailwind.config` inline in each HTML head (colours, `maxWidth.8xl`)
-
----
-
-## Diagrams
-
-### Page request
-
-```mermaid
-sequenceDiagram
-  participant Browser
-  participant HTML
-  participant Layout
-  participant Pages
-  participant UI
-  Browser->>HTML: Load page
-  HTML->>Layout: DOMContentLoaded
-  Layout->>Browser: Header + Connect + Footer
-  HTML->>Pages: init(data-page)
-  Pages->>Browser: Main HTML
-  HTML->>UI: Bind interactions
-```
-
-### Project detail
-
-```text
-project.html?slug=leading-aiesec-rwanda
-  → VM.getProject(slug)
-  → hero + case study + gallery + impact + related
-  → initProjectGallery(lightbox)
-```
+Asset URLs carry a `?v=` query bumped on release so returning visitors do not get stale CSS or JS.

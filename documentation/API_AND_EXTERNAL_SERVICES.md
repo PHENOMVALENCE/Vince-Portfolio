@@ -44,7 +44,7 @@ Configured in `assets/js/config.js` → `VM.site.contact`.
 
 | Service | URL | Purpose |
 |---------|-----|---------|
-| Tailwind CSS | `https://cdn.tailwindcss.com` | Utility CSS |
+| ~~Tailwind CSS~~ | ~~`cdn.tailwindcss.com`~~ | **Removed.** Compiled in-browser on every load, blocking render. Replaced by `assets/css/utilities.css`. |
 | Lucide | `https://unpkg.com/lucide@latest/dist/umd/lucide.min.js` | Icons |
 | Google Fonts | `fonts.googleapis.com` / `fonts.gstatic.com` | Typography |
 

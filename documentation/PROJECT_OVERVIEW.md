@@ -69,7 +69,7 @@ Present Vicent Manila as a credible international business development and youth
 ## Website objectives
 
 1. Establish trust within the first viewport (identity, role, portrait).
-2. Prove capability through projects, metrics, and testimonials.
+2. Prove capability through case studies, verified metrics, and primary-source documents.
 3. Convert interest into a conversation (Connect CTAs).
 4. Support long-term content growth (gallery, media, speaking).
 
@@ -89,7 +89,7 @@ Positioned as:
 |------|----------|
 | Pages | Home, Leadership, Projects, Project detail, Gallery, Media, Speaking |
 | Shared chrome | Header, mobile menu, Connect, footer, back-to-top |
-| Content systems | Projects, experience timeline, skills, testimonials, media, gallery |
+| Content systems | Case studies, career chronology, expertise index, gallery, appendix |
 | Theming | Light / dark |
 | Contact | WhatsApp, tel, mailto, LinkedIn, CV link |
 

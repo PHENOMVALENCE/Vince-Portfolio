@@ -1,137 +1,97 @@
-﻿# Responsive Guide
+# Responsive Guide
 
-**Version:** 1.2.0
-
----
-
-## Table of contents
-
-1. [Breakpoints](#breakpoints)
-2. [Global behaviour](#global-behaviour)
-3. [Navigation](#navigation)
-4. [Homepage hero](#homepage-hero)
-5. [Grids](#grids)
-6. [Project detail](#project-detail)
-7. [Gallery](#gallery)
-8. [Competencies](#competencies)
-9. [Timeline](#timeline)
-10. [Connect & footer](#connect--footer)
-11. [Lightbox](#lightbox)
-12. [Landscape phones](#landscape-phones)
-13. [Testing checklist](#testing-checklist)
+**Status:** current as of v5.0.4
 
 ---
 
-## Breakpoints
+## 1. Verified breakpoints
 
-| Width | Intent |
-|-------|--------|
-| ≤360px | Extra-small phones |
-| ≤480px | Small phones (hero CTAs stack) |
-| ≥640px | Large phones / small tablets (2-col grids) |
-| ≥768px | Tablets |
-| ≤1023px / ≥1024px | Mobile chrome vs desktop nav |
-| ≥1440px | Gallery 4-column masonry |
+Every page is checked at **320 · 360 · 375 · 390 · 430 · 768 · 900 · 1024 · 1280 · 1440 · 1920**.
 
-CSS also uses `orientation: landscape` with `max-width: 1023px`, `hover: none`, and `prefers-reduced-motion`.
+**No horizontal overflow at any width is a P0 requirement.** 320px is the floor — it is the narrowest viewport in common use, and layouts that survive it survive everything above.
 
-Prefer **`100dvh`** (with `100vh` fallback) for full-viewport panels.
+Verify with a measurement, not by eye:
 
----
+```js
+document.documentElement.scrollWidth > document.documentElement.clientWidth  // must be false
+```
 
-## Global behaviour
+To find the offender when it is true:
 
-- Horizontal padding via `--page-pad-x` on major containers under 1024px.
-- Section vertical padding compresses on mobile.
-- Images in cover containers use `object-fit: cover` + configurable `object-position`.
-- Avoid relying on `overflow-x: hidden` as the only overflow fix.
+```js
+const vw = document.documentElement.clientWidth;
+[...document.querySelectorAll('main *')]
+  .filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.right > vw + 1; })
+  .map(e => e.tagName + '.' + e.className);
+```
 
----
-
-## Navigation
-
-| Viewport | Behaviour |
-|----------|-----------|
-| ≥1024px | Inline nav links + Contact + theme |
-| <1024px | Hamburger; drawer from right; full remaining height under header |
-
-Safe-area padding on drawer actions. Body scroll locked while open.
+Ignore matches inside `#nav-drawer` — it is intentionally translated off-canvas and clipped by `overflow-x: clip` on `html, body`.
 
 ---
 
-## Homepage hero
+## 2. The one navigation breakpoint
 
-**Desktop (≥1024):** Multi-column shell preserved.
+**900px.** See `NAVIGATION.md` for the full rationale and the three places that must agree on it.
 
-**Mobile:** Single column order — logo/eyebrow → title → roles → portrait → summary → CTAs → metrics.
+| Width | Navigation |
+|---|---|
+| `< 900px` | Brand + 44×44 hamburger; drawer slides from the right |
+| `≥ 900px` | Brand + inline links + "Discuss a Partnership" |
 
-Portrait: ~78–90% width, max ~340px, `object-position: top center`.
-
----
-
-## Grids
-
-| Component | Mobile | Tablet | Desktop |
-|-----------|--------|--------|---------|
-| Projects | 1 | 2 | 3 |
-| Skills | 1 | 2 | 3 |
-| Media | 1 | 2 | 3 |
-| Connect cards | 1 | 1 | 3 |
-| Impact stats | 2 | 3 | 6 |
-| Action gallery | 2 | 3 | 6 |
-| Project gallery | 1 | 2 | 3 |
+The brand name is visible at **every** width including 320px, where the lockup and controls leave 95px of slack. An earlier rule hid it below 380px, which covers common devices such as the iPhone SE — that was removed as an unnecessary loss of identity.
 
 ---
 
-## Project detail
+## 3. Component behaviour
 
-Mobile hero uses **auto height** with readable overlay content (no clipped titles). Gallery becomes single column under 640px.
+| Component | Mobile | Desktop |
+|---|---|---|
+| Hero | Portrait **leads**, then text (`order: -1`) | Two columns, text left |
+| Selected work | Stacked, image first | Two columns, alternating for rhythm |
+| Executive profile | Single column | Text + portrait |
+| Chronology | Period above role | Period on a left rail |
+| Expertise index | Number + title stacked | Number · title · description |
+| Metrics | Stacked, hairline between | Row, hairlines between |
+| Gallery | 1 column | 2 at 640px, 3 at 1024px |
+| Appendix documents | Stacked | Number · body · action |
+| Contact actions | Wrapped buttons | Row beside the heading |
 
----
-
-## Gallery
-
-Masonry columns 1→2→3→4. Filters may scroll horizontally on small screens. Overlays visible on touch devices (`hover: none`).
-
----
-
-## Competencies
-
-Single column cards; tags wrap with flex + gap. Featured Business Development card retains stronger gold border.
-
----
-
-## Timeline
-
-Always vertical; line on the left. Thumbs hide below `sm` where marked `hidden sm:block`.
+Mobile is **designed, not stacked**. The hero portrait leading on mobile is a deliberate inversion, not a side effect of source order.
 
 ---
 
-## Connect & footer
+## 4. Touch targets
 
-Mobile order: copy → contact cards → location → LinkedIn/CV → quote → portrait. Footer stacks; back-to-top respects safe-area.
+Everything interactive meets **44×44px**. Verify:
 
----
+```js
+[...document.querySelectorAll('a.vm-btn, button, .vm-nav__link, .vm-filter, .nav-mobile-link')]
+  .filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height < 44; });
+```
 
-## Lightbox
+Two cases needed deliberate handling:
 
-Fits `100dvh`; controls bottom-aligned on small screens; z-index above header.
-
----
-
-## Landscape phones
-
-Drawer link padding tightened; project hero min-height adjusted; hero top padding reduced.
+- **`.vm-btn--tertiary`** is a text link with a gold underline, originally `min-height: 0` to keep the rule tight to the text — a 32px target. It is now padded to 44px with the underline moved to `::after` pinned under the *text*, so the target grows without the rule drifting away from the words.
+- **`.vm-filter`** was 40px plus borders (41px rendered). Raised to a 44px minimum.
 
 ---
 
-## Testing checklist
+## 5. Fluid sizing
 
-Verify at 320, 360, 375, 390, 412, 430, 768, 1024, 1440 and at least one landscape size:
+Type and spacing scale with `clamp()` rather than stepping at breakpoints, so there are no awkward intermediate widths:
 
-- [ ] No horizontal page scroll
-- [ ] Menu fully usable
-- [ ] Heroes readable
-- [ ] Cards/tap targets ≥44px
-- [ ] Lightbox closable
-- [ ] Contact links work
+```css
+--vm-display-xl:  clamp(2.75rem, 6vw, 4.5rem);
+--vm-page-pad-x:  clamp(1.25rem, 4vw, 4rem);
+--vm-section-expansive: clamp(5rem, 10vw, 9rem);
+```
+
+Long headings use `text-wrap: balance`. Prose is capped at `68ch` regardless of viewport — a full-width line on a 1440px screen is unreadable.
+
+---
+
+## 6. Testing note
+
+The development browser pane pauses the animation timeline while hidden, so `requestAnimationFrame` never fires and CSS transitions freeze. Post-scroll screenshots come back blank and the drawer looks stuck.
+
+Prefer DOM measurement over screenshots, and see `NAVIGATION.md` §7 for the transition-neutralising snippet.

@@ -77,4 +77,8 @@ Allow: /
 Sitemap: https://YOUR-DOMAIN/sitemap.xml
 ```
 
-Include at least: `index.html`, `leadership.html`, `projects.html`, `gallery.html`, `media.html`, `speaking.html`, and each `project.html?slug=` as separate entries or a projects index only (choose indexability strategy for query URLs).
+Include: `index.html`, `leadership.html`, `projects.html`, `speaking.html`, `gallery.html`, `appendix.html`, and each `project.html?slug=`.
+
+`media.html` was removed — every item on it lacked a source URL. Do not reinstate it in the sitemap.
+
+The sitemap uses the real production origin. It previously shipped pointing at `example.com`, which made it useless.

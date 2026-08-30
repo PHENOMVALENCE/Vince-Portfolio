@@ -1,121 +1,70 @@
-﻿# Features
+# Features
 
-**Version:** 1.2.0
-
----
-
-## Table of contents
-
-1. [Feature catalogue](#feature-catalogue)
-2. [Feature details](#feature-details)
+**Status:** current as of v5.0.4
 
 ---
 
-## Feature catalogue
+## Routes
 
-| Feature | Primary files |
-|---------|----------------|
-| Responsive navigation | `layout.js`, `site.js`, `executive.css` |
-| Theme toggle | `site.js`, inline head script |
-| Homepage hero | `pages.js` `renderHome`, CSS hero rules |
-| Executive profile / About | `pages.js`, `data.js` `about` |
-| Leadership timeline | `pages.js`, `site.js` `initTimeline` |
-| Impact metrics / counters | `data.js` `impactStats`, `site.js` `initCounters` |
-| Featured & all projects | `pages.js` `projectCard`, `data.js` `projects` |
-| Project case studies | `pages.js` `initProjectRedirect` |
-| Project gallery + lightbox | `pages.js`, lightbox CSS |
-| Main gallery + filters | `gallery-data.js`, `pages.js` `initGallery` |
-| Core competencies | `pages.js` skills section, CSS `.skills-*` |
-| Testimonials carousel | `pages.js`, `site.js` `initTestimonials` |
-| Media / Insights | `pages.js` `renderMedia` |
-| Speaking page | `pages.js` `renderSpeaking` |
-| Connect / contact | `layout.js` `renderFooter` |
-| WhatsApp / Call / Email | `config.js` contact URLs |
-| CV download | `config.js` `cv` |
-| Scroll reveal | `site.js` `initReveal` |
-| Back to top | `site.js` `initBackToTop` |
-| SEO Person schema | `index.html` JSON-LD |
-| PWA manifest | `site.webmanifest` |
+| Route | Purpose |
+|---|---|
+| `index.html` | Positioning, credibility, selected work, profile, philosophy, expertise, impact, chronology, footprint, photography, contact |
+| `leadership.html` | Leadership thesis, metrics, full chronology, international footprint |
+| `projects.html` | Case-study index with category filters |
+| `project.html?slug=` | Individual case study + gallery + related |
+| `gallery.html` | Visual archive with filters and lightbox |
+| `speaking.html` | Speaker positioning, topics, engagements, booking |
+| `appendix.html` | Primary-source evidence — published documents and available-on-request |
 
 ---
 
-## Feature details
+## Navigation
 
-### Responsive navigation
+Six top-level destinations plus a CTA. Desktop inline from 900px; drawer below. Fully documented in [`NAVIGATION.md`](./NAVIGATION.md).
 
-- **Purpose:** Access all primary destinations on any viewport.
-- **How:** Desktop `<ul>` (≥1024px); mobile fixed drawer below header with `100dvh` height, focus trap, scroll lock.
-- **Files:** `layout.js`, `site.js`, CSS `.nav-drawer*`, `.site-header*`
-- **Future:** Add Speaking to primary nav if desired.
+Appendix sits in the footer and mobile drawer rather than the top bar, keeping the top level at six.
 
-### Theme toggle
+---
 
-- **Purpose:** Light/dark preference.
-- **How:** `html.dark` class; `localStorage` key `vm-theme`; FOUC prevention in `<head>`.
-- **Files:** HTML head snippet, `site.js` `setTheme`
+## Contact
 
-### Homepage hero
+WhatsApp and phone actions on **+255 713 582 606**, present in the contact band, speaking booking, appendix and leadership sections, and the mobile drawer. Both carry accessible labels naming the number.
 
-- **Purpose:** Brand-first identity and CTAs.
-- **How:** Ordered mobile stack with portrait; desktop two-column grid.
-- **Files:** `pages.js` `#hero`, CSS mobile hero block
+WhatsApp and phone are the primary channels in this market, so they are buttons rather than text buried in a paragraph.
 
-### Executive profile
+---
 
-- **Purpose:** Biography, expertise, education snapshot.
-- **How:** Data from `VM.data.about`; cards and portrait frame.
-- **Files:** `data.js`, `pages.js` `#about`
+## Case studies
 
-### Leadership timeline
+Full-bleed image, index number, category, serif title, **one measurable outcome**, then a tertiary link. Filters expose `aria-pressed` and announce results through a polite live region.
 
-- **Purpose:** Chronological career narrative.
-- **How:** Vertical timeline; progress bar via scroll math.
-- **Files:** `experience` array, `initTimeline`
+---
 
-### Impact metrics
+## Gallery
 
-- **Purpose:** Quantify leadership scale.
-- **How:** `[data-count]` animated when in view.
-- **Files:** `impactStats`, `initCounters`
+Masonry archive (1 / 2 / 3 columns), category filters, and a lightbox with focus trap, Escape-to-close and focus return. Grid uses thumbnails; full-size images load only on open.
 
-### Projects showcase & case studies
+---
 
-- **Purpose:** Portfolio proof points.
-- **How:** Cards from `projects`; detail page hydrates `#project-root` from `?slug=`.
-- **Fields:** overview, challenge, objectives, role, strategy, execution, results, impact, gallery, related, `imagePosition`
-- **Files:** `data.js`, `pages.js`
+## Appendix
 
-### Galleries & lightbox
+Five published documents with page counts and file weights stated. Signed agreements and audit reports are **listed but not published** — they carry counterparty signatures and organisational financials, and are not one party's to release.
 
-- **Purpose:** Visual storytelling.
-- **How:** Project gallery grid + site Gallery masonry; shared lightbox pattern (z-index above header).
-- **Files:** `gallery-data.js`, `pages.js`, CSS `.lightbox`
+---
 
-### Core competencies
+## Theming
 
-- **Purpose:** Skill taxonomy with premium navy section.
-- **How:** Ten categories from `skillCategories`; Lucide icon map; tags.
-- **Files:** `pages.js` `#skills`, CSS `.skills-section`
+**A single light theme.** The dark theme and its toggle were removed at the owner's request — a half-maintained second theme is worse than none.
 
-### Testimonials
+---
 
-- **Purpose:** Social proof.
-- **How:** Flex track carousel; dots; swipe; autoplay with reduced-motion respect.
-- **Files:** `testimonials`, `initTestimonials`
+## Deliberately absent
 
-### Connect / contact integrations
-
-- **Purpose:** Conversion.
-- **How:** Cards link to `wa.me`, `tel:`, `mailto:` from config — no forms.
-- **Files:** `config.js`, `layout.js`
-- **Future:** Optional form backend if needed.
-
-### CV download
-
-- **Purpose:** Share full résumé.
-- **How:** Anchor to `assets/cv/vicent-manila-cv.pdf`.
-- **Note:** PDF must exist on disk (see Known Issues if missing).
-
-### Accessibility & motion
-
-- Skip link, ARIA on menu/lightbox, focus-visible, `prefers-reduced-motion`.
+| Not present | Why |
+|---|---|
+| Testimonials | None verifiable. See `CONTENT_VERIFICATION.md`. |
+| Media / press page | All five items lacked source URLs. |
+| Autoplay carousels | Motion without user value |
+| Count-up counters | Figures are evidence, not spectacle |
+| Contact form | No backend; direct channels are better here |
+| Analytics | None. No cookie banner needed as a result. |

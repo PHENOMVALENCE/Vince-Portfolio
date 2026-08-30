@@ -46,10 +46,6 @@
             <ul class="vm-nav__links" role="list">${navLinks}</ul>
 
             <div class="vm-nav__actions">
-              <button type="button" id="theme-toggle" class="vm-nav__icon-btn" aria-label="Toggle dark mode">
-                <i data-lucide="moon" class="w-4 h-4 icon-theme-dark" aria-hidden="true"></i>
-                <i data-lucide="sun" class="w-4 h-4 icon-theme-light hidden" aria-hidden="true"></i>
-              </button>
 
               <a href="index.html#contact" class="vm-nav__cta vm-btn vm-btn--primary">Discuss a Partnership</a>
 

@@ -137,11 +137,6 @@ table { border-collapse: collapse; }
 .hover\:text-navy:hover { color: var(--vm-ink); }
 
 /* ---- Dark variants ----------------------------------------------------- */
-.dark .dark\:text-white      { color: var(--vm-ink); }
-.dark .dark\:text-zinc-400   { color: var(--vm-ink-muted); }
-.dark .dark\:border-white\/10 { border-color: var(--vm-border); }
-.dark .dark\:hover\:bg-navy-secondary:hover { background-color: var(--vm-surface); }
-.dark .dark\:hover\:text-white:hover        { color: var(--vm-ink); }
 
 /* ---- Responsive variants ----------------------------------------------- */
 @media (min-width: 640px) {

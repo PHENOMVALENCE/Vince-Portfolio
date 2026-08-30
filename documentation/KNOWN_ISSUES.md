@@ -1,65 +1,46 @@
-﻿# Known Issues
+# Known Issues
 
-**Version:** 1.2.0  
-Documented from repository inspection on 2026-07-24.
-
----
-
-## Table of contents
-
-1. [Content / assets](#content--assets)
-2. [SEO gaps](#seo-gaps)
-3. [Tooling](#tooling)
-4. [UX considerations](#ux-considerations)
-5. [Browser considerations](#browser-considerations)
-6. [Technical debt](#technical-debt)
+**Status:** current as of v5.0.4
 
 ---
 
-## Content / assets
+## Open
 
-| Issue | Impact | Mitigation |
-|-------|--------|------------|
-| `assets/cv/vicent-manila-cv.pdf` missing on disk | CV buttons 404 | Add PDF or update path |
-| Root `README.md` still describes ThemeWagon Folio / Alpine | Confusing for newcomers | Use `documentation/README.md` as entry; replace root README |
-| `includes/partials/` empty | Noise | Safe to ignore or delete |
+### `executive.css` still ships (87KB)
+Accreted override layers predating the redesign, heavy with `!important`. `design-system.css` loads afterwards and wins, but the legacy sheet keeps causing surprises. Two it has already caused, both now neutralised and commented:
 
----
+- `pointer-events: none` on `.site-header` made the **entire navbar unclickable** after the header rebuild removed the pill child that used to re-enable pointers.
+- `visibility` in the drawer transition made the drawer briefly unfocusable, stranding keyboard focus behind the open menu.
 
-## SEO gaps
+**When something behaves oddly, check whether `executive.css` has an opinion about it.**
 
-- `robots.txt` / `sitemap.xml` exist but still use `example.com` placeholders
-- Limited Open Graph / Twitter cards across pages
-- No canonical URLs
-- Project detail URLs use query strings (`?slug=`) — decide crawl strategy
+### `lucide@latest` is unpinned
+An upstream release ships straight to production. Pin the version.
 
----
+### Appendix PDFs are ~29MB in git history
+Permanent once merged. Fine for a portfolio; worth revisiting if the repository is cloned often.
 
-## Tooling
+### Content pending verification
+Several published metrics rest on Vicent's own CV rather than third-party documentation, and some dates conflict between sources. Tracked in [`CONTENT_NEEDS_VERIFICATION.md`](./CONTENT_NEEDS_VERIFICATION.md).
 
-- No `package.json` / lint / test scripts
-- Tailwind & Lucide loaded from CDN — require network; pin Lucide version for production stability (`@latest` can change)
+### Screen readers untested manually
+Accessibility work has been programmatic — roles, ARIA state, focus order, measured contrast. No NVDA/JAWS/VoiceOver pass.
 
 ---
 
-## UX considerations
+## Resolved
 
-- Gallery filter row may scroll horizontally on small phones (intentional)
-- Testimonials autoplay pauses on hover but not always on touch focus (swipe supported)
-- Speaking page not in primary header nav (footer only)
-
----
-
-## Browser considerations
-
-- `100dvh` unsupported on very old browsers — `100vh` fallback present
-- `backdrop-filter` varies by browser; solid navy overlays remain readable
-- Safari address-bar resizing: prefer `dvh` panels (already used for nav/lightbox)
-
----
-
-## Technical debt
-
-- Footer nav links duplicated vs `VM.site.nav` (manual sync)
-- Tailwind config duplicated in every HTML head
-- No automated visual regression tests
+| Issue | Resolution |
+|---|---|
+| **Desktop navigation hidden at every width** | `.hidden !important` beat non-important `.lg:*` variants. Header rebuilt on semantic classes with one owning media query. |
+| **Entire navbar unclickable** | Inherited `pointer-events: none`. Caught only by hit-testing — synthetic `.click()` bypasses it. |
+| **Header not fixed** | Rebuild dropped the Tailwind `fixed inset-x-0 top-0`; `executive.css` never set `position` itself. |
+| Focus stranded behind open drawer | `visibility` was transitioned; hidden elements reject `.focus()`. |
+| Desktop nav and drawer both active 900–1023px | Three breakpoint definitions disagreed. |
+| Tertiary buttons 32px, filters 41px | Raised to 44px; tertiary underline moved to `::after`. |
+| Duplicate `id="contact"` | Footer injected a second one. |
+| Hash links dead on load | `applyInitialHash`. |
+| `Download CV` 404 sitewide | `assets/cv/` was empty; a redacted CV is now published. |
+| LinkedIn links pointed at a non-existent profile | `/in/vicentmanila` → `/in/vicent-manila`. |
+| PDFs staged as text | `.gitattributes` — CRLF conversion would have corrupted them. |
+| Unverifiable testimonials and media | Removed; see [`CONTENT_VERIFICATION.md`](./CONTENT_VERIFICATION.md). |
