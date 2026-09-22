@@ -96,15 +96,15 @@
       const portrait = img.hero || img.profile || img.contact || '';
 
       return `
-        <footer class="site-footer bg-navy text-white/70 border-t border-white/10">
-          <div class="max-w-8xl mx-auto px-6 py-8 flex flex-col lg:flex-row lg:items-start justify-between gap-8">
+        <footer class="site-footer">
+          <div class="vm-footer__inner">
             <div class="max-w-sm">
               <a href="index.html" class="brand-lockup brand-lockup--footer mb-3" aria-label="${esc(s.name)} — Home">
                 <img src="${esc(logo)}" alt="${esc(s.name)} logo" class="brand-logo brand-logo--footer" width="1254" height="1254" loading="lazy" decoding="async">
               </a>
               <p class="font-semibold text-white text-sm mb-1">${esc(s.name)}</p>
-              <p class="text-xs text-gold/90 font-medium mb-3">${esc(s.brandLine || 'Leadership • Strategy • Partnerships')}</p>
-              <p class="text-sm text-white/45 leading-relaxed">International business development leader building partnerships and empowering youth across Africa.</p>
+              <p class="vm-footer__brandline">${esc(s.brandLine || 'Consulting • Research & Evaluation • Partnerships')}</p>
+              <p class="vm-footer__summary">Management consultant working across strategy, research and evaluation, partnerships and organizational leadership.</p>
             </div>
             <nav class="footer-nav" aria-label="Footer navigation">
               <h3 class="footer-nav__label">Navigation</h3>
@@ -119,8 +119,8 @@
               </ul>
             </nav>
           </div>
-          <div class="max-w-8xl mx-auto px-6 pb-8 text-center sm:text-left text-xs text-white/40">
-            <p>&copy; ${year} ${esc(s.name)}. All rights reserved.${typeof VM.version === 'string' ? ` <span class="text-white/25">v${esc(VM.version)}</span>` : ''}</p>
+          <div class="vm-footer__bottom">
+            <p>&copy; ${year} ${esc(s.name)}. All rights reserved.${typeof VM.version === 'string' ? ` <span class="vm-footer__version">v${esc(VM.version)}</span>` : ''}</p>
           </div>
         </footer>
         <button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top" hidden>
