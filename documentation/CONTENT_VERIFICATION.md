@@ -132,7 +132,7 @@ Current external resources:
 - **Full Shangwe Blog — 14 Apr 2025:** “Barrick Yadhamini Kongamano la Wanafunzi Vyuo Vikuu Lililofanyika Chuo Kikuu Dodoma.” The article identifies Vicent Manila as AIESEC Tanzania's executive leader and covers Barrick's sponsorship of the university-student conference at UDOM.
 - **Career Fair — Mzumbe University:** owner-supplied Instagram event post URL.
 
-These links are also attached to the Tanzania national-partnerships case study as supporting public evidence.
+These links are also attached to the Tanzania national-partnerships case study as supporting public evidence and are featured visually on the homepage using existing portfolio photography.
 
 Future articles, newsletters, interviews or external resources may be added only when they have a real title, a known source/publisher and a public URL. External links open in a new tab with `rel="noopener noreferrer"` and a visible external-link affordance.
 
