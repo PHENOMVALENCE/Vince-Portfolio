@@ -1,6 +1,6 @@
 # Architecture
 
-**Status:** current as of v5.0.4
+**Status:** current as of v5.4.0
 
 A static, data-driven site. No build step, no framework, no runtime dependencies beyond a font stylesheet and an icon script.
 
@@ -98,3 +98,11 @@ The runtime Tailwind CDN was removed: it shipped the full engine and compiled cl
 Static hosting; currently Vercel. `sitemap.xml` and `robots.txt` are maintained by hand — add new routes to both.
 
 Asset URLs carry a `?v=` query bumped on release so returning visitors do not get stale CSS or JS.
+
+## 9. Quality gate
+
+`scripts/validate-site.mjs` is the repository-level static validator. It checks page shells, viewport metadata, JavaScript syntax, cache-version consistency, required responsive CSS invariants and common local asset references.
+
+`.github/workflows/quality.yml` runs this validator on pull-request open/synchronize/reopen and on pushes to `main`.
+
+Manual visual QA remains required for layout changes; see `MOBILE_QA.md`.
