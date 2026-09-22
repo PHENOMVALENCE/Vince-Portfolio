@@ -4,6 +4,34 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.4.0 — Whole-site responsive and repository revision — 2026-09-22
+
+### Responsive system
+- Added authoritative mobile hardening for every public route from 320px upward.
+- Added safe wrapping for long headings, evidence links and publication titles.
+- Stacked hero/contact actions on narrow phones and normalized mobile filter grids.
+- Improved mobile chronology, metrics, publication cards, event metadata, appendix actions and footer navigation.
+- Added safe-area handling for fixed navigation and mobile drawers.
+
+### Case studies
+- Replaced utility-only case-study wrappers with shared semantic containers.
+- Changed the mobile case-study hero from an image overlay to an image + content document flow.
+- Added explicit responsive related-project grids.
+- Hardened project gallery, outcomes and lightbox behaviour for phones.
+
+### Shared layout
+- Updated footer messaging to match the current management-consulting positioning.
+- Rebuilt footer layout around semantic responsive classes and 44px navigation targets.
+
+### Engineering
+- Added `scripts/validate-site.mjs` for static, version and responsive-invariant validation.
+- Added `.github/workflows/quality.yml` to run validation when PRs are opened, synchronized or reopened and on pushes to `main`.
+- Added a route-by-route mobile QA matrix and engineering workflow documentation.
+- Updated contribution, page and responsive documentation.
+- Bumped cache/version references to 5.4.0.
+
+---
+
 ## 5.3.0 — Homepage external resources — 2026-09-22
 
 - Added the Full Shangwe Barrick/UDOM article and Mzumbe University Career Fair post to the homepage.
