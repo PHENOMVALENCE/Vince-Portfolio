@@ -8,29 +8,45 @@
 |---|---|
 | Unique page titles | yes |
 | Meta descriptions | yes |
-| Canonical links | yes on route shells |
+| Canonical links | yes on all route shells |
+| Open Graph title/description/url/type/image | yes on all route shells |
+| Twitter summary-large-image metadata | yes on all route shells |
 | JSON-LD Person | homepage |
 | Web manifest | yes |
-| robots.txt | yes |
+| robots.txt | yes, linked to production sitemap |
 | sitemap.xml | yes |
-| Open Graph / Twitter | complete on homepage/gallery; partial elsewhere |
 
 The current production base URL is `https://vince-portfolio-xi.vercel.app/`.
 
+## Social metadata
+
+Every route shell publishes:
+
+- `og:title`
+- `og:description`
+- `og:url`
+- `og:type=website`
+- `og:image`
+- `twitter:card=summary_large_image`
+- `twitter:title`
+- `twitter:description`
+- `twitter:image`
+
+The shared social image is `assets/images/Vince/web/og.jpg`.
+
 ## Project detail route
 
-`project.html` updates the document title from the selected case study. The canonical shell remains generic; richer slug-specific canonical/social metadata is a future enhancement.
+`project.html` updates `document.title` after resolving `?slug=`.
+
+The shell-level canonical and social metadata remain generic for the project route because the static HTML head is shared across slugs. Slug-specific canonical/OG rendering would require pre-generated project shells or a server/build step.
 
 ## robots.txt and sitemap
 
-`robots.txt` points crawlers to the production sitemap.
+`robots.txt` points to the production sitemap.
 
-`sitemap.xml` includes:
+`sitemap.xml` lists all top-level public routes and current published case-study slug URLs.
 
-- all top-level public routes,
-- all currently published case-study slug URLs.
-
-When adding/removing a case study, update the sitemap or move to generated sitemap tooling.
+When adding/removing a project, update the sitemap.
 
 ## Structured data
 
@@ -38,15 +54,14 @@ The homepage includes a `Person` JSON-LD record with current role, employer, loc
 
 Do not add unsupported awards, credentials or organization relationships.
 
-## Images
+## Image SEO
 
 - meaningful alt text is required,
-- OG image uses a dedicated local asset,
-- portfolio images should use descriptive alt text tied to visible context,
-- thumbnails are preferred for gallery grids.
+- a dedicated local OG image is used for social previews,
+- gallery grids prefer thumbnails,
+- production image filenames should be descriptive where practical.
 
-## Next SEO improvements
+## Future SEO work
 
-- normalize Open Graph/Twitter metadata across every route,
-- add slug-specific project canonical/OG metadata,
-- self-host fonts if performance warrants it.
+- generate slug-specific project head metadata if a build/pre-render step is ever introduced,
+- consider self-hosting fonts if page-performance measurements justify it.
