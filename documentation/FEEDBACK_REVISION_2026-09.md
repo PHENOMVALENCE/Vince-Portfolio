@@ -61,7 +61,7 @@ This makes professional claims inspectable rather than leaving them as skill lab
 
 ## Responsive and visual changes
 
-- Portrait crops prioritize face and upper torso.
+- Portrait crops prioritize face and upper torso. Primary profile portraits now use a tighter 5:4 frame so wrist accessories such as bracelets or watches remain outside the visible crop.
 - Expertise layout no longer collapses content against the left edge.
 - Resource rows use large, keyboard-focusable targets.
 - Featured event layout collapses cleanly to one column on smaller screens.
