@@ -1,6 +1,6 @@
 # Documentation Index
 
-**Status:** current as of v5.3.0
+**Status:** current as of v5.4.0
 
 ---
 
@@ -28,7 +28,8 @@
 |---|---|
 | [NAVIGATION.md](./NAVIGATION.md) | Navbar, breakpoint, drawer and focus behavior |
 | [PAGE_DOCUMENTATION.md](./PAGE_DOCUMENTATION.md) | Every route and its sections |
-| [RESPONSIVE_GUIDE.md](./RESPONSIVE_GUIDE.md) | Breakpoints, touch targets and overflow checks |
+| [RESPONSIVE_GUIDE.md](./RESPONSIVE_GUIDE.md) | Breakpoints, shared responsive behaviour and overflow rules |
+| [MOBILE_QA.md](./MOBILE_QA.md) | Route-by-route mobile regression matrix |
 | [ACCESSIBILITY.md](./ACCESSIBILITY.md) | Accessibility requirements |
 | [PERFORMANCE.md](./PERFORMANCE.md) | Performance decisions |
 | [TECHNOLOGY_STACK.md](./TECHNOLOGY_STACK.md) | Dependencies |
@@ -54,7 +55,8 @@ These files are required reading before adding professional claims.
 | [SECURITY.md](./SECURITY.md) | Surface area |
 | [VERSIONING.md](./VERSIONING.md) | Asset cache-busting |
 | [CHANGELOG.md](./CHANGELOG.md) | Release history |
-| [CONTRIBUTING.md](./CONTRIBUTING.md) | Conventions |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | Contribution conventions |
+| [ENGINEERING_WORKFLOW.md](./ENGINEERING_WORKFLOW.md) | Branching, small commits, CI, PR and release workflow |
 | [FEATURES.md](./FEATURES.md) | Feature inventory |
 | [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md) | Purpose and audience |
 | [IMAGE_ASSETS.md](./IMAGE_ASSETS.md) | Photography inventory |
