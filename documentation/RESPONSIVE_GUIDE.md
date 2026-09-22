@@ -15,8 +15,9 @@ Every public route is covered by the responsive browser smoke suite at:
 - 430 × 932
 - 768 × 1024
 - 900 × 900
+- 1280 × 800
 
-Manual visual review should also include 360, 390, 1024, 1280, 1440 and 1920 widths.
+Manual visual review should also include 360, 390, 1024, 1440 and 1920 widths.
 
 The acceptance floor is simple: **no horizontal page overflow at any supported width**.
 
