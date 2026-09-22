@@ -300,6 +300,17 @@ body {
 
 .vm-img--portrait-exec { aspect-ratio: 1 / 1; }
 .vm-img--portrait-ed   { aspect-ratio: 1 / 1; }
+
+/* Tight editorial crop for primary profile portraits.
+   Keeps focus on the face and upper torso while excluding wrists, watches
+   and bracelets from the visible frame. Source photography remains intact. */
+.vm-img--portrait-tight {
+  aspect-ratio: 5 / 4;
+}
+.vm-img--portrait-tight .vm-img,
+.vm-img-frame.vm-img--portrait-tight > .vm-img {
+  object-position: 50% 8% !important;
+}
 .vm-img--case-hero     { aspect-ratio: 3 / 2; }
 .vm-img--event         { aspect-ratio: 4 / 3; }
 
