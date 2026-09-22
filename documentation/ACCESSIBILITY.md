@@ -1,6 +1,6 @@
 # Accessibility
 
-**Target:** WCAG 2.2 AA · **Status:** current as of v5.0.4
+**Target:** WCAG 2.2 AA · **Status:** current as of v5.4.0
 
 ---
 
@@ -78,7 +78,7 @@ document.elementFromPoint(r.left + r.width/2, r.top + r.height/2);
 
 ## 4. Targets
 
-All interactive elements meet 44×44px. See `RESPONSIVE_GUIDE.md` §4 for the two components that needed deliberate handling.
+Interactive controls are designed for a 44×44px minimum target. Mobile CTA groups, filters, appendix actions and footer links are explicitly hardened in the responsive layer. See `RESPONSIVE_GUIDE.md` and `MOBILE_QA.md` for verification.
 
 ---
 
