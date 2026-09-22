@@ -4,6 +4,39 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.4.0 — Site-wide responsive and repository revision — 2026-09-22
+
+### Responsive system
+- Added an authoritative site-wide responsive hardening layer in `design-system.css`.
+- Added page-specific mobile contracts for Home, Leadership, Selected Work, Project Detail, Gallery, Speaking and Appendix.
+- Hardened 320px behavior, tablet layouts, safe-area handling and dynamic viewport lightboxes.
+- Added horizontal mobile filter rails and full-width grouped CTAs on narrow phones.
+- Standardized desktop navigation links to 44px interaction targets.
+
+### Mobile navigation
+- Added explicit fixed-body scroll locking and restoration.
+- Added orientation and `visualViewport` synchronization.
+- Kept the single 900px navigation breakpoint.
+
+### Repository engineering
+- Added `scripts/validate-site.mjs` for route, asset, syntax and version validation.
+- Added Playwright responsive smoke tests across all seven public routes at five representative viewport sizes.
+- Added PR CI triggered on opened, synchronize, reopened and ready-for-review events.
+- Modernized the tagged release workflow.
+- Pinned Lucide to version 0.468.0.
+
+### Documentation
+- Added `AGENTS.md`, `SITE_REVISION_2026-09.md` and `MOBILE_QA_MATRIX.md`.
+- Rebuilt architecture, responsive, technology, page, accessibility, performance, maintenance, deployment and contributor documentation.
+- Reconciled stale project/SEO/security/feature/image documentation.
+- Updated `robots.txt` to point to the production sitemap.
+
+### Content polish
+- Aligned the shared footer with Vicent's current management-consulting positioning.
+- Updated Men's Circle accessibility copy to describe only Vicent Manila's host artwork.
+
+---
+
 ## 5.3.0 — Homepage external resources — 2026-09-22
 
 - Added the Full Shangwe Barrick/UDOM article and Mzumbe University Career Fair post to the homepage.

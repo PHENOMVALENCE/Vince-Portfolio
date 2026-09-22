@@ -1,7 +1,7 @@
 # Portfolio Feedback Revision — September 2026
 
-**Release:** v5.3.0  
-**Current follow-up branch:** `portrait-crop-refinement`  
+**Release:** v5.4.0  
+**Current follow-up branch:** `site-wide-responsive-revision`  
 **Date:** 2026-09-22
 
 This revision converts the September feedback into a concrete implementation plan and records how each item was handled.
@@ -65,6 +65,7 @@ This makes professional claims inspectable rather than leaving them as skill lab
 - Expertise layout no longer collapses content against the left edge.
 - Resource rows use large, keyboard-focusable targets.
 - Featured event layout collapses cleanly to one column on smaller screens.
+- Every public route now has an explicit responsive contract from 320px through desktop, backed by automated browser smoke tests.
 - No existing source portrait is destructively edited.
 
 ---
@@ -104,3 +105,22 @@ Before merging:
 - The Vicent Manila Men's Circle host artwork resolves from the structured event directory.
 - The public CV resolves from `assets/cv/vicent-manila-cv.pdf`.
 - The public CV opens successfully.
+
+
+---
+
+## v5.4 follow-up
+
+The original feedback implementation is now wrapped by a site-wide responsive and repository-quality pass.
+
+Additional acceptance coverage includes:
+
+- 320 / 375 / 430 / 768 / 900 browser smoke widths,
+- all seven public routes,
+- horizontal overflow detection,
+- navigation-mode verification,
+- 44px interactive target checks,
+- JavaScript syntax checks,
+- local asset and cache-version validation.
+
+See [SITE_REVISION_2026-09.md](./SITE_REVISION_2026-09.md) and [MOBILE_QA_MATRIX.md](./MOBILE_QA_MATRIX.md).

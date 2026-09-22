@@ -1,6 +1,6 @@
 /* ============================================================================
    Vicent Manila — Design System
-   Implements DESIGN.md. Loaded BEFORE executive.css.
+   Implements DESIGN.md. Loaded AFTER executive.css and utilities.css.
 
    Every value here is semantic. Components must never use raw hex.
    ========================================================================== */
