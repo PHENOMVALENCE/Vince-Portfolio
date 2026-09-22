@@ -323,6 +323,8 @@
           { label: 'AIESEC in Tanzania Annual Report 2024/25', href: 'assets/documents/aiesec-tanzania-annual-report-2024-25.pdf', type: 'Annual Report' },
           { label: 'Barrick Gold Programmes Partnership Proposal', href: 'assets/documents/barrick-gold-partnership-proposal.pdf', type: 'Partnership Proposal' },
           { label: 'Career Fair 2025 Programme Overview', href: 'assets/documents/career-fair-2025-overview.pdf', type: 'Programme Overview' },
+          { label: 'Barrick Sponsors University Students Conference at UDOM', href: 'https://fullshangweblog.co.tz/2025/04/14/barrick-yadhamini-kongamano-la-wanafunzi-vyuo-vikuu-lililofanyika-chuo-kikuu-dodoma/', type: 'External Article' },
+          { label: 'Career Fair — Mzumbe University', href: 'https://www.instagram.com/p/DJhe5fEigiy/?img_index=3&stkn=a3Y5bTdqZmY4Nm0z', type: 'Instagram Post' },
         ],
         gallery: [
           { src: 'assets/images/Vince/web/6.jpg', alt: 'Speaking at a national partnership event', position: 'top' },
@@ -595,17 +597,29 @@
       role: 'Host',
       organization: 'AIESEC Alumni Tanzania · 21.25 Cluster',
       summary: 'A moderated conversation on men, purpose and leadership featuring Ram Hadji and Elizabeth Feria.',
-      image: 'assets/images/Vince/web/gallery/mens-circle-2026.jpg',
+      image: 'assets/images/Vince/web/events/mens-circle-2026/mens-circle-main.jpg',
       url: 'https://themenscircle.rsvpify.com',
       linkLabel: 'View event page',
     },
 
     /**
-     * External articles, newsletters and interviews can be added here only
-     * when a working public URL has been verified. The UI renders this list
-     * conditionally so the site never publishes placeholder links.
+     * External articles, newsletters and interviews. Only publish owner-supplied
+     * or verified public URLs; never use placeholders.
      */
-    externalResources: [],
+    externalResources: [
+      {
+        title: 'Barrick Yadhamini Kongamano la Wanafunzi Vyuo Vikuu Lililofanyika Chuo Kikuu Dodoma',
+        source: 'Full Shangwe Blog · 14 Apr 2025',
+        type: 'Article',
+        url: 'https://fullshangweblog.co.tz/2025/04/14/barrick-yadhamini-kongamano-la-wanafunzi-vyuo-vikuu-lililofanyika-chuo-kikuu-dodoma/',
+      },
+      {
+        title: 'Career Fair — Mzumbe University',
+        source: 'Instagram',
+        type: 'Event Post',
+        url: 'https://www.instagram.com/p/DJhe5fEigiy/?img_index=3&stkn=a3Y5bTdqZmY4Nm0z',
+      },
+    ],
 
   };
 

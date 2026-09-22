@@ -121,11 +121,11 @@
               <p class="vm-caption vm-hero__location">${esc(d.hero.location)}</p>
             </div>
             <figure class="vm-hero__portrait">
-              <div class="vm-img-frame vm-img--portrait-exec vm-img-frame--shadow">
+              <div class="vm-img-frame vm-img--portrait-exec vm-img--portrait-tight vm-img-frame--shadow">
                 <img class="vm-img" src="${esc(img.hero)}"
                      alt="Vicent Manila, management consultant, Dar es Salaam"
                      width="900" height="1125" fetchpriority="high" decoding="async"
-                     style="object-position:50% 12%">
+                     style="object-position:50% 8%">
               </div>
             </figure>
           </div>
@@ -188,11 +188,11 @@
               </dl>
             </div>
             <figure class="vm-profile__figure">
-              <div class="vm-img-frame vm-img--portrait-ed">
+              <div class="vm-img-frame vm-img--portrait-ed vm-img--portrait-tight">
                 <img class="vm-img" src="${esc(img.profile)}"
                      alt="Vicent Manila at a national leadership engagement"
                      width="800" height="1066" loading="lazy" decoding="async"
-                     style="object-position:50% 12%">
+                     style="object-position:50% 8%">
               </div>
             </figure>
           </div>

@@ -4,6 +4,43 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.2.1 — External evidence links — 2026-09-22
+
+- Added the Full Shangwe article covering Barrick's sponsorship of the AIESEC university-student conference at UDOM.
+- Added the owner-supplied Mzumbe University Career Fair Instagram post.
+- Linked both resources from the Tanzania national-partnerships case study.
+- Published both in the external resources section.
+- Updated content-verification records and bumped static asset cache identifiers to 5.2.1.
+
+---
+
+## 5.2.0 — Final asset integration — 2026-09-22
+
+### Assets
+- Replaced the generated web CV with the owner-supplied September 2026 consultant CV at the stable public path.
+- Added the complete Men's Circle campaign artwork set under a descriptive event directory.
+- Removed the superseded single Men's Circle gallery image.
+
+### Portfolio integration
+- Updated the featured Speaking event to use the final lineup artwork.
+- Added the lineup, host, Ram Hadji, Elizabeth Feria and cover artwork to the Gallery archive.
+- Preserved the stable CV URL used by download actions and case-study evidence links.
+
+### Maintenance
+- Documented the event asset structure and current public CV behavior.
+- Bumped static asset cache identifiers to 5.2.0.
+
+---
+
+## 5.1.1 — Portrait crop refinement — 2026-09-22
+
+- Tightened the two primary profile portraits to a head-and-upper-torso crop.
+- Removed visible wrist accessories, including bracelets or watches, from the primary portrait framing without modifying the source photography.
+- Kept the crop responsive and consistent across desktop and mobile.
+- Bumped static asset cache identifiers to 5.1.1.
+
+---
+
 ## 5.1.0 — Portfolio feedback revision — 2026-09-22
 
 ### Content

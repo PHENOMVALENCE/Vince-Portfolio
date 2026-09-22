@@ -3,7 +3,7 @@
 > **Documentation has moved.** Start here: **[documentation/README.md](./documentation/README.md)**  
 > Full index: **[documentation/DOCUMENTATION_INDEX.md](./documentation/DOCUMENTATION_INDEX.md)**
 
-**Current version:** `5.1.0` (`VM.version` in `assets/js/config.js`)
+**Current version:** `5.2.1` (`VM.version` in `assets/js/config.js`)
 
 ---
 
