@@ -120,7 +120,7 @@ Owner-supplied event artwork verifies:
 - Guests shown in the event artwork: **Ram Hadji** and **Elizabeth Feria**
 - Public RSVP page shown on the artwork: **themenscircle.rsvpify.com**
 
-The event is now included on the Speaking page and in the speaking gallery.
+The event is included on the Speaking page and in the speaking gallery. The final owner-supplied campaign set is stored under `assets/images/Vince/web/events/mens-circle-2026/`, including the lineup, host, guest and cover artwork.
 
 ---
 
@@ -140,21 +140,17 @@ External links open in a new tab with `rel="noopener noreferrer"` and a visible 
 
 ## 9. Public CV asset
 
-`assets/cv/vicent-manila-cv.pdf` is a concise public web presentation derived from the updated consultant CV. It is **not** a byte-for-byte copy of the supplied document.
+`assets/cv/vicent-manila-cv.pdf` now contains the **owner-supplied September 2026 consultant CV** that was added to the repository and intentionally selected for public portfolio use.
 
-It preserves the career, education, training and capability facts used on the site while omitting nonessential personal/certification fields and condensing layout for web distribution. No new professional claim is added by the public version.
+The public URL remains stable so the header/footer download action and case-study evidence links do not break when the source CV is refreshed.
 
 ---
 
 ## 10. Privacy and third-party data
 
-The site does not publish:
+The site UI does not duplicate referee phone numbers or other third-party private contact details into HTML, JavaScript data or structured metadata.
 
-- referee phone numbers,
-- third-party private contact details,
-- unnecessary personal demographic fields.
-
-Contact routes for Vicent are intentionally exposed through the site UI rather than duplicated into structured data.
+The downloadable CV is an owner-supplied public asset. Any future CV replacement should be reviewed before publication because the portfolio intentionally serves that file directly.
 
 ---
 

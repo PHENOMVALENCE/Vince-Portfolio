@@ -43,14 +43,6 @@ No testimonial is published without exact wording, attribution and approval.
 
 ---
 
-## 4. Optional event archive expansion
-
-The Men's Circle is verified from the supplied event artwork and has been added.
-
-If the portfolio should also preserve additional event materials, supply the preferred full-resolution artwork, recap link, recording or post-event article. The site currently uses a web-optimized event image.
-
----
-
 ## Resolved by the September 2026 CV
 
 The following are no longer open questions:

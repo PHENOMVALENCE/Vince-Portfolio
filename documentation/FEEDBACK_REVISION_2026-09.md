@@ -1,7 +1,7 @@
 # Portfolio Feedback Revision — September 2026
 
-**Release:** v5.1.0  
-**Branch:** `portfolio-feedback-revision`  
+**Release:** v5.2.0  
+**Current follow-up branch:** `portrait-crop-refinement`  
 **Date:** 2026-09-22
 
 This revision converts the September feedback into a concrete implementation plan and records how each item was handled.
@@ -20,7 +20,7 @@ This revision converts the September feedback into a concrete implementation pla
 | Expertise content is squeezed to the left on mobile | The expertise grid now explicitly places title and body content in a usable second column on small screens, with a three-column editorial layout on desktop. |
 | Add external links for articles/newsletters | A reusable external-resource renderer was added. It only renders verified URLs and uses safe external-link attributes. |
 | Add the latest event | **The Men's Circle**, 17 Sep 2026, is featured on Speaking and added to the speaking gallery. |
-| Use the updated CV | Career content, education, training, languages and current assignment now follow the consultant CV dated 04/09/2026. A public web CV derived from it replaces the previous site asset. |
+| Use the updated CV | Career content, education, training, languages and current assignment follow the consultant CV dated 04/09/2026. The owner-supplied consultant CV is now served directly from the stable public CV path. |
 
 ---
 
@@ -71,10 +71,14 @@ This makes professional claims inspectable rather than leaving them as skill lab
 
 ## New and updated assets
 
-- `assets/images/Vince/web/gallery/mens-circle-2026.jpg`
-- `assets/cv/vicent-manila-cv.pdf`
+- `assets/cv/vicent-manila-cv.pdf` — final owner-supplied consultant CV
+- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-main.jpg`
+- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-vicent-manila-host.jpg`
+- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-ram-hadji.jpg`
+- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-elizabeth-feria.jpg`
+- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-cover.jpg`
 
-The event image is web-optimized. The public CV is a concise web presentation derived from the supplied updated consultant CV.
+The WhatsApp filenames from the source upload are not used in production. The artwork was mapped into descriptive event paths and linked from Speaking and Gallery.
 
 ---
 
@@ -101,5 +105,6 @@ Before merging:
 - Desktop and mobile navigation remain functional.
 - Case-study filters only expose categories with cases.
 - External links use safe new-tab attributes.
-- The Men's Circle event image and link resolve.
+- The full Men's Circle artwork set resolves from the structured event directory.
+- The public CV resolves from `assets/cv/vicent-manila-cv.pdf`.
 - The public CV opens successfully.

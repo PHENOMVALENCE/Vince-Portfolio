@@ -1,6 +1,6 @@
 ﻿# Image Assets
 
-**Version:** 1.2.0
+**Version:** 5.2.0
 
 ---
 
@@ -34,6 +34,7 @@ Central path map: `VM.images` in `assets/js/config.js`.
 | `assets/images/Vince/` | Source portraits |
 | `assets/images/Vince/web/` | Optimized portraits for hero, about, speaking, OG |
 | `assets/images/Vince/web/gallery/` | Optimized event/team images for projects & media |
+| `assets/images/Vince/web/events/mens-circle-2026/` | Final Men's Circle campaign artwork used by Speaking and Gallery |
 | `assets/images/Vince/gallery/` | Full gallery sources referenced by `gallery-data.js` |
 | `assets/images/Vince/gallery/thumbs/` | Lightweight thumbs for gallery grid |
 
@@ -77,7 +78,7 @@ Always verify faces remain visible after cropping in 16:10 cards and wide heroes
 ## Optimization practice
 
 1. Export web JPEG quality ~70–85%.
-2. Place site-facing files in `Vince/web/` or `Vince/web/gallery/`.
+2. Place site-facing files in `Vince/web/`, `Vince/web/gallery/`, or a named event folder under `Vince/web/events/`.
 3. Update `config.js`, `data.js`, or `gallery-data.js` paths.
 4. Provide thumbs for gallery grid when adding images.
 5. Use `loading="lazy"` below the fold; heroes use `fetchpriority="high"` where set.
@@ -86,5 +87,6 @@ Always verify faces remain visible after cropping in 16:10 cards and wide heroes
 
 ## CV asset
 
-Path: `assets/cv/vicent-manila-cv.pdf`  
-Ensure the file exists before production launch; the directory may be empty in a fresh clone.
+Public path: `assets/cv/vicent-manila-cv.pdf`  
+
+The file at this stable path is the owner-supplied September 2026 consultant CV. Keep this public path stable when replacing the CV so navigation, case-study evidence links and download CTAs do not break.

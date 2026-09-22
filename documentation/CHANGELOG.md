@@ -4,6 +4,24 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.2.0 — Final asset integration — 2026-09-22
+
+### Assets
+- Replaced the generated web CV with the owner-supplied September 2026 consultant CV at the stable public path.
+- Added the complete Men's Circle campaign artwork set under a descriptive event directory.
+- Removed the superseded single Men's Circle gallery image.
+
+### Portfolio integration
+- Updated the featured Speaking event to use the final lineup artwork.
+- Added the lineup, host, Ram Hadji, Elizabeth Feria and cover artwork to the Gallery archive.
+- Preserved the stable CV URL used by download actions and case-study evidence links.
+
+### Maintenance
+- Documented the event asset structure and current public CV behavior.
+- Bumped static asset cache identifiers to 5.2.0.
+
+---
+
 ## 5.1.1 — Portrait crop refinement — 2026-09-22
 
 - Tightened the two primary profile portraits to a head-and-upper-torso crop.
