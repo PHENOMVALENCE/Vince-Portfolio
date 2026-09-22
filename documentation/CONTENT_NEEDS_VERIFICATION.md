@@ -7,18 +7,18 @@ This file now contains only items that remain genuinely unresolved after the upd
 
 ---
 
-## 1. External articles and newsletters
+## 1. Additional newsletters or media links
 
-The feedback asks for external links to articles and newsletters. The rendering pattern is implemented, but no article/newsletter URLs were supplied with this revision.
+Two external public resources have now been supplied and linked: the Full Shangwe Barrick/UDOM article and the Mzumbe Career Fair Instagram post.
 
-**Needed for each item:**
+Additional newsletters, interviews or articles still require:
 
 - title,
 - publisher/source,
 - public URL,
 - optional publication date and short description.
 
-Nothing is published until a working URL is available.
+Nothing else is published until a real URL is supplied or verified.
 
 ---
 
