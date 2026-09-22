@@ -117,10 +117,9 @@ Owner-supplied event artwork verifies:
 - Format: **Virtual**
 - Date/time: **17 Sep 2026, 7 PM EAT**
 - Host: **Vicent Manila**
-- Guests shown in the event artwork: **Ram Hadji** and **Elizabeth Feria**
 - Public RSVP page shown on the artwork: **themenscircle.rsvpify.com**
 
-The event is included on the Speaking page and in the speaking gallery. The final owner-supplied campaign set is stored under `assets/images/Vince/web/events/mens-circle-2026/`, including the lineup, host, guest and cover artwork.
+The event is included on the Speaking page and in the speaking gallery using only Vicent Manila's host artwork. Other Men's Circle guest/group artwork is intentionally not published in the portfolio.
 
 ---
 
