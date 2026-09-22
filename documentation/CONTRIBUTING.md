@@ -1,101 +1,115 @@
-﻿# Contributing
+# Contributing
 
-**Version:** 1.2.0
+**Status:** current as of v5.4.0
 
-Thank you for contributing to the Vicent Manila portfolio.
-
----
-
-## Table of contents
-
-1. [Ground rules](#ground-rules)
-2. [Branch naming](#branch-naming)
-3. [Commit messages](#commit-messages)
-4. [Coding standards](#coding-standards)
-5. [Responsive testing](#responsive-testing)
-6. [Images](#images)
-7. [Pull requests](#pull-requests)
-8. [Documentation](#documentation)
+Contributions to this portfolio follow evidence-first content rules and mobile-first engineering standards.
 
 ---
 
 ## Ground rules
 
-- Do not redesign desktop without a clear need.
-- Do not remove factual content without approval.
-- Keep navy / gold / white branding.
-- Prefer data-file edits for copy changes.
-- Never commit secrets or private keys.
+- Branch from the latest `main`.
+- Use small, coherent commits.
+- Keep authorship under the owner's configured Git identity.
+- Do not add AI attribution or co-author trailers.
+- Do not publish unsupported professional claims.
+- Do not introduce a framework for a change the existing static stack can handle.
+- Do not merge a PR automatically unless explicitly requested.
+
+See [ENGINEERING_WORKFLOW.md](./ENGINEERING_WORKFLOW.md) for the complete workflow.
 
 ---
 
-## Branch naming
+## Branch names
 
 ```text
 feature/short-description
 fix/issue-description
-chore/tooling-or-docs
 content/update-area
+chore/tooling-or-docs
 ```
-
-Examples: `feature/og-tags`, `fix/mobile-menu-ios`, `content/add-project-gmw`.
 
 ---
 
 ## Commit messages
 
-Use concise, imperative subjects:
+Use concise imperative subjects:
 
 ```text
-fix: prevent project hero clipping on short phones
-feat: add sitemap and robots.txt
-docs: document contact update workflow
-chore(release): v1.2.1
+style: harden responsive layouts across all pages
+fix: prevent project hero clipping on phones
+feat: add external resource section
+ci: validate responsive portfolio on pull requests
+docs: document mobile QA matrix
 ```
 
 ---
 
 ## Coding standards
 
-- Keep JS in IIFE modules on `window.VM`.
-- Escape user-facing dynamic strings with the existing `esc()` helpers.
-- Prefer CSS for motion; respect `prefers-reduced-motion`.
-- Maintain accessible names on icon-only controls.
-- Avoid introducing frameworks unless product direction changes.
+- Keep browser JS in the existing `window.VM` modules.
+- Escape dynamic user-facing strings with the existing `esc()` helpers.
+- Prefer semantic classes over utility-only page structure.
+- Put shared responsive behaviour in `assets/css/design-system.css`.
+- Respect `prefers-reduced-motion`.
+- Maintain visible focus states and accessible names.
+- Keep touch targets at least 44×44px.
+- Use `min-width: 0` and safe wrapping for grid/flex children carrying long text.
 
 ---
 
-## Responsive testing
+## Responsive validation
 
-Before merge, check at least:
+Run:
 
-- 375×667, 390×844, 768×1024, 1280×800
-- One landscape phone width
-- Mobile menu open/close + lightbox
-- No horizontal scrollbar on home, project, gallery, connect
+```bash
+node scripts/validate-site.mjs
+```
+
+Then complete [MOBILE_QA.md](./MOBILE_QA.md).
+
+Minimum manual set:
+
+- 320×568
+- 390×844
+- 768×1024
+- 899px and 900px navigation boundary
+- 1280×800
+- landscape phone
+
+Horizontal overflow at 320px is a release blocker.
 
 ---
 
 ## Images
 
 - Optimize before commit.
-- Update paths in `config.js` / `data.js` / `gallery-data.js`.
-- Provide alt text.
-- Verify `object-position` for portraits.
+- Use descriptive filenames.
+- Keep explicit focal points for cropped photography.
+- Verify portraits at phone and desktop sizes.
+- Add meaningful alt text.
+- Never publish event artwork outside the approved portfolio scope.
 
 ---
 
 ## Pull requests
 
-PR description should include:
+A UI PR should include:
 
-- Summary of change
-- Screenshots for UI work
-- Test plan checklist
-- Docs updates (if behaviour changed)
+- summary,
+- affected routes,
+- responsive changes,
+- accessibility considerations,
+- validation results,
+- documentation changes,
+- release/cache version.
+
+CI runs automatically on PR open, synchronize and reopen.
 
 ---
 
 ## Documentation
 
-Update the relevant file under `/documentation` in the same PR. Bump [CHANGELOG.md](./CHANGELOG.md) for user-visible changes.
+Update the relevant file under `documentation/` in the same PR as the behaviour change.
+
+User-visible changes require a `CHANGELOG.md` entry.
