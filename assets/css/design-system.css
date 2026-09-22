@@ -298,8 +298,8 @@ body {
 .vm-img-frame { position: relative; overflow: hidden; background: var(--vm-canvas-subtle); }
 .vm-img-frame--shadow { box-shadow: var(--vm-shadow-image); }
 
-.vm-img--portrait-exec { aspect-ratio: 4 / 5; }
-.vm-img--portrait-ed   { aspect-ratio: 3 / 4; }
+.vm-img--portrait-exec { aspect-ratio: 1 / 1; }
+.vm-img--portrait-ed   { aspect-ratio: 1 / 1; }
 .vm-img--case-hero     { aspect-ratio: 3 / 2; }
 .vm-img--event         { aspect-ratio: 4 / 3; }
 
@@ -311,13 +311,28 @@ body {
 
 .vm-index__item {
   display: grid;
-  grid-template-columns: 3.5rem 1fr;
-  gap: var(--vm-gutter);
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 0.65rem var(--vm-gutter);
   padding-block: 2rem;
   border-bottom: 1px solid var(--vm-border);
 }
+.vm-index__title {
+  grid-column: 2;
+  min-width: 0;
+}
+.vm-index__content,
+.vm-index__item > div {
+  grid-column: 2;
+  min-width: 0;
+}
 @media (min-width: 900px) {
-  .vm-index__item { grid-template-columns: 4rem minmax(0, 22rem) 1fr; align-items: start; }
+  .vm-index__item {
+    grid-template-columns: 4rem minmax(0, 22rem) minmax(0, 1fr);
+    align-items: start;
+  }
+  .vm-index__title { grid-column: 2; }
+  .vm-index__content,
+  .vm-index__item > div { grid-column: 3; }
 }
 
 .vm-index__num {
@@ -616,6 +631,123 @@ img, svg, video { max-width: 100%; }
 .vm-philosophy__grid { display: grid; gap: 1.5rem; }
 @media (min-width: 900px) {
   .vm-philosophy__grid { grid-template-columns: 14rem 1fr; align-items: start; gap: clamp(2rem, 5vw, 4rem); }
+}
+
+/* ---- Evidence bridge & resource links ----------------------------------- */
+.vm-evidence-bridge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--vm-border);
+}
+.vm-evidence-bridge p {
+  max-width: 60ch;
+  color: var(--vm-ink-secondary);
+  font-size: var(--vm-body-sm);
+}
+
+.vm-project-resources,
+.vm-resource-list {
+  margin-top: 0.75rem;
+  border-top: 1px solid var(--vm-border);
+}
+.vm-resource-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 56px;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--vm-border);
+  color: var(--vm-ink);
+  text-decoration: none;
+  transition: color var(--vm-transition), border-color var(--vm-transition);
+}
+.vm-resource-link:hover {
+  color: var(--vm-accent-hover);
+  border-bottom-color: var(--vm-border-strong);
+}
+.vm-resource-link span { min-width: 0; }
+.vm-resource-link strong {
+  display: block;
+  font-size: var(--vm-body-sm);
+  font-weight: 600;
+  line-height: 1.35;
+}
+.vm-resource-link small {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--vm-ink-muted);
+  font-size: var(--vm-caption);
+}
+.vm-resource-link svg,
+.vm-inline-external svg { flex: 0 0 auto; }
+
+.vm-inline-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+  color: var(--vm-ink);
+  font-size: var(--vm-body-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--vm-accent);
+  text-underline-offset: 0.25em;
+}
+
+/* ---- Featured speaking event -------------------------------------------- */
+.vm-event-feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+.vm-event-feature__media {
+  width: min(100%, 30rem);
+  aspect-ratio: 4 / 5;
+  justify-self: start;
+  box-shadow: var(--vm-shadow-image);
+}
+.vm-event-feature__body { max-width: 42rem; }
+.vm-event-meta {
+  margin: 2rem 0;
+  border-top: 1px solid var(--vm-border);
+}
+.vm-event-meta > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: var(--vm-gutter);
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--vm-border);
+}
+.vm-event-meta dt {
+  font-size: var(--vm-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vm-ink-muted);
+}
+.vm-event-meta dd {
+  margin: 0;
+  color: var(--vm-ink);
+  font-size: var(--vm-body-sm);
+}
+@media (min-width: 800px) {
+  .vm-event-feature {
+    grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.28fr);
+  }
+  .vm-event-feature__media { justify-self: stretch; }
+}
+@media (max-width: 479px) {
+  .vm-index__item { grid-template-columns: 2.25rem minmax(0, 1fr); }
+  .vm-index__num { padding-top: 0.25rem; }
+  .vm-index__comps { line-height: 1.65; overflow-wrap: anywhere; }
+  .vm-event-meta > div { grid-template-columns: 1fr; gap: 0.2rem; }
 }
 
 /* ---- Geography index ---------------------------------------------------- */
