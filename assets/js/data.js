@@ -612,12 +612,18 @@
         source: 'Full Shangwe Blog · 14 Apr 2025',
         type: 'Article',
         url: 'https://fullshangweblog.co.tz/2025/04/14/barrick-yadhamini-kongamano-la-wanafunzi-vyuo-vikuu-lililofanyika-chuo-kikuu-dodoma/',
+        image: 'assets/images/Vince/web/gallery/event-11.jpg',
+        imageAlt: 'Vicent Manila at a Barrick-supported university engagement',
+        imagePosition: 'center',
       },
       {
         title: 'Career Fair — Mzumbe University',
         source: 'Instagram',
         type: 'Event Post',
         url: 'https://www.instagram.com/p/DJhe5fEigiy/?img_index=3&stkn=a3Y5bTdqZmY4Nm0z',
+        image: 'assets/images/Vince/gallery/16.jpeg',
+        imageAlt: 'Vicent Manila at a university career fair engagement',
+        imagePosition: 'center',
       },
     ],
 
