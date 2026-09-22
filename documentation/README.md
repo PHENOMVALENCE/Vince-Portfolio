@@ -1,6 +1,6 @@
 # Vicent Manila — Portfolio
 
-**Status:** current as of v5.3.0
+**Status:** current as of v5.4.0
 
 An executive editorial portfolio for Vicent Manila, focused on management consulting, research and evaluation, strategic partnerships and organizational leadership.
 
@@ -58,6 +58,7 @@ Before adding anything, record its source in [CONTENT_VERIFICATION.md](./CONTENT
 
 ## Before you commit
 
+- Run `node scripts/validate-site.mjs`.
 - No horizontal overflow at **320px**.
 - Contrast measured against the **rendered surface**.
 - Touch targets **44×44px** minimum.
@@ -75,6 +76,8 @@ Before adding anything, record its source in [CONTENT_VERIFICATION.md](./CONTENT
 | What changed from the September feedback? | [FEEDBACK_REVISION_2026-09.md](./FEEDBACK_REVISION_2026-09.md) |
 | How is this built? | [ARCHITECTURE.md](./ARCHITECTURE.md) |
 | How does the navbar work? | [NAVIGATION.md](./NAVIGATION.md) |
+| How do I test mobile layouts? | [MOBILE_QA.md](./MOBILE_QA.md) |
+| What is the Git/PR workflow? | [ENGINEERING_WORKFLOW.md](./ENGINEERING_WORKFLOW.md) |
 | What are the design rules? | [`../DESIGN.md`](../DESIGN.md) |
 | How is content verified? | [CONTENT_VERIFICATION.md](./CONTENT_VERIFICATION.md) |
 | What still needs source material? | [CONTENT_NEEDS_VERIFICATION.md](./CONTENT_NEEDS_VERIFICATION.md) |
