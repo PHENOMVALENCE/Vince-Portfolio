@@ -1,6 +1,6 @@
 # Vicent Manila — Portfolio
 
-**Status:** current as of v5.4.0
+**Status:** current as of v5.5.0
 
 A static executive portfolio for Vicent Manila. The current product direction emphasizes evidence-backed management consulting, research and evaluation, strategic partnerships and organizational leadership.
 
@@ -43,7 +43,7 @@ npm run test:responsive
    Every public route must pass the responsive matrix in [MOBILE_QA_MATRIX.md](./MOBILE_QA_MATRIX.md).
 
 4. **Small commits, feature branches, PR at the end.**  
-   See [CONTRIBUTING.md](./CONTRIBUTING.md) and [`../AGENTS.md`](../AGENTS.md).
+   See [ENGINEERING_WORKFLOW.md](./ENGINEERING_WORKFLOW.md), [CONTRIBUTING.md](./CONTRIBUTING.md) and [`../AGENTS.md`](../AGENTS.md).
 
 ## Before merge
 
