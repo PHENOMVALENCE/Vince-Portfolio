@@ -126,15 +126,16 @@ The event is included on the Speaking page and in the speaking gallery. The fina
 
 ## 8. External articles, newsletters and media
 
-External content is supported in the data model and UI, but the portfolio does **not** invent or publish placeholder links.
+External content is supported in the data model and UI. The portfolio does **not** invent or publish placeholder links.
 
-An article, newsletter, interview or external resource may be added only when it has:
+Current external resources:
 
-- a real title,
-- a known source/publisher,
-- and a working public URL.
+- **Full Shangwe Blog — 14 Apr 2025:** “Barrick Yadhamini Kongamano la Wanafunzi Vyuo Vikuu Lililofanyika Chuo Kikuu Dodoma.” The article identifies Vicent Manila as AIESEC Tanzania's executive leader and covers Barrick's sponsorship of the university-student conference at UDOM.
+- **Career Fair — Mzumbe University:** owner-supplied Instagram event post URL.
 
-External links open in a new tab with `rel="noopener noreferrer"` and a visible external-link affordance.
+These links are also attached to the Tanzania national-partnerships case study as supporting public evidence.
+
+Future articles, newsletters, interviews or external resources may be added only when they have a real title, a known source/publisher and a public URL. External links open in a new tab with `rel="noopener noreferrer"` and a visible external-link affordance.
 
 ---
 
