@@ -10,7 +10,7 @@ Test at:
 
 `320 · 360 · 375 · 390 · 430 · 768 · 900 · 1024 · 1280 · 1440 · 1920`
 
-For phone QA, prioritize 320, 375 and 430.
+For phone QA, prioritize 320, 375 and 430. Automated CI additionally verifies a 1280px desktop viewport.
 
 ## Global acceptance checks
 
