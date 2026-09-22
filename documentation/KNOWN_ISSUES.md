@@ -1,46 +1,46 @@
 # Known Issues
 
-**Status:** current as of v5.0.4
-
----
+**Status:** current as of v5.4.0
 
 ## Open
 
-### `executive.css` still ships (87KB)
-Accreted override layers predating the redesign, heavy with `!important`. `design-system.css` loads afterwards and wins, but the legacy sheet keeps causing surprises. Two it has already caused, both now neutralised and commented:
+### Legacy `executive.css` still ships
 
-- `pointer-events: none` on `.site-header` made the **entire navbar unclickable** after the header rebuild removed the pill child that used to re-enable pointers.
-- `visibility` in the drawer transition made the drawer briefly unfocusable, stranding keyboard focus behind the open menu.
+The legacy stylesheet contains a large amount of superseded styling and historical `!important` rules. `design-system.css` loads afterwards and is authoritative.
 
-**When something behaves oddly, check whether `executive.css` has an opinion about it.**
+New work must not extend the legacy layer. Retirement should happen through measured extraction and regression testing.
 
-### `lucide@latest` is unpinned
-An upstream release ships straight to production. Pin the version.
+### Large appendix PDFs remain in Git history
 
-### Appendix PDFs are ~29MB in git history
-Permanent once merged. Fine for a portfolio; worth revisiting if the repository is cloned often.
+The evidence PDFs are intentional downloads and do not affect initial page load, but they increase repository clone size.
 
-### Content pending verification
-Several published metrics rest on Vicent's own CV rather than third-party documentation, and some dates conflict between sources. Tracked in [`CONTENT_NEEDS_VERIFICATION.md`](./CONTENT_NEEDS_VERIFICATION.md).
+### Google Fonts remain third-party
 
-### Screen readers untested manually
-Accessibility work has been programmatic — roles, ARIA state, focus order, measured contrast. No NVDA/JAWS/VoiceOver pass.
+Fonts are loaded from Google with `display=swap`. Self-hosting would remove this remaining typography dependency.
 
----
+### Manual screen-reader verification remains outstanding
 
-## Resolved
+Keyboard/focus/ARIA behavior is covered programmatically, but no full NVDA/JAWS/VoiceOver review has been documented.
+
+## Resolved in v5.4.0
 
 | Issue | Resolution |
 |---|---|
-| **Desktop navigation hidden at every width** | `.hidden !important` beat non-important `.lg:*` variants. Header rebuilt on semantic classes with one owning media query. |
-| **Entire navbar unclickable** | Inherited `pointer-events: none`. Caught only by hit-testing — synthetic `.click()` bypasses it. |
-| **Header not fixed** | Rebuild dropped the Tailwind `fixed inset-x-0 top-0`; `executive.css` never set `position` itself. |
-| Focus stranded behind open drawer | `visibility` was transitioned; hidden elements reject `.focus()`. |
-| Desktop nav and drawer both active 900–1023px | Three breakpoint definitions disagreed. |
-| Tertiary buttons 32px, filters 41px | Raised to 44px; tertiary underline moved to `::after`. |
-| Duplicate `id="contact"` | Footer injected a second one. |
-| Hash links dead on load | `applyInitialHash`. |
-| `Download CV` 404 sitewide | `assets/cv/` was empty; a redacted CV is now published. |
-| LinkedIn links pointed at a non-existent profile | `/in/vicentmanila` → `/in/vicent-manila`. |
-| PDFs staged as text | `.gitattributes` — CRLF conversion would have corrupted them. |
-| Unverifiable testimonials and media | Removed; see [`CONTENT_VERIFICATION.md`](./CONTENT_VERIFICATION.md). |
+| Lucide used `@latest` | pinned to 0.468.0 |
+| Mobile body scroll could leak behind drawer | explicit fixed-body scroll lock with restoration |
+| Orientation / dynamic viewport changes could desync mobile header | resize, orientation and `visualViewport` hooks added |
+| Responsive behavior depended heavily on legacy CSS | authoritative site-wide and page-specific contracts added to `design-system.css` |
+| Responsive checks were manual only | Playwright route/viewport smoke suite added |
+| PR validation did not verify page shells/assets | static validator + GitHub Actions CI added |
+
+## Historical resolved issues
+
+- unclickable navbar from inherited `pointer-events: none`,
+- unfixed header,
+- drawer focus timing failure,
+- mismatched 900/1024 navigation breakpoints,
+- undersized filter/tertiary targets,
+- dead first-load hash links,
+- missing CV path,
+- stale LinkedIn URL,
+- unverifiable testimonials/media.

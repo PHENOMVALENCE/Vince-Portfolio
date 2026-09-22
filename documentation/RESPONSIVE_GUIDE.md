@@ -1,97 +1,134 @@
 # Responsive Guide
 
-**Status:** current as of v5.0.4
+**Status:** current for v5.4.0  
+**Mobile floor:** 320px  
+**Navigation breakpoint:** 900px
 
 ---
 
-## 1. Verified breakpoints
+## 1. Viewport matrix
 
-Every page is checked at **320 · 360 · 375 · 390 · 430 · 768 · 900 · 1024 · 1280 · 1440 · 1920**.
+Every public route is covered by the responsive browser smoke suite at:
 
-**No horizontal overflow at any width is a P0 requirement.** 320px is the floor — it is the narrowest viewport in common use, and layouts that survive it survive everything above.
+- 320 × 720
+- 375 × 812
+- 430 × 932
+- 768 × 1024
+- 900 × 900
+- 1280 × 800
 
-Verify with a measurement, not by eye:
+Manual visual review should also include 360, 390, 1024, 1440 and 1920 widths.
+
+The acceptance floor is simple: **no horizontal page overflow at any supported width**.
 
 ```js
-document.documentElement.scrollWidth > document.documentElement.clientWidth  // must be false
+document.documentElement.scrollWidth <= document.documentElement.clientWidth
 ```
 
-To find the offender when it is true:
-
-```js
-const vw = document.documentElement.clientWidth;
-[...document.querySelectorAll('main *')]
-  .filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.right > vw + 1; })
-  .map(e => e.tagName + '.' + e.className);
-```
-
-Ignore matches inside `#nav-drawer` — it is intentionally translated off-canvas and clipped by `overflow-x: clip` on `html, body`.
+The full manual route matrix lives in [MOBILE_QA_MATRIX.md](./MOBILE_QA_MATRIX.md).
 
 ---
 
-## 2. The one navigation breakpoint
+## 2. Breakpoints
 
-**900px.** See `NAVIGATION.md` for the full rationale and the three places that must agree on it.
+The site uses a small set of deliberate breakpoints instead of one breakpoint per component.
 
-| Width | Navigation |
+| Range | Behavior |
 |---|---|
-| `< 900px` | Brand + 44×44 hamburger; drawer slides from the right |
-| `≥ 900px` | Brand + inline links + "Discuss a Partnership" |
+| `< 480px` | small-phone type/spacing, stacked action groups, compact document rows |
+| `480–599px` | phone composition with normal type scale |
+| `600–899px` | tablet composition, mobile navigation still active |
+| `≥ 900px` | desktop navigation and editorial multi-column layouts |
+| `≥ 1024px` | gallery/project grids may expand to three columns |
 
-The brand name is visible at **every** width including 320px, where the lockup and controls leave 95px of slack. An earlier rule hid it below 380px, which covers common devices such as the iPhone SE — that was removed as an unnecessary loss of identity.
-
----
-
-## 3. Component behaviour
-
-| Component | Mobile | Desktop |
-|---|---|---|
-| Hero | Portrait **leads**, then text (`order: -1`) | Two columns, text left |
-| Selected work | Stacked, image first | Two columns, alternating for rhythm |
-| Executive profile | Single column | Text + portrait |
-| Chronology | Period above role | Period on a left rail |
-| Expertise index | Number + title stacked | Number · title · description |
-| Metrics | Stacked, hairline between | Row, hairlines between |
-| Gallery | 1 column | 2 at 640px, 3 at 1024px |
-| Appendix documents | Stacked | Number · body · action |
-| Contact actions | Wrapped buttons | Row beside the heading |
-
-Mobile is **designed, not stacked**. The hero portrait leading on mobile is a deliberate inversion, not a side effect of source order.
+**900px is the only navigation breakpoint.** The drawer and desktop links must never be active at the same time.
 
 ---
 
-## 4. Touch targets
+## 3. Global responsive contract
 
-Everything interactive meets **44×44px**. Verify:
+`design-system.css` owns the authoritative responsive rules and loads after the legacy stylesheet.
 
-```js
-[...document.querySelectorAll('a.vm-btn, button, .vm-nav__link, .vm-filter, .nav-mobile-link')]
-  .filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height < 44; });
+Site-wide protections include:
+
+- `box-sizing: border-box`,
+- `min-width: 0` on grid/flex children,
+- safe-area padding for fixed navigation,
+- `overflow-wrap` on long editorial text,
+- horizontal page clipping,
+- dynamic viewport units for lightboxes,
+- full-width grouped CTAs on narrow phones,
+- horizontally scrollable filter rails on phones,
+- 44px minimum interactive targets.
+
+---
+
+## 4. Route behavior
+
+| Route | Phone | Tablet | Desktop |
+|---|---|---|---|
+| Home | portrait-first; one-column work/publications/profile | selective 2-column image grids | editorial split layouts |
+| Leadership | chronology and footprint stack | wider single-column reading | chronology uses period rail |
+| Projects | filter rail scrolls; case studies stack | stacked features with more breathing room | alternating two-column features |
+| Project detail | hero copy contained; 1-column gallery/impact | gallery may become 2 columns | full editorial case-study layout |
+| Gallery | 1-column masonry and scrollable filters | 2 columns | 3 columns |
+| Speaking | portrait-first; event/meta stack; booking CTAs stack | event may split near 800px | two-column hero/event |
+| Appendix | documents stack; download actions full width | number/body/action flow | 3-column document rows |
+
+---
+
+## 5. Touch targets
+
+Automated browser tests check these selectors for a minimum rendered height of 44px:
+
+```text
+button
+a.vm-btn
+.vm-filter
+.nav-mobile-link
+.vm-nav__link
 ```
 
-Two cases needed deliberate handling:
-
-- **`.vm-btn--tertiary`** is a text link with a gold underline, originally `min-height: 0` to keep the rule tight to the text — a 32px target. It is now padded to 44px with the underline moved to `::after` pinned under the *text*, so the target grows without the rule drifting away from the words.
-- **`.vm-filter`** was 40px plus borders (41px rendered). Raised to a 44px minimum.
+Tertiary links and desktop navigation explicitly carry a 44px minimum even though their visual treatment remains light.
 
 ---
 
-## 5. Fluid sizing
+## 6. Filter behavior
 
-Type and spacing scale with `clamp()` rather than stepping at breakpoints, so there are no awkward intermediate widths:
+Below 600px, project and gallery filters become a horizontal scroll rail. This is intentional: a single-line rail is more usable than a tall wall of wrapped pills and cannot widen the page because the scroll is contained inside the control region.
 
-```css
---vm-display-xl:  clamp(2.75rem, 6vw, 4.5rem);
---vm-page-pad-x:  clamp(1.25rem, 4vw, 4rem);
---vm-section-expansive: clamp(5rem, 10vw, 9rem);
+---
+
+## 7. Dynamic viewport behavior
+
+Mobile navigation and lightboxes use `100dvh` in addition to legacy `vh` fallbacks.
+
+The drawer:
+
+- locks body position while open,
+- retains the original scroll position,
+- restores it on close,
+- responds to resize, orientation change and `visualViewport` resize.
+
+Lightboxes constrain images and controls inside the dynamic viewport, including safe-area insets.
+
+---
+
+## 8. Automated testing
+
+Run:
+
+```bash
+npm install
+node scripts/validate-site.mjs
+npm run test:responsive
 ```
 
-Long headings use `text-wrap: balance`. Prose is capped at `68ch` regardless of viewport — a full-width line on a 1440px screen is unreadable.
+The Playwright suite starts against a local static server in CI and checks all seven routes for:
 
----
+- horizontal overflow,
+- navigation mode at the 900px breakpoint,
+- runtime JavaScript errors,
+- 44px interactive targets.
 
-## 6. Testing note
-
-The development browser pane pauses the animation timeline while hidden, so `requestAnimationFrame` never fires and CSS transitions freeze. Post-scroll screenshots come back blank and the drawer looks stuck.
-
-Prefer DOM measurement over screenshots, and see `NAVIGATION.md` §7 for the transition-neutralising snippet.
+CI is triggered when a pull request is opened, synchronized, reopened or marked ready for review.

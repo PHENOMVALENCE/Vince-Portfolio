@@ -71,7 +71,11 @@
       document.querySelector('#nav-toggle .icon-close')?.classList.remove('hidden');
 
       document.body.classList.add('nav-open');
+      document.body.style.position = 'fixed';
       document.body.style.top = `-${this._navScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
 
       this._navKeyHandler = (e) => this.handleNavKeydown(e);
       document.addEventListener('keydown', this._navKeyHandler);
@@ -110,7 +114,11 @@
       document.querySelector('#nav-toggle .icon-close')?.classList.add('hidden');
 
       document.body.classList.remove('nav-open');
+      document.body.style.position = '';
       document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
       window.scrollTo(0, this._navScrollY || 0);
 
       if (this._navKeyHandler) {
@@ -171,12 +179,15 @@
         this.syncMobileHeaderHeight();
       };
       window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', () => {
+      const syncViewport = () => {
         this.syncMobileHeaderHeight();
         if (window.matchMedia('(min-width: 900px)').matches && this.isNavOpen()) {
           this.closeNav();
         }
-      });
+      };
+      window.addEventListener('resize', syncViewport);
+      window.addEventListener('orientationchange', syncViewport);
+      window.visualViewport?.addEventListener('resize', syncViewport);
       onScroll();
     },
 
@@ -219,7 +230,10 @@
         btn.hidden = !show;
         btn.classList.toggle('is-visible', show);
       }, { passive: true });
-      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      btn.addEventListener('click', () => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      });
     },
 
   };

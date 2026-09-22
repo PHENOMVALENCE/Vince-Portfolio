@@ -104,7 +104,7 @@
               </a>
               <p class="font-semibold text-white text-sm mb-1">${esc(s.name)}</p>
               <p class="text-xs text-gold/90 font-medium mb-3">${esc(s.brandLine || 'Leadership • Strategy • Partnerships')}</p>
-              <p class="text-sm text-white/45 leading-relaxed">International business development leader building partnerships and empowering youth across Africa.</p>
+              <p class="text-sm text-white/45 leading-relaxed">Management consultant working across strategy, research and evaluation, partnerships and organizational leadership.</p>
             </div>
             <nav class="footer-nav" aria-label="Footer navigation">
               <h3 class="footer-nav__label">Navigation</h3>

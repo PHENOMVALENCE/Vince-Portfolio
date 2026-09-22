@@ -1,94 +1,129 @@
 # Pages
 
-**Status:** current as of v5.0.4 · Renderers in `assets/js/pages.js`
+**Status:** current for v5.4.0  
+**Renderer source:** `assets/js/pages.js`
 
-Every route is a shell containing `<head>` metadata plus three mount points. `data-page` on `<body>` selects the renderer.
-
----
-
-## Shared head
-
-Every shell carries: charset, viewport, description, Open Graph (absolute image URL), Twitter card, canonical, favicons, manifest, three stylesheets, then six scripts.
-
-Only `index.html` carries the `Person` structured data. Titles and descriptions are **unique per page** — reusing the homepage title across routes is an SEO defect.
-
-There is no inline theme bootstrap; the site has a single light theme.
+Every public route uses a thin HTML shell and a JavaScript renderer selected by `body[data-page]`.
 
 ---
 
-## `index.html` — `home`
+## Shared shell
 
-The homepage answers, in about ten seconds: who he is, what he does, at what level, what he achieved, and where to go next.
+All shells include:
 
-| Section | Pacing |
-|---|---|
-| Hero — name, headline, summary, CTAs | Expansive |
-| Credibility strip — verifiable role facts | Compact |
-| Selected work — three case studies | Expansive |
-| Executive profile — prose + facts | Standard |
-| Leadership philosophy — pull quote | Standard |
-| Expertise index `01`–`06` | Standard |
-| Selected impact — four metrics | Standard |
-| Career chronology — first four roles | Standard |
-| International footprint + partners | Standard |
-| Photography | Expansive |
-| Contact — email, WhatsApp, call, LinkedIn | Compact, inverse |
+- UTF-8 charset,
+- responsive viewport metadata,
+- unique title and description,
+- canonical URL,
+- theme color,
+- favicons and manifest,
+- pinned Lucide script,
+- versioned CSS and JavaScript assets,
+- skip link,
+- shared header/main/footer mount points.
 
-`#profile`, `#work`, `#expertise`, `#experience` and `#contact` are anchor targets. They work on first load only because of `applyInitialHash`.
+The homepage additionally carries `Person` structured data.
 
 ---
 
-## `leadership.html` — `leadership`
+## Home — `index.html`
 
-Thesis → philosophy → metrics → **full** chronology → footprint → CTA. The homepage shows the first four roles; this page shows all nine.
+Section order:
 
----
+1. Hero
+2. Professional standing
+3. Selected work
+4. Articles & Events / external resources
+5. Executive profile
+6. Leadership philosophy
+7. Areas of expertise
+8. Selected impact
+9. Career chronology preview
+10. International footprint
+11. Visual archive
+12. Contact
 
-## `projects.html` — `projects`
-
-Case-study index with category filters. Filters expose `aria-pressed` and announce results through a polite live region.
-
-`projectFeature` is called with heading level **2** here — there is no intermediate `h2`, so level 3 would skip a level.
-
----
-
-## `project.html` — `project`
-
-Reads `?slug=`, looks up `VM.getProject`, and redirects to the index if the slug is unknown. Sets `document.title` dynamically.
-
-Structure: hero → context/challenge/objectives/role/strategy/execution → results → impact → gallery → related. Section headings are `h2`; the case-study title is the `h1`.
-
-Includes its own lightbox with focus trap and Escape handling.
+Phone behavior is portrait-first, one-column and CTA-friendly. External resource cards collapse to one column.
 
 ---
 
-## `gallery.html` — `gallery`
+## Leadership — `leadership.html`
 
-Masonry archive from `VM.galleryImages` (`gallery-data.js`) — 1 / 2 / 3 columns. Category filters, and a lightbox with focus trap, Escape and focus return.
+Leadership philosophy → impact → full career chronology → international footprint → partnership CTA.
 
-The grid renders `thumb`; `src` (full size) loads only when the lightbox opens. Image titles are `<p>`, not headings — a caption is not a document heading.
-
----
-
-## `speaking.html` — `speaking`
-
-Positioning → topics `01`–`04` → engagements → photography → booking. Booking carries email, WhatsApp, call and CV.
+On phones, chronology periods sit above roles and long organization/outcome text wraps without affecting the page width.
 
 ---
 
-## `appendix.html` — `appendix`
+## Selected Work — `projects.html`
 
-Primary-source evidence. Five published documents, each with page count and **file weight stated on the control**. Then "available on request": signed agreements and audit reports, deliberately not published.
+Case-study index with `aria-pressed` filters and live result count.
 
-Linked from the footer and mobile drawer, not the top bar — that keeps the top level at six items.
+Below 600px filters become a horizontally scrollable control rail and all case studies use one-column editorial features.
 
 ---
 
-## Adding a page
+## Case Study — `project.html?slug=...`
 
-1. Copy an existing shell; set `data-page`.
-2. Add a renderer in `pages.js` and register it in `init`.
-3. Add unique title, description, canonical and OG tags.
-4. Add to `sitemap.xml`.
-5. Add to `VM.site.nav` **only** if it belongs in the top six — otherwise footer and drawer.
-6. Verify: one `h1`, no skipped levels, no overflow at 320px, contrast, and 44px targets.
+Dynamic route resolved from `VM.getProject(slug)`.
+
+Structure:
+
+hero → overview/challenge/objectives/role/strategy/execution/evidence → gallery → impact → related work.
+
+Phone behavior:
+
+- hero content is contained inside the image/scrim,
+- prose uses phone-safe gutters,
+- gallery and impact become one column,
+- related projects stack,
+- lightbox controls fit inside `100dvh`.
+
+---
+
+## Gallery — `gallery.html`
+
+Masonry archive with category filters and lightbox.
+
+Columns:
+
+- 1 below 640px,
+- 2 from 640px,
+- 3 from 1024px.
+
+The lightbox supports keyboard navigation, swipe, focus return and dynamic-viewport sizing.
+
+---
+
+## Speaking — `speaking.html`
+
+Speaking hero → featured event → topics → engagements → external resources → photography → booking.
+
+The mobile hero is portrait-first; featured-event metadata and booking actions stack cleanly.
+
+---
+
+## Appendix — `appendix.html`
+
+Primary-source downloads plus evidence available on request.
+
+Document rows are:
+
+- fully stacked on very narrow phones,
+- number + body with action below on tablet,
+- number + body + action at desktop.
+
+Download controls state file weight.
+
+---
+
+## Adding a route
+
+1. Copy an existing shell.
+2. Set a unique `data-page`.
+3. Register a renderer in `pages.js`.
+4. Add unique metadata and canonical URL.
+5. Add the route to `sitemap.xml`.
+6. Add navigation only if it belongs in the six top-level destinations.
+7. Update the QA route list in `tests/responsive.spec.mjs`.
+8. Run static and browser validation.
