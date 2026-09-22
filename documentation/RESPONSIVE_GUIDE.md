@@ -1,97 +1,117 @@
 # Responsive Guide
 
-**Status:** current as of v5.0.4
+**Status:** current as of v5.4.0
 
 ---
 
-## 1. Verified breakpoints
+## 1. Responsive contract
 
-Every page is checked at **320 · 360 · 375 · 390 · 430 · 768 · 900 · 1024 · 1280 · 1440 · 1920**.
+The portfolio is mobile-first and supports every public route from **320px upward**.
 
-**No horizontal overflow at any width is a P0 requirement.** 320px is the floor — it is the narrowest viewport in common use, and layouts that survive it survive everything above.
+Primary regression widths:
 
-Verify with a measurement, not by eye:
+**320 · 360 · 375 · 390 · 430 · 768 · 899 · 900 · 1024 · 1280 · 1440 · 1920**
 
-```js
-document.documentElement.scrollWidth > document.documentElement.clientWidth  // must be false
-```
+The 899/900 pair is deliberate: the navigation changes mode at 900px.
 
-To find the offender when it is true:
+**No horizontal overflow at 320px is a P0 requirement.**
 
 ```js
-const vw = document.documentElement.clientWidth;
-[...document.querySelectorAll('main *')]
-  .filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.right > vw + 1; })
-  .map(e => e.tagName + '.' + e.className);
+document.documentElement.scrollWidth > document.documentElement.clientWidth // must be false
 ```
 
-Ignore matches inside `#nav-drawer` — it is intentionally translated off-canvas and clipped by `overflow-x: clip` on `html, body`.
+For the full route-by-route manual matrix, see [MOBILE_QA.md](./MOBILE_QA.md).
 
 ---
 
-## 2. The one navigation breakpoint
+## 2. Breakpoints
 
-**900px.** See `NAVIGATION.md` for the full rationale and the three places that must agree on it.
-
-| Width | Navigation |
+| Range | Behaviour |
 |---|---|
-| `< 900px` | Brand + 44×44 hamburger; drawer slides from the right |
-| `≥ 900px` | Brand + inline links + "Discuss a Partnership" |
+| `< 420px` | Small-phone refinements: single-column filters, stacked metadata, compact index rail |
+| `< 640px` | Full-width CTA groups, one-column resources/gallery, mobile footer |
+| `640–899px` | Tablet/mobile navigation, wider single-column editorial layouts |
+| `≥ 760px` | Related project cards may use two columns |
+| `≥ 900px` | Desktop navigation and major two-column editorial layouts |
+| `≥ 1024px` | Gallery masonry reaches three columns |
 
-The brand name is visible at **every** width including 320px, where the lockup and controls leave 95px of slack. An earlier rule hid it below 380px, which covers common devices such as the iPhone SE — that was removed as an unnecessary loss of identity.
+Do not create a second navigation breakpoint. **900px is authoritative.**
 
 ---
 
-## 3. Component behaviour
+## 3. Shared mobile behaviour
 
 | Component | Mobile | Desktop |
 |---|---|---|
-| Hero | Portrait **leads**, then text (`order: -1`) | Two columns, text left |
-| Selected work | Stacked, image first | Two columns, alternating for rhythm |
-| Executive profile | Single column | Text + portrait |
-| Chronology | Period above role | Period on a left rail |
-| Expertise index | Number + title stacked | Number · title · description |
-| Metrics | Stacked, hairline between | Row, hairlines between |
-| Gallery | 1 column | 2 at 640px, 3 at 1024px |
-| Appendix documents | Stacked | Number · body · action |
-| Contact actions | Wrapped buttons | Row beside the heading |
-
-Mobile is **designed, not stacked**. The hero portrait leading on mobile is a deliberate inversion, not a side effect of source order.
+| Header | Brand + 44px menu button | Inline navigation + partnership CTA |
+| Hero | Portrait first, text second | Two columns |
+| CTA groups | Full-width stacked below 640px | Wrapped inline actions |
+| Selected work | Image-first, one column | Two-column editorial feature |
+| External resources | One column | Two columns |
+| Expertise | Number rail + readable content | Number · title · description |
+| Chronology | Left rule, period above content | Period rail + content |
+| Metrics | One column | Responsive row |
+| Filters | 1–2 column control grid | Wrapped inline controls |
+| Gallery | One column | 2 columns at 640px, 3 at 1024px |
+| Project gallery | One column | Multi-column legacy layout |
+| Related projects | One column | Two columns from 760px |
+| Event metadata | One column | Label/value rows |
+| Appendix docs | Stacked; action full width | Number · content · action |
+| Footer | Stacked navigation | Two-column footer |
 
 ---
 
-## 4. Touch targets
+## 4. Case-study mobile layout
 
-Everything interactive meets **44×44px**. Verify:
+The case-study route requires special treatment because the original template used a full image overlay hero.
 
-```js
-[...document.querySelectorAll('a.vm-btn, button, .vm-nav__link, .vm-filter, .nav-mobile-link')]
-  .filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height < 44; });
+Below 900px:
+
+1. The hero becomes a normal document flow.
+2. The image sits above the title/summary.
+3. The content panel no longer uses viewport overlay positioning.
+4. Gallery and impact sections become single-column.
+5. Related projects become single-column below 760px.
+6. Lightboxes use `100dvh` so mobile browser chrome does not hide controls.
+
+Case-study wrappers use `.vm-container` instead of utility-only spacing so they share the same page padding as the rest of the portfolio.
+
+---
+
+## 5. Touch and text safety
+
+Interactive targets are at least **44×44px**.
+
+Long titles use `overflow-wrap:anywhere` on structural text elements. This is a safety net for long publication titles, organizations and evidence links; normal copy should still be edited for readability.
+
+Buttons in hero/contact groups expand to full width below 640px. Appendix download buttons also expand to the available width so the file size never clips.
+
+---
+
+## 6. Safe areas and dynamic viewport units
+
+The fixed header respects left/right safe-area insets where supported. The mobile drawer also preserves a safe right edge and bottom spacing.
+
+Lightboxes use `100dvh` on mobile rather than `100vh`, reducing conflicts with browser address bars.
+
+---
+
+## 7. Automated validation
+
+Run:
+
+```bash
+node scripts/validate-site.mjs
 ```
 
-Two cases needed deliberate handling:
+The same command runs in **Portfolio Quality** CI on pull requests.
 
-- **`.vm-btn--tertiary`** is a text link with a gold underline, originally `min-height: 0` to keep the rule tight to the text — a 32px target. It is now padded to 44px with the underline moved to `::after` pinned under the *text*, so the target grows without the rule drifting away from the words.
-- **`.vm-filter`** was 40px plus borders (41px rendered). Raised to a 44px minimum.
-
----
-
-## 5. Fluid sizing
-
-Type and spacing scale with `clamp()` rather than stepping at breakpoints, so there are no awkward intermediate widths:
-
-```css
---vm-display-xl:  clamp(2.75rem, 6vw, 4.5rem);
---vm-page-pad-x:  clamp(1.25rem, 4vw, 4rem);
---vm-section-expansive: clamp(5rem, 10vw, 9rem);
-```
-
-Long headings use `text-wrap: balance`. Prose is capped at `68ch` regardless of viewport — a full-width line on a 1440px screen is unreadable.
+It validates shell structure, viewport tags, JS syntax, cache-version consistency, selected responsive invariants and common local asset references.
 
 ---
 
-## 6. Testing note
+## 8. Manual validation
 
-The development browser pane pauses the animation timeline while hidden, so `requestAnimationFrame` never fires and CSS transitions freeze. Post-scroll screenshots come back blank and the drawer looks stuck.
+Automation cannot confirm image composition, visual hierarchy or real touch ergonomics.
 
-Prefer DOM measurement over screenshots, and see `NAVIGATION.md` §7 for the transition-neutralising snippet.
+Use [MOBILE_QA.md](./MOBILE_QA.md) before merging any layout change.

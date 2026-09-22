@@ -1,94 +1,118 @@
 # Pages
 
-**Status:** current as of v5.0.4 · Renderers in `assets/js/pages.js`
+**Status:** current as of v5.4.0 · Renderers in `assets/js/pages.js`
 
-Every route is a shell containing `<head>` metadata plus three mount points. `data-page` on `<body>` selects the renderer.
-
----
-
-## Shared head
-
-Every shell carries: charset, viewport, description, Open Graph (absolute image URL), Twitter card, canonical, favicons, manifest, three stylesheets, then six scripts.
-
-Only `index.html` carries the `Person` structured data. Titles and descriptions are **unique per page** — reusing the homepage title across routes is an SEO defect.
-
-There is no inline theme bootstrap; the site has a single light theme.
+Every route is a lightweight HTML shell containing metadata and mount points. `data-page` on `<body>` selects the renderer.
 
 ---
 
-## `index.html` — `home`
+## Shared shell
 
-The homepage answers, in about ten seconds: who he is, what he does, at what level, what he achieved, and where to go next.
+Every public shell includes:
 
-| Section | Pacing |
-|---|---|
-| Hero — name, headline, summary, CTAs | Expansive |
-| Credibility strip — verifiable role facts | Compact |
-| Selected work — three case studies | Expansive |
-| Executive profile — prose + facts | Standard |
-| Leadership philosophy — pull quote | Standard |
-| Expertise index `01`–`06` | Standard |
-| Selected impact — four metrics | Standard |
-| Career chronology — first four roles | Standard |
-| International footprint + partners | Standard |
-| Photography | Expansive |
-| Contact — email, WhatsApp, call, LinkedIn | Compact, inverse |
+- UTF-8 charset,
+- `width=device-width` viewport,
+- route-specific metadata,
+- favicons and manifest,
+- the shared CSS stack,
+- shared JS modules,
+- skip link,
+- header mount,
+- `#main-content`,
+- footer mount.
 
-`#profile`, `#work`, `#expertise`, `#experience` and `#contact` are anchor targets. They work on first load only because of `applyInitialHash`.
+`index.html` additionally contains Person structured data.
 
----
-
-## `leadership.html` — `leadership`
-
-Thesis → philosophy → metrics → **full** chronology → footprint → CTA. The homepage shows the first four roles; this page shows all nine.
+All shells use the same cache version as `VM.version`. CI fails when a shell drifts.
 
 ---
 
-## `projects.html` — `projects`
+## `index.html` — Home
 
-Case-study index with category filters. Filters expose `aria-pressed` and announce results through a polite live region.
+Order:
 
-`projectFeature` is called with heading level **2** here — there is no intermediate `h2`, so level 3 would skip a level.
+1. Hero
+2. Professional standing
+3. Selected work
+4. **Articles & Events / External resources**
+5. Executive profile
+6. Leadership philosophy
+7. Expertise
+8. Selected impact
+9. Career chronology preview
+10. International footprint
+11. Photography
+12. Contact
 
----
-
-## `project.html` — `project`
-
-Reads `?slug=`, looks up `VM.getProject`, and redirects to the index if the slug is unknown. Sets `document.title` dynamically.
-
-Structure: hero → context/challenge/objectives/role/strategy/execution → results → impact → gallery → related. Section headings are `h2`; the case-study title is the `h1`.
-
-Includes its own lightbox with focus trap and Escape handling.
-
----
-
-## `gallery.html` — `gallery`
-
-Masonry archive from `VM.galleryImages` (`gallery-data.js`) — 1 / 2 / 3 columns. Category filters, and a lightbox with focus trap, Escape and focus return.
-
-The grid renders `thumb`; `src` (full size) loads only when the lightbox opens. Image titles are `<p>`, not headings — a caption is not a document heading.
+Mobile behaviour: portrait first, stacked CTA groups, one-column external resources, one-column metrics and photography.
 
 ---
 
-## `speaking.html` — `speaking`
+## `leadership.html` — Leadership
 
-Positioning → topics `01`–`04` → engagements → photography → booking. Booking carries email, WhatsApp, call and CV.
+Leadership thesis, philosophy, measurable outcomes, full career chronology, international footprint and partnership CTA.
+
+Mobile chronology uses a visible left rule and puts the date above each role. Long organization/location text must wrap naturally.
 
 ---
 
-## `appendix.html` — `appendix`
+## `projects.html` — Selected Work
 
-Primary-source evidence. Five published documents, each with page count and **file weight stated on the control**. Then "available on request": signed agreements and audit reports, deliberately not published.
+Evidence-led case-study index with category filters.
 
-Linked from the footer and mobile drawer, not the top bar — that keeps the top level at six items.
+Filters expose `aria-pressed` and announce result counts via a polite live region. On phones the filters switch to a compact grid so long category names do not create overflow.
+
+---
+
+## `project.html?slug=...` — Case Study
+
+Dynamic route driven by `VM.getProject(slug)`.
+
+Structure:
+
+hero → overview/challenge/objectives/role/strategy/execution → evidence → gallery → outcomes → related work
+
+Below 900px the hero stops behaving as an overlay and becomes image + content in normal flow. Project wrappers use the shared `.vm-container` padding. Gallery, outcomes and related projects collapse progressively for mobile.
+
+The route includes a lightbox with keyboard arrows, Escape, focus return and touch swipe.
+
+---
+
+## `gallery.html` — Gallery
+
+Filterable visual archive from `gallery-data.js`.
+
+- 1 column on phones
+- 2 columns from 640px
+- 3 columns from 1024px
+
+Items open an accessible lightbox and can be activated by keyboard.
+
+---
+
+## `speaking.html` — Speaking
+
+Speaking positioning, featured event, topics, selected engagements, external resources, photography and booking CTA.
+
+The Men's Circle uses only Vicent Manila's host artwork. Event metadata collapses to one column on small screens.
+
+---
+
+## `appendix.html` — Appendix
+
+Primary-source evidence and downloadable documents.
+
+On mobile document rows stack vertically and PDF actions occupy the full available width. File weight remains visible in the action.
 
 ---
 
 ## Adding a page
 
-1. Copy an existing shell; set `data-page`.
-2. Add a renderer in `pages.js` and register it in `init`.
-3. Add unique title, description, canonical and OG tags.
-4. Add to `sitemap.xml`.
-5. Add to `VM.site.nav` **only** if it belongs in the top six — otherwise footer and drawer.
-6. Verify: one `h1`, no skipped levels, no overflow at 320px, contrast, and 44px targets.
+1. Copy an existing shell and set a unique `data-page`.
+2. Register a renderer in `pages.js`.
+3. Add unique title, description, canonical and OG metadata.
+4. Add the route to `sitemap.xml`.
+5. Add it to top navigation only if it belongs among the primary destinations.
+6. Add responsive behaviour to the shared design system rather than a one-off inline patch.
+7. Run `node scripts/validate-site.mjs`.
+8. Complete [MOBILE_QA.md](./MOBILE_QA.md) at phone, tablet and desktop widths.
