@@ -1,6 +1,6 @@
 # Site-wide Revision — September 2026
 
-**Status:** implementation plan and audit record  
+**Status:** implemented and followed by v5.5 responsive audit  
 **Scope:** all public routes, shared layout, responsive behavior, repository engineering and documentation.
 
 ## Objectives
@@ -67,3 +67,9 @@ Repository CI validates:
 - responsive viewport metadata.
 
 Visual mobile review is still required for layout quality; static CI cannot replace a real browser pass.
+
+## v5.5 follow-up audit
+
+The follow-up audit removed remaining utility-only structural wrappers from project detail content and the shared footer, expanded automated viewport coverage to include 360/390px phones, landscape, the 899/900px navigation boundary and wide desktop, and added focused mobile interaction tests for the drawer, gallery lightbox and project evidence/related content.
+
+See [ENGINEERING_WORKFLOW.md](./ENGINEERING_WORKFLOW.md) for the ongoing branch/commit/PR process.
