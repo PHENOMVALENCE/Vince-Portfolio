@@ -4,6 +4,28 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.5.0 — Responsive audit follow-up — 2026-09-22
+
+### Site structure
+- Replaced remaining utility-only case-study content wrappers with shared semantic containers.
+- Added an explicit related-project grid owned by the design system.
+- Simplified the shared footer markup and removed unused footer variables.
+- Moved footer layout, typography and touch-target behavior into semantic design-system classes.
+- Corrected the Men's Circle featured-image alt text to describe only Vicent Manila.
+
+### Responsive verification
+- Expanded browser coverage to 320, 360, 375, 390 and 430px phones, a landscape phone, 768px tablet, 899/900px navigation boundary, 1024/1280/1440px desktop and 1920px wide view.
+- Added focused mobile tests for drawer containment/focus restoration, gallery lightbox containment and case-study evidence/related-work overflow.
+- Extended CI to run on pushes to `main` and allowed enough time for the expanded responsive suite.
+
+### Repository engineering
+- Added `ENGINEERING_WORKFLOW.md` for branch, commit, validation, PR and versioning rules.
+- Expanded the mobile QA matrix and responsive documentation.
+- Aligned repository guidance around the small-commit, PR-first workflow.
+- Bumped application and cache versions to 5.5.0.
+
+---
+
 ## 5.4.0 — Site-wide responsive and repository revision — 2026-09-22
 
 ### Responsive system
