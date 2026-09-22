@@ -1,6 +1,6 @@
 # Components
 
-**Status:** current as of v5.4.0  
+**Status:** current as of v5.5.0  
 **Implementation:** `assets/css/design-system.css`, `assets/js/pages.js`, `assets/js/layout.js`
 
 The full visual rules live in [`../DESIGN.md`](../DESIGN.md).
@@ -51,6 +51,8 @@ Interactive targets are at least 44px high. Grouped CTA buttons become full-widt
 | `.vm-publication-grid` | one column mobile; two columns from 800px |
 | `.vm-event-feature` | one column below 800px |
 | `.vm-doc` | stacked narrow phone; structured row at larger widths |
+| `.vm-project-related-grid` | one column by default; two columns from 760px |
+| `.vm-footer__inner` | stacked mobile footer; content/navigation split from 760px |
 | `.vm-filter` | horizontal control rail below 600px |
 
 ## Navigation
