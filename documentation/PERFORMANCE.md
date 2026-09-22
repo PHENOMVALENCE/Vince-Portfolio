@@ -1,6 +1,6 @@
 # Performance
 
-**Status:** current as of v5.0.4
+**Status:** current as of v5.4.0
 
 ---
 
@@ -22,7 +22,7 @@
 | Asset | Size |
 |---|---|
 | `executive.css` | 87KB (legacy) |
-| `design-system.css` | ~38KB |
+| `design-system.css` | ~45KB (design system + responsive hardening) |
 | `utilities.css` | ~7KB |
 | JS total | ~100KB across six files |
 | Appendix PDFs | ~29MB, **downloads only** |
