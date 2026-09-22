@@ -2,7 +2,7 @@
 
 Executive editorial portfolio for Vicent Manila, focused on management consulting, research and evaluation, strategic partnerships and organizational leadership.
 
-**Current version:** `5.4.0`
+**Current version:** `5.5.0`
 
 ## Start here
 
@@ -13,6 +13,7 @@ Executive editorial portfolio for Vicent Manila, focused on management consultin
 | Mobile QA matrix | [documentation/MOBILE_QA_MATRIX.md](./documentation/MOBILE_QA_MATRIX.md) |
 | Content verification | [documentation/CONTENT_VERIFICATION.md](./documentation/CONTENT_VERIFICATION.md) |
 | Architecture | [documentation/ARCHITECTURE.md](./documentation/ARCHITECTURE.md) |
+| Engineering workflow | [documentation/ENGINEERING_WORKFLOW.md](./documentation/ENGINEERING_WORKFLOW.md) |
 | Changelog | [documentation/CHANGELOG.md](./documentation/CHANGELOG.md) |
 
 ## Run locally
