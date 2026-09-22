@@ -2185,3 +2185,11 @@ div {
     text-align: left;
   }
 }
+
+
+.vm-footer__name {
+  margin-top: 0.75rem;
+  color: var(--vm-on-navy);
+  font-size: var(--vm-body-sm);
+  font-weight: 600;
+}
