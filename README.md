@@ -3,7 +3,7 @@
 > **Documentation has moved.** Start here: **[documentation/README.md](./documentation/README.md)**  
 > Full index: **[documentation/DOCUMENTATION_INDEX.md](./documentation/DOCUMENTATION_INDEX.md)**
 
-**Current version:** `5.3.0` (`VM.version` in `assets/js/config.js`)
+**Current version:** `5.4.0` (`VM.version` in `assets/js/config.js`)
 
 ---
 
@@ -15,6 +15,8 @@
 | September 2026 feedback revision | [documentation/FEEDBACK_REVISION_2026-09.md](./documentation/FEEDBACK_REVISION_2026-09.md) |
 | Content verification | [documentation/CONTENT_VERIFICATION.md](./documentation/CONTENT_VERIFICATION.md) |
 | Architecture | [documentation/ARCHITECTURE.md](./documentation/ARCHITECTURE.md) |
+| Mobile QA | [documentation/MOBILE_QA.md](./documentation/MOBILE_QA.md) |
+| Engineering workflow | [documentation/ENGINEERING_WORKFLOW.md](./documentation/ENGINEERING_WORKFLOW.md) |
 | Maintenance | [documentation/MAINTENANCE_GUIDE.md](./documentation/MAINTENANCE_GUIDE.md) |
 | Deployment | [documentation/DEPLOYMENT_GUIDE.md](./documentation/DEPLOYMENT_GUIDE.md) |
 | Changelog | [documentation/CHANGELOG.md](./documentation/CHANGELOG.md) |
