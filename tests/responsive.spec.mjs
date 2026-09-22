@@ -87,3 +87,63 @@ for (const viewport of viewports) {
     }
   });
 }
+
+
+test.describe('mobile interaction regression', () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test('mobile drawer fits viewport and restores focus', async ({ page }) => {
+    await page.goto('http://127.0.0.1:4173/index.html', { waitUntil: 'domcontentloaded' });
+    const toggle = page.locator('#nav-toggle');
+    await expect(toggle).toBeVisible();
+
+    await toggle.click();
+    const drawer = page.locator('#nav-drawer');
+    await expect(drawer).toHaveClass(/is-open/);
+    await expect(drawer).toHaveAttribute('aria-hidden', 'false');
+
+    const bounds = await drawer.boundingBox();
+    expect(bounds).not.toBeNull();
+    expect(bounds.x).toBeGreaterThanOrEqual(-1);
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(391);
+
+    await page.keyboard.press('Escape');
+    await expect(drawer).not.toHaveClass(/is-open/);
+    await expect(toggle).toBeFocused();
+  });
+
+  test('gallery lightbox remains inside mobile viewport', async ({ page }) => {
+    await page.goto('http://127.0.0.1:4173/gallery.html', { waitUntil: 'domcontentloaded' });
+    const first = page.locator('.gallery-card').first();
+    await expect(first).toBeVisible();
+    await first.click();
+
+    const lightbox = page.locator('#gallery-lightbox');
+    await expect(lightbox).not.toHaveClass(/hidden/);
+
+    const box = await lightbox.locator('.lightbox__shell').boundingBox();
+    expect(box).not.toBeNull();
+    expect(box.width).toBeLessThanOrEqual(390);
+    expect(box.height).toBeLessThanOrEqual(844);
+
+    await page.keyboard.press('Escape');
+    await expect(lightbox).toHaveClass(/hidden/);
+  });
+
+  test('project evidence links and related work stay contained', async ({ page }) => {
+    await page.goto('http://127.0.0.1:4173/project.html?slug=leading-aiesec-rwanda', { waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('.project-overview-section');
+
+    const overflow = await page.evaluate(() => {
+      const vw = document.documentElement.clientWidth;
+      return [...document.querySelectorAll('.project-overview-section *, .project-related-section *')]
+        .filter(el => {
+          const r = el.getBoundingClientRect();
+          return r.width > 0 && (r.left < -1 || r.right > vw + 1);
+        })
+        .map(el => ({ tag: el.tagName, className: el.className }));
+    });
+
+    expect(overflow).toEqual([]);
+  });
+});
