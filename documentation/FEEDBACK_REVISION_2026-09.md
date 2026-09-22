@@ -1,6 +1,6 @@
 # Portfolio Feedback Revision — September 2026
 
-**Release:** v5.2.1  
+**Release:** v5.2.2  
 **Current follow-up branch:** `portrait-crop-refinement`  
 **Date:** 2026-09-22
 
