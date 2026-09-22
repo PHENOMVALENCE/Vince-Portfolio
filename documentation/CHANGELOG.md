@@ -4,6 +4,16 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.3.0 — Homepage external resources — 2026-09-22
+
+- Added the Full Shangwe Barrick/UDOM article and Mzumbe University Career Fair post to the homepage.
+- Presented both as large editorial resource cards with relevant portfolio photography.
+- Added safe external-link treatment and responsive two-column layout.
+- Reused existing local portfolio imagery rather than hotlinking third-party images.
+- Bumped static asset cache identifiers to 5.3.0.
+
+---
+
 ## 5.2.2 — Men's Circle Vicent-only cleanup — 2026-09-22
 
 - Updated The Men's Circle feature to use only Vicent Manila's host artwork.
