@@ -4,6 +4,16 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.2.1 — External evidence links — 2026-09-22
+
+- Added the Full Shangwe article covering Barrick's sponsorship of the AIESEC university-student conference at UDOM.
+- Added the owner-supplied Mzumbe University Career Fair Instagram post.
+- Linked both resources from the Tanzania national-partnerships case study.
+- Published both in the external resources section.
+- Updated content-verification records and bumped static asset cache identifiers to 5.2.1.
+
+---
+
 ## 5.2.0 — Final asset integration — 2026-09-22
 
 ### Assets
