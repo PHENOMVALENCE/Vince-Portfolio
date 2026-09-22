@@ -1024,7 +1024,7 @@
           <div class="vm-container vm-event-feature">
             <figure class="vm-event-feature__media vm-img-frame">
               <img class="vm-img" src="${esc(d.featuredEvent.image)}"
-                   alt="The Men's Circle event poster featuring host Vicent Manila and guests"
+                   alt="The Men's Circle event poster featuring host Vicent Manila"
                    width="864" height="1080" loading="lazy" decoding="async">
             </figure>
             <div class="vm-event-feature__body">
