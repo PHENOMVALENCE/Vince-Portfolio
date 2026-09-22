@@ -8,9 +8,9 @@
 
 Test at:
 
-`320 · 360 · 375 · 390 · 430 · 768 · 900 · 1024 · 1280 · 1440 · 1920`
+`320 · 360 · 375 · 390 · 430 · 667×375 landscape · 768 · 899 · 900 · 1024 · 1280 · 1440 · 1920`
 
-For phone QA, prioritize 320, 375 and 430. Automated CI additionally verifies a 1280px desktop viewport.
+For phone QA, prioritize 320, 375 and 430. Automated CI now verifies the full matrix above, including the 899/900px navigation boundary and a landscape phone.
 
 ## Global acceptance checks
 
@@ -40,15 +40,15 @@ const vw = document.documentElement.clientWidth;
 
 ## Route matrix
 
-| Route | 320px | 375px | 430px | 768px | 900px+ |
+| Route | 320–430px phones | Landscape phone | 768px | 899/900 boundary | 1024–1920px |
 |---|---|---|---|---|---|
-| Home | portrait/text readable; CTAs stack | publications fit | metrics remain clean | tablet rhythm | desktop composition |
-| Leadership | chronology single rail | badges wrap | metrics readable | no collisions | two-column chronology |
-| Projects | filters scroll | cards stack | long titles wrap | cards remain balanced | editorial two-column features |
-| Project | hero copy fits | evidence links wrap | gallery one-column | impact may become two columns | full editorial hero |
-| Gallery | one-column masonry | filters scroll | captions readable | two columns | three columns |
-| Speaking | hero stacks | event metadata fits | booking actions stack | image grid expands | desktop hero |
-| Appendix | download actions stack | document titles wrap | no PDF row overflow | comfortable spacing | three-column document rows |
+| Home | portrait/text readable; CTAs stack; publications fit | no clipped hero/actions | tablet rhythm | nav mode switches once | desktop composition |
+| Leadership | chronology single rail; badges wrap | no clipped rows | metrics readable | nav mode switches once | two-column chronology |
+| Projects | filters scroll; cards stack | filter rail contained | long titles wrap | nav mode switches once | editorial two-column features |
+| Project | hero/evidence/related work contained | hero copy remains readable | gallery one-column | nav mode switches once | full editorial hero |
+| Gallery | one-column masonry; filters scroll | lightbox controls fit | two columns | nav mode switches once | three columns |
+| Speaking | hero stacks; event metadata fits | booking/actions contained | image grid expands | nav mode switches once | desktop hero |
+| Appendix | download actions stack; titles wrap | PDF controls stay visible | comfortable spacing | nav mode switches once | three-column document rows |
 
 ## Mobile navigation
 
