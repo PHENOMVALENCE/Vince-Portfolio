@@ -5,12 +5,12 @@
 window.VM = window.VM || {};
 
 /** Semantic version of this portfolio codebase */
-VM.version = '2.0.0';
+VM.version = '5.1.0';
 
 VM.site = {
   name: 'Vicent Manila',
-  tagline: 'Management Consultant & Strategic Partnerships',
-  brandLine: 'Consulting • Strategy • Partnerships',
+  tagline: 'Management Consultant · Research & Evaluation · Strategic Partnerships',
+  brandLine: 'Consulting • Research & Evaluation • Partnerships',
   email: 'manilavicent@gmail.com',
   phone: '+255 713 582 606',
   phoneIntl: '+255713582606',
