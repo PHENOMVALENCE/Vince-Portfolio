@@ -1,6 +1,6 @@
 # Contributing
 
-**Status:** current for v5.4.0
+**Status:** current for v5.5.0
 
 ## Workflow
 
@@ -47,16 +47,16 @@ npm run test:responsive
 
 Manual:
 
-- 320px phone,
-- 375px phone,
-- 430px phone,
+- 320, 360, 375, 390 and 430px phones,
+- one landscape phone,
 - 768px tablet,
-- 900px navigation transition,
-- one desktop width,
+- 899px and 900px navigation transition,
+- 1024, 1280 and 1440px desktop,
+- 1920px wide view,
 - mobile menu,
 - project and gallery lightboxes.
 
-See [MOBILE_QA_MATRIX.md](./MOBILE_QA_MATRIX.md).
+See [MOBILE_QA_MATRIX.md](./MOBILE_QA_MATRIX.md) and [ENGINEERING_WORKFLOW.md](./ENGINEERING_WORKFLOW.md).
 
 ## Pull requests
 
