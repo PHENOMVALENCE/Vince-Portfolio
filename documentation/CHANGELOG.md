@@ -4,6 +4,16 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.2.2 — Men's Circle Vicent-only cleanup — 2026-09-22
+
+- Updated The Men's Circle feature to use only Vicent Manila's host artwork.
+- Removed the group lineup, Ram Hadji, Elizabeth Feria and generic cover artwork from the portfolio branch.
+- Reduced the gallery to a single Men's Circle entry focused on Vicent.
+- Removed guest-focused event copy from the portfolio presentation.
+- Updated asset/content documentation and bumped static asset cache identifiers to 5.2.2.
+
+---
+
 ## 5.2.1 — External evidence links — 2026-09-22
 
 - Added the Full Shangwe article covering Barrick's sponsorship of the AIESEC university-student conference at UDOM.
