@@ -155,6 +155,51 @@
           </div>
         </section>
 
+        <!-- ============ EXTERNAL RESOURCES — visual editorial cards ============ -->
+        ${d.externalResources?.length ? `
+        <section class="vm-section vm-publications-section" aria-labelledby="home-external-resources-title">
+          <div class="vm-container">
+            <p class="vm-eyebrow vm-eyebrow--ruled">Articles &amp; Events</p>
+            <div class="vm-publications-head">
+              <h2 id="home-external-resources-title" class="vm-display-md">External resources</h2>
+              <p>Selected public coverage and event records connected to the work featured in this portfolio.</p>
+            </div>
+            <div class="vm-publication-grid">
+              ${d.externalResources.map((resource, i) => `
+                <article class="vm-publication">
+                  <a class="vm-publication__media vm-img-frame"
+                     href="${esc(resource.url)}"
+                     target="_blank" rel="noopener noreferrer"
+                     aria-label="${esc(resource.title)} — open external resource">
+                    <img class="vm-img"
+                         src="${esc(resource.image)}"
+                         alt="${esc(resource.imageAlt || resource.title)}"
+                         width="1200" height="750"
+                         loading="lazy" decoding="async"
+                         style="object-position:${imgPos(resource.imagePosition)}">
+                  </a>
+                  <div class="vm-publication__body">
+                    <p class="vm-publication__meta">
+                      <span>${esc(resource.type || 'External resource')}</span>
+                      <span aria-hidden="true">·</span>
+                      <span>${esc(resource.source || '')}</span>
+                    </p>
+                    <h3 class="vm-publication__title">
+                      <a href="${esc(resource.url)}" target="_blank" rel="noopener noreferrer">
+                        ${esc(resource.title)}
+                      </a>
+                    </h3>
+                    <a class="vm-inline-external" href="${esc(resource.url)}"
+                       target="_blank" rel="noopener noreferrer">
+                      Open resource
+                      <i data-lucide="external-link" class="w-4 h-4" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </article>`).join('')}
+            </div>
+          </div>
+        </section>` : ''}
+
         <!-- ============ EXECUTIVE PROFILE — editorial, no cards ============ -->
         <section class="vm-section vm-section--subtle" id="profile">
           <div class="vm-container vm-profile">
