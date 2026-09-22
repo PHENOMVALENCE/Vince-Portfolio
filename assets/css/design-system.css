@@ -1299,7 +1299,9 @@ main { padding-top: 0; }
 
 .vm-nav__link {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0.5rem 0.7rem;
   font-family: var(--vm-font-sans);
   font-size: 0.875rem;
