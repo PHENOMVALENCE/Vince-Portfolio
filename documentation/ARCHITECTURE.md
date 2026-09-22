@@ -1,100 +1,129 @@
 # Architecture
 
-**Status:** current as of v5.0.4
+**Status:** current for v5.4.0
 
-A static, data-driven site. No build step, no framework, no runtime dependencies beyond a font stylesheet and an icon script.
+The production site is static and data-driven. There is no application framework and no production build step. Development-only tooling exists for validation and responsive browser testing.
 
 ---
 
-## 1. Shape
+## 1. Runtime shape
 
-Each route is a thin HTML shell containing only `<head>` metadata and three mount points. All body content is rendered by JavaScript from a central data module.
+Each route is a thin HTML shell containing metadata and three mount points:
 
-```
+```text
 index.html  leadership.html  projects.html  project.html
 gallery.html  speaking.html  appendix.html
         │
-        │  <div id="site-header">   <main id="main-content">   <div id="site-footer">
-        ▼
-assets/js/
-  config.js        site identity, navigation, contact, image paths
-  data.js          all professional content (single source of truth)
-  gallery-data.js  gallery manifest
-  layout.js        header, drawer, footer markup
-  pages.js         one renderer per route + case-study lightbox
-  site.js          navigation behaviour, reveal, back-to-top
-
-assets/css/
-  executive.css     legacy — predates the redesign, still loaded (see §5)
-  utilities.css     reset + the small utility set the markup still uses
-  design-system.css the design system; loads last and wins
+        ├─ #site-header
+        ├─ #main-content
+        └─ #site-footer
 ```
+
+Shared runtime modules:
+
+```text
+assets/js/
+  config.js        identity, navigation, contact, central image paths
+  data.js          professional content and case studies
+  gallery-data.js  gallery manifest
+  layout.js        shared header, drawer and footer
+  pages.js         route renderers, filters and lightboxes
+  site.js          navigation, reveal and back-to-top behavior
+```
+
+Stylesheets:
+
+```text
+assets/css/
+  executive.css      legacy compatibility layer
+  utilities.css      reset + small retained utility vocabulary
+  design-system.css  authoritative tokens, components and responsive rules
+```
+
+---
 
 ## 2. Load order
 
-Order is deliberate and load-bearing.
+Styles load in this order:
 
-**Stylesheets** — `executive.css` → `utilities.css` → `design-system.css`
+`executive.css → utilities.css → design-system.css`
 
-`design-system.css` is last so its tokens and components override the legacy sheet. Several rules in it exist specifically to neutralise `executive.css` assumptions; each is commented with the reason.
+The order is load-bearing. `design-system.css` is authoritative and intentionally loads last.
 
-**Scripts** — `config.js` → `data.js` → `gallery-data.js` → `layout.js` → `pages.js` → `site.js`
+Scripts load in this order:
 
-Each attaches to the `window.VM` namespace and depends on the previous. On `DOMContentLoaded`, `layout.js` injects the header and footer, `pages.js` renders the route body from `document.body.dataset.page`, then `site.js` wires behaviour.
+`config.js → data.js → gallery-data.js → layout.js → pages.js → site.js`
+
+All modules attach to `window.VM`.
+
+---
 
 ## 3. Rendering
 
-`pages.js` maps `data-page` to a renderer:
+`pages.js` maps `body[data-page]` to the corresponding renderer.
 
-| `data-page` | Renderer |
+| data-page | Renderer |
 |---|---|
-| `home` | `renderHome` |
-| `leadership` | `renderLeadership` |
-| `projects` | `renderProjects` |
-| `project` | `renderProject` (reads `?slug=`) |
-| `gallery` | `renderGallery` |
-| `speaking` | `renderSpeaking` |
-| `appendix` | `renderAppendix` |
+| home | renderHome |
+| leadership | renderLeadership |
+| projects | renderProjects |
+| project | renderProject / initProjectRedirect |
+| gallery | renderGallery |
+| speaking | renderSpeaking |
+| appendix | renderAppendix |
 
-After render, `afterRender` initialises page-specific behaviour and calls `applyInitialHash`.
+The project route resolves a case study from `?slug=`. Unknown slugs redirect to `projects.html`.
 
-### Why `applyInitialHash` exists
+Because content renders after `DOMContentLoaded`, `applyInitialHash()` re-applies anchor navigation after the target exists.
 
-Content is rendered *after* `DOMContentLoaded`, so the browser's native hash scroll runs before the target element exists. Without re-applying it, every `#anchor` link into a page fails on first load.
+---
 
 ## 4. Content model
 
-All professional content lives in `VM.data` (`data.js`). Markup never hard-codes a claim.
+Professional content lives in `VM.data`. Site identity and contact configuration live in `VM.site`. Gallery records live in `VM.galleryImages`.
 
-This matters beyond tidiness: every claim must be traceable to a primary source. Centralising the content makes an audit possible. See `CONTENT_VERIFICATION.md` and `CONTENT_NEEDS_VERIFICATION.md`.
+Professional claims must follow the source hierarchy in [CONTENT_VERIFICATION.md](./CONTENT_VERIFICATION.md).
 
-## 5. `executive.css` — legacy
+---
 
-87KB predating the redesign, structured as accreted override layers ("Premium editorial redesign", "Expertise editorial reversal", "Legacy alias") with `!important` throughout.
+## 5. Responsive architecture
 
-It still ships because deleting it wholesale is riskier than overriding it. `design-system.css` loads afterwards and wins. Retiring it is worthwhile follow-up work.
+The responsive system follows one rule: **desktop structure may enhance mobile structure, but must never be required for readability.**
 
-**Two traps it has already caused**, both now neutralised and commented in `design-system.css`:
+Authoritative rules are in the final sections of `design-system.css`:
 
-- `pointer-events: none` on `.site-header` — made the entire navbar unclickable after the header rebuild removed the pill child that used to re-enable pointers.
-- `visibility` included in the drawer transition — made the drawer briefly unfocusable, stranding keyboard focus behind the open menu.
+- site-wide responsive hardening,
+- page-specific responsive contracts,
+- navigation target corrections.
 
-When something behaves oddly, check whether `executive.css` has an opinion about it.
+See [RESPONSIVE_GUIDE.md](./RESPONSIVE_GUIDE.md) and [MOBILE_QA_MATRIX.md](./MOBILE_QA_MATRIX.md).
 
-## 6. Theming
+---
 
-**A single light theme.** The dark theme and its toggle were removed at the owner's request; a half-maintained second theme is worse than none. All colour flows from semantic tokens on `:root` in `design-system.css`.
+## 6. Legacy stylesheet
 
-`executive.css` still contains `.dark` rules. They are inert — the class is never applied.
+`executive.css` still ships and is the largest technical debt item. It contains older component rules and many `!important` declarations.
 
-## 7. No build step
+New work must **not** extend the legacy layer. New fixes belong in `design-system.css`, which already neutralizes known legacy problems such as header pointer events, drawer transitions and obsolete rounded-card styling.
 
-Serve the repository root over HTTP. There is nothing to compile.
+---
 
-The runtime Tailwind CDN was removed: it shipped the full engine and compiled classes in-browser on every load, blocking render. `utilities.css` (~7KB) implements the reset and the exact utilities the markup still uses.
+## 7. QA tooling
+
+Runtime remains dependency-free. QA tooling is development-only:
+
+- `scripts/validate-site.mjs` — static repository validation,
+- `@playwright/test` — responsive browser smoke tests,
+- `.github/workflows/ci.yml` — PR validation.
+
+The static site can still be deployed directly without npm.
+
+---
 
 ## 8. Deployment
 
-Static hosting; currently Vercel. `sitemap.xml` and `robots.txt` are maintained by hand — add new routes to both.
+The site is deployed as static files, currently through Vercel.
 
-Asset URLs carry a `?v=` query bumped on release so returning visitors do not get stale CSS or JS.
+Asset URLs carry a `?v=` cache key. Every HTML shell must use the same version as `VM.version`.
+
+`robots.txt` and `sitemap.xml` are maintained by hand.

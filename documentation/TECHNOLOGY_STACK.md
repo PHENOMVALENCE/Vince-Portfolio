@@ -1,82 +1,72 @@
 # Technology Stack
 
-**Status:** current as of v5.0.4
+**Status:** current for v5.4.0
 
 ---
 
-## 1. What this site is built from
+## Production runtime
 
 | Layer | Choice |
 |---|---|
-| Markup | Hand-written HTML shells, one per route |
+| Markup | Hand-written HTML route shells |
 | Rendering | Vanilla JavaScript template literals |
 | Styling | Hand-written CSS with custom properties |
-| Fonts | Source Serif 4 + Plus Jakarta Sans (Google Fonts) |
-| Icons | Lucide (CDN, deferred) |
-| Hosting | Static — currently Vercel |
-| Build | **None** |
+| Fonts | Source Serif 4 + Plus Jakarta Sans via Google Fonts |
+| Icons | Lucide 0.468.0 via deferred CDN script |
+| Hosting | Static, currently Vercel |
+| Production build | None |
 
-No framework, no bundler, no package manager, no compile step. Serve the repository root over HTTP.
-
----
-
-## 2. Removed: the Tailwind CDN
-
-`cdn.tailwindcss.com` was previously loaded on every page. It was removed.
-
-The CDN build ships the full Tailwind engine and compiles classes **in the browser on every page load**, blocking render. Tailwind's own documentation states it is not intended for production.
-
-Replaced by `assets/css/utilities.css` (~7KB): a minimal reset plus the exact utilities the remaining markup uses. It is deliberately **not** a general utility framework — add a rule only when markup genuinely needs one, and prefer a semantic class in `design-system.css`.
-
-Removing Tailwind also removed its Preflight reset, which the markup depended on. `utilities.css` restores that normalisation explicitly; without it, nav links render underlined and lists show bullets.
+The deployed portfolio does not require Node, npm, a framework, a bundler or compilation.
 
 ---
 
-## 3. Stylesheets
+## Development and QA
 
-Loaded in this order. The order is load-bearing.
+| Tool | Purpose |
+|---|---|
+| Node 22 in CI | static validation and syntax checks |
+| `scripts/validate-site.mjs` | route, asset, version and syntax validation |
+| `@playwright/test` 1.52.0 | browser-level responsive smoke tests |
+| Python `http.server` in CI | serves the static repository during browser tests |
+| GitHub Actions | validates pull requests |
 
-| File | Size | Role |
+`package.json` exists for QA only. It does not change the production architecture.
+
+---
+
+## Stylesheet order
+
+`executive.css → utilities.css → design-system.css`
+
+- `executive.css`: legacy compatibility layer.
+- `utilities.css`: reset and remaining utility classes.
+- `design-system.css`: authoritative current design and responsive system.
+
+New component work belongs in `design-system.css`.
+
+---
+
+## JavaScript order
+
+`config.js → data.js → gallery-data.js → layout.js → pages.js → site.js`
+
+The modules share the `window.VM` namespace. There is no transpilation.
+
+---
+
+## Third-party requests
+
+| Request | Use | Treatment |
 |---|---|---|
-| `executive.css` | 87KB | **Legacy.** Predates the redesign. Accreted override layers with heavy `!important`. |
-| `utilities.css` | ~7KB | Reset + the small utility set still in use |
-| `design-system.css` | ~38KB | The design system — tokens and components |
+| Google Fonts | editorial/sans typography | preconnect + display swap |
+| unpkg Lucide 0.468.0 | icons | pinned version; deferred |
 
-`design-system.css` loads last so it wins. Several of its rules exist specifically to neutralise `executive.css` assumptions; each carries a comment explaining what it counteracts and why.
-
----
-
-## 4. Third-party requests
-
-| Request | Why | Risk |
-|---|---|---|
-| `fonts.googleapis.com` / `fonts.gstatic.com` | Source Serif 4, Plus Jakarta Sans | Render-blocking stylesheet; `display=swap` set |
-| `unpkg.com/lucide@latest` | Icons | **Unpinned.** `@latest` can change without warning |
-
-**`lucide@latest` should be pinned** before this is treated as production-stable. Self-hosting the fonts would remove the remaining third-party dependency.
+The former `@latest` Lucide dependency is no longer used.
 
 ---
 
-## 5. JavaScript
+## Why no framework
 
-Six files on a shared `window.VM` namespace, loaded in dependency order:
+The site has a small number of content-driven routes, no authentication, no server state and no interactive application workflow. A production framework would add deployment and maintenance complexity without solving a current product requirement.
 
-`config.js` → `data.js` → `gallery-data.js` → `layout.js` → `pages.js` → `site.js`
-
-Plain ES2020 — template literals, optional chaining, arrow functions. No transpilation, so anything used must be supported natively by target browsers.
-
-All rendered content is escaped through `esc()` before interpolation.
-
----
-
-## 6. Versioning
-
-Asset URLs carry `?v=` bumped on release, so returning visitors do not receive stale CSS or JS against new markup. Every shell must be bumped together — a partial bump produces a half-updated page that is difficult to diagnose.
-
----
-
-## 7. Why no framework
-
-The site is a small number of content-driven routes with no application state, no authentication and no user input beyond navigation. A framework would add a build step, a dependency tree and a security-update burden without solving a problem this site has.
-
-The centralised data module gives the one benefit that mattered — content separated from markup, so professional claims can be audited in one place.
+The central data modules already provide the important separation between content and rendering.

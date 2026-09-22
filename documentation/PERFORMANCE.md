@@ -1,60 +1,63 @@
 # Performance
 
-**Status:** current as of v5.0.4
+**Status:** current for v5.4.0
 
 ---
 
-## 1. What was removed
+## Runtime profile
 
-| Removed | Why it mattered |
-|---|---|
-| **Tailwind CDN** | Shipped the whole engine and compiled classes in-browser on every load, blocking render. Replaced by a ~7KB reset + utility layer. |
-| Count-up counters | Animation on scroll, no user value |
-| Testimonial autoplay carousel | Timer running for the page's lifetime |
-| Expertise autoplay carousel | Same |
-| Scroll-triggered section reveals | Every section animating on scroll |
-| `contactCTAs` renderer | Orphaned after the redesign — rendered nowhere |
+The production site remains static with no framework and no build step.
 
----
+Current runtime assets include:
 
-## 2. Current cost
-
-| Asset | Size |
-|---|---|
-| `executive.css` | 87KB (legacy) |
-| `design-system.css` | ~38KB |
-| `utilities.css` | ~7KB |
-| JS total | ~100KB across six files |
-| Appendix PDFs | ~29MB, **downloads only** |
-
-The PDFs are linked, never loaded with the page. Each control states its file weight so a 12MB download is never a surprise on mobile data.
-
-They were compressed from 40MB by downsampling embedded images to screen resolution, then verified byte-identical after commit and still valid (page counts unchanged).
+- legacy `executive.css`,
+- `utilities.css`,
+- authoritative `design-system.css`,
+- six small vanilla JavaScript modules,
+- local portfolio imagery,
+- appendix PDFs loaded only when requested.
 
 ---
 
-## 3. Images
+## Images
 
-- `fetchpriority="high"` on the hero portrait; `loading="lazy"` everywhere below the fold.
-- Explicit `width`/`height` on every image to reserve space and avoid layout shift.
-- `object-position` set per image so no face is cropped badly.
-- Gallery grid uses small thumbnails; full-size images load only when the lightbox opens.
+- hero images use `fetchpriority="high"`,
+- below-fold imagery uses lazy loading,
+- key images provide intrinsic width/height,
+- gallery thumbnails load in the grid while full images load in the lightbox,
+- object-position is controlled for editorial crops.
 
----
-
-## 4. Render path
-
-Content renders after `DOMContentLoaded` from `VM.data`. This is a deliberate trade: one source of truth for auditable content, at the cost of content not being in the initial HTML.
-
-Two consequences worth knowing:
-
-- Hash links need `applyInitialHash`, because the browser's native scroll runs before the target exists.
-- Search engines must execute JavaScript to see the content. Acceptable for a portfolio; not acceptable for a content site competing on organic search.
+Large source gallery files remain in the repository, but web-optimized copies are used where available.
 
 ---
 
-## 5. Outstanding
+## Third-party requests
 
-- **`lucide@latest` is unpinned** — an upstream change ships to production without warning.
-- Google Fonts remain render-blocking; self-hosting would remove the last third-party dependency.
-- `executive.css` is 87KB of largely superseded rules. Retiring it is the single biggest remaining win.
+Production makes two third-party classes of request:
+
+1. Google Fonts.
+2. Pinned Lucide 0.468.0.
+
+Lucide is pinned so an upstream release no longer changes production implicitly.
+
+---
+
+## Responsive performance
+
+Phone layouts avoid loading alternate mobile-specific assets or JavaScript bundles. The same semantic markup is reflowed through CSS.
+
+Dynamic lightbox media remains contained rather than generating separate responsive image requests.
+
+---
+
+## Development-only tooling
+
+Playwright and Node are QA dependencies only. They are not shipped to the browser and do not change Vercel's static runtime.
+
+---
+
+## Largest remaining optimization
+
+`executive.css` is still the primary technical debt item. It contains a large amount of superseded styling and should eventually be retired through measured extraction, not deleted wholesale.
+
+The appendix PDFs are intentionally download-only and therefore do not affect initial page load.
