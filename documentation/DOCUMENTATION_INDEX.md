@@ -1,6 +1,6 @@
 # Documentation Index
 
-**Status:** current as of v5.4.0
+**Status:** current as of v5.5.0
 
 ## Start here
 
@@ -37,7 +37,8 @@
 
 | File | Purpose |
 |---|---|
-| [CONTRIBUTING.md](./CONTRIBUTING.md) | Branch, commit and PR workflow |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | Contribution conventions |
+| [ENGINEERING_WORKFLOW.md](./ENGINEERING_WORKFLOW.md) | Branching, small commits, validation, CI and PR workflow |
 | [TECHNOLOGY_STACK.md](./TECHNOLOGY_STACK.md) | Runtime and QA dependencies |
 | [FOLDER_STRUCTURE.md](./FOLDER_STRUCTURE.md) | Repository layout |
 | [MAINTENANCE_GUIDE.md](./MAINTENANCE_GUIDE.md) | Content/system maintenance |
