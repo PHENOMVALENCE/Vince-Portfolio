@@ -1,6 +1,6 @@
 # Documentation Index
 
-**Status:** current as of v5.2.2
+**Status:** current as of v5.3.0
 
 ---
 

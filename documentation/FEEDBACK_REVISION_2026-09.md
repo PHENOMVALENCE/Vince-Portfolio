@@ -1,6 +1,6 @@
 # Portfolio Feedback Revision — September 2026
 
-**Release:** v5.2.2  
+**Release:** v5.3.0  
 **Current follow-up branch:** `portrait-crop-refinement`  
 **Date:** 2026-09-22
 
@@ -18,7 +18,7 @@ This revision converts the September feedback into a concrete implementation pla
 | Experience entries are inconsistent or missing descriptions | Career chronology was rebuilt from the updated CV. Each published role has a factual mandate and outcomes where the source provides them. |
 | Copy uses too many commas and dashes | Core hero, profile, career and case-study copy was rewritten into shorter, more direct sentences. |
 | Expertise content is squeezed to the left on mobile | The expertise grid now explicitly places title and body content in a usable second column on small screens, with a three-column editorial layout on desktop. |
-| Add external links for articles/newsletters | A reusable external-resource renderer was added. The Full Shangwe Barrick/UDOM article and the Mzumbe Career Fair Instagram post are now published as supporting resources. |
+| Add external links for articles/newsletters | A reusable external-resource renderer was added. The Full Shangwe Barrick/UDOM article and the Mzumbe Career Fair Instagram post are now published as supporting resources and featured visually on the homepage. |
 | Add the latest event | **The Men's Circle**, 17 Sep 2026, is featured on Speaking and added to the speaking gallery. |
 | Use the updated CV | Career content, education, training, languages and current assignment follow the consultant CV dated 04/09/2026. The owner-supplied consultant CV is now served directly from the stable public CV path. |
 
