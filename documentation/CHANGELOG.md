@@ -30,6 +30,7 @@ Newest first. Versions track the asset `?v=` query.
 - Rebuilt architecture, responsive, technology, page, accessibility, performance, maintenance, deployment and contributor documentation.
 - Reconciled stale project/SEO/security/feature/image documentation.
 - Updated `robots.txt` to point to the production sitemap.
+- Standardized Open Graph and Twitter social metadata across all public route shells.
 
 ### Content polish
 - Aligned the shared footer with Vicent's current management-consulting positioning.
