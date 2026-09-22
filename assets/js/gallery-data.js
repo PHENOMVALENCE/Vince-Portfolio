@@ -26,6 +26,17 @@
    */
   VM.galleryImages = [
     {
+      id: 'mens-circle-2026',
+      src: 'assets/images/Vince/web/gallery/mens-circle-2026.jpg',
+      alt: 'The Men\'s Circle event artwork with Vicent Manila as host',
+      category: 'speaking',
+      title: 'The Men\'s Circle',
+      caption: 'Hosted by Vicent Manila for AIESEC Alumni Tanzania on 17 September 2026. A virtual conversation on men, purpose and leadership.',
+      width: 240,
+      height: 300,
+      featured: true,
+    },
+    {
       id: '1',
       src: DIR + '1.jpeg',
       thumb: THUMBS + '1.jpg',
