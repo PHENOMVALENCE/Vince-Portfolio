@@ -1837,3 +1837,32 @@ main { padding-top: 0; }
     padding-right: max(1rem, env(safe-area-inset-right));
   }
 }
+
+
+/* ---- Case-study responsive structure ----------------------------------- */
+.vm-project-related-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--vm-gutter);
+}
+
+@media (min-width: 760px) {
+  .vm-project-related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.project-content.vm-container {
+  width: 100%;
+}
+
+.project-related__media {
+  overflow: hidden;
+}
+
+.project-related__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
