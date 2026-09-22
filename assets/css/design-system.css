@@ -1445,3 +1445,343 @@ main { padding-top: 0; }
   transition: height var(--vm-transition);
 }
 .vm-btn--tertiary:hover::after { height: 2px; }
+
+
+/* ============================================================================
+   SITE-WIDE RESPONSIVE HARDENING — v5.4
+   Authoritative mobile rules. These load after executive.css and are designed
+   to remove legacy fixed-width assumptions without changing the editorial
+   desktop language.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  min-width: 0;
+  overflow-x: clip;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+main,
+section,
+article,
+header,
+footer,
+nav,
+figure,
+div {
+  min-width: 0;
+}
+
+.vm-container,
+.vm-container--wide,
+.project-content,
+.max-w-8xl {
+  width: 100%;
+}
+
+.vm-display,
+.vm-display-lg,
+.vm-display-md,
+.vm-heading,
+.vm-feature__title,
+.vm-publication__title,
+.vm-chrono__role,
+.vm-doc__title,
+.project-hero__title,
+.project-related__title {
+  overflow-wrap: anywhere;
+}
+
+.vm-lead,
+.vm-prose,
+.vm-feature__summary,
+.vm-feature__outcome,
+.vm-index__desc,
+.vm-index__comps,
+.vm-chrono__mandate,
+.vm-chrono__org,
+.vm-doc__summary,
+.vm-resource-link strong,
+.vm-resource-link small,
+.project-hero__summary,
+.project-related__summary {
+  overflow-wrap: anywhere;
+}
+
+/* Flex/grid children must be allowed to shrink. */
+.vm-hero__grid > *,
+.vm-profile > *,
+.vm-feature > *,
+.vm-contact > *,
+.vm-event-feature > *,
+.vm-publication-grid > *,
+.project-related > *,
+.project-content > * {
+  min-width: 0;
+}
+
+/* Safe-area aware fixed chrome. */
+.site-header {
+  padding-left: env(safe-area-inset-left, 0px) !important;
+  padding-right: env(safe-area-inset-right, 0px) !important;
+}
+.vm-nav {
+  width: 100%;
+}
+.nav-drawer {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* Filter controls become a deliberate horizontal control rail on phones.
+   This avoids multi-line filter walls and never widens the page itself. */
+@media (max-width: 599px) {
+  .vm-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-inline: calc(var(--vm-page-pad-x) * -1);
+    padding-inline: var(--vm-page-pad-x);
+    padding-bottom: 0.85rem;
+    scroll-padding-inline: var(--vm-page-pad-x);
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .vm-filter {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+}
+
+/* Action groups become thumb-friendly without forcing isolated text links
+   such as tertiary editorial CTAs to full width. */
+@media (max-width: 519px) {
+  .vm-hero__actions,
+  .vm-contact__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  .vm-hero__actions .vm-btn:not(.vm-btn--tertiary),
+  .vm-contact__actions .vm-btn:not(.vm-btn--tertiary) {
+    width: 100%;
+  }
+
+  .vm-contact {
+    gap: 1.5rem;
+  }
+}
+
+/* Footer remains readable rather than becoming one long wrapped link row. */
+@media (max-width: 639px) {
+  .site-footer .max-w-8xl {
+    padding-inline: var(--vm-page-pad-x) !important;
+  }
+  .footer-nav {
+    width: 100%;
+  }
+  .footer-nav__list {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 1rem !important;
+    width: 100%;
+  }
+  .footer-nav__list a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    white-space: normal;
+  }
+}
+
+/* Small-phone design floor. */
+@media (max-width: 479px) {
+  :root {
+    --vm-page-pad-x: clamp(1rem, 5vw, 1.25rem);
+    --vm-gutter: 1rem;
+    --vm-section-expansive: clamp(3.75rem, 16vw, 5rem);
+    --vm-section-standard: clamp(3rem, 13vw, 4rem);
+    --vm-section-compact: clamp(2.25rem, 10vw, 3rem);
+    --vm-display-xl: clamp(2.3rem, 12vw, 3.1rem);
+    --vm-display-lg: clamp(2rem, 10vw, 2.65rem);
+    --vm-display-md: clamp(1.6rem, 8vw, 2.05rem);
+    --vm-lead: 1.05rem;
+  }
+
+  body {
+    line-height: 1.58;
+  }
+
+  .vm-page-head {
+    padding-top: calc(var(--vm-header-h) + 2.75rem);
+  }
+
+  .vm-hero {
+    padding-top: calc(var(--vm-header-h) + 3rem);
+  }
+
+  .vm-hero__grid {
+    gap: 1.75rem;
+  }
+
+  .vm-hero__headline {
+    max-width: none;
+  }
+
+  .vm-hero__portrait {
+    width: min(100%, 20rem);
+  }
+
+  .vm-img--portrait-tight {
+    aspect-ratio: 4 / 3;
+  }
+
+  .vm-proof {
+    grid-template-columns: 1fr;
+  }
+
+  .vm-feature {
+    gap: 1.1rem;
+  }
+
+  .vm-feature__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .vm-feature__title {
+    margin-top: 0.55rem;
+  }
+
+  .vm-profile {
+    gap: 1.75rem;
+  }
+
+  .vm-profile__figure {
+    width: min(100%, 22rem);
+  }
+
+  .vm-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .vm-metric {
+    padding: 1.35rem 0;
+  }
+
+  .vm-chrono__item {
+    padding-block: 1.65rem;
+  }
+
+  .vm-chrono__current {
+    display: inline-flex;
+    margin: 0.5rem 0 0;
+    vertical-align: top;
+  }
+
+  .vm-photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vm-publication__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .vm-publication__title {
+    max-width: none;
+  }
+
+  .vm-resource-link {
+    align-items: flex-start;
+    min-height: 64px;
+  }
+
+  .vm-event-feature__media {
+    width: 100%;
+    max-width: 24rem;
+  }
+
+  .vm-event-feature__body {
+    width: 100%;
+  }
+
+  .vm-event-meta > div {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .vm-doc {
+    padding-block: 1.5rem;
+  }
+
+  .vm-doc__action,
+  .vm-doc__action .vm-btn {
+    width: 100%;
+  }
+
+  .vm-doc__action .vm-btn {
+    justify-content: space-between;
+    white-space: normal;
+  }
+
+  .back-to-top {
+    right: max(0.75rem, env(safe-area-inset-right, 0px)) !important;
+    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* Tablet: preserve breathing room while keeping the mobile nav until 900px. */
+@media (min-width: 600px) and (max-width: 899px) {
+  .vm-hero__portrait {
+    width: min(100%, 30rem);
+  }
+  .vm-photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .vm-publication-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Dynamic-viewport lightbox hardening. */
+.lightbox {
+  min-height: 100dvh;
+}
+.lightbox__shell {
+  width: min(1100px, 100%);
+  max-width: calc(100vw - max(1rem, env(safe-area-inset-left, 0px)) - max(1rem, env(safe-area-inset-right, 0px)));
+  max-height: calc(100dvh - max(1rem, env(safe-area-inset-top, 0px)) - max(1rem, env(safe-area-inset-bottom, 0px)));
+}
+.lightbox__figure {
+  min-width: 0;
+  width: 100%;
+}
+.lightbox__figure img {
+  max-width: 100%;
+}
+
+@media (max-width: 599px) {
+  .lightbox {
+    align-items: stretch;
+    padding: max(0.5rem, env(safe-area-inset-top, 0px))
+             max(0.5rem, env(safe-area-inset-right, 0px))
+             max(0.5rem, env(safe-area-inset-bottom, 0px))
+             max(0.5rem, env(safe-area-inset-left, 0px));
+  }
+  .lightbox__shell {
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .lightbox__figure img {
+    max-height: 68dvh;
+  }
+  .lightbox__caption {
+    width: 100%;
+    padding-inline: 3.25rem;
+  }
+}
