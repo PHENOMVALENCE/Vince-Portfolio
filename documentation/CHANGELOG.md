@@ -4,6 +4,15 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.1.1 — Portrait crop refinement — 2026-09-22
+
+- Tightened the two primary profile portraits to a head-and-upper-torso crop.
+- Removed visible wrist accessories, including bracelets or watches, from the primary portrait framing without modifying the source photography.
+- Kept the crop responsive and consistent across desktop and mobile.
+- Bumped static asset cache identifiers to 5.1.1.
+
+---
+
 ## 5.1.0 — Portfolio feedback revision — 2026-09-22
 
 ### Content
