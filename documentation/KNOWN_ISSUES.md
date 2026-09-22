@@ -1,6 +1,6 @@
 # Known Issues
 
-**Status:** current as of v5.0.4
+**Status:** current as of v5.4.0
 
 ---
 
@@ -23,8 +23,8 @@ Permanent once merged. Fine for a portfolio; worth revisiting if the repository 
 ### Content pending verification
 Several published metrics rest on Vicent's own CV rather than third-party documentation, and some dates conflict between sources. Tracked in [`CONTENT_NEEDS_VERIFICATION.md`](./CONTENT_NEEDS_VERIFICATION.md).
 
-### Screen readers untested manually
-Accessibility work has been programmatic — roles, ARIA state, focus order, measured contrast. No NVDA/JAWS/VoiceOver pass.
+### Full assistive-technology pass still pending
+Keyboard, focus, ARIA and responsive checks are documented and partially automated. A full NVDA/JAWS/VoiceOver pass is still pending.
 
 ---
 
@@ -40,7 +40,7 @@ Accessibility work has been programmatic — roles, ARIA state, focus order, mea
 | Tertiary buttons 32px, filters 41px | Raised to 44px; tertiary underline moved to `::after`. |
 | Duplicate `id="contact"` | Footer injected a second one. |
 | Hash links dead on load | `applyInitialHash`. |
-| `Download CV` 404 sitewide | `assets/cv/` was empty; a redacted CV is now published. |
+| `Download CV` 404 sitewide | the owner-supplied consultant CV is published at the stable public path. |
 | LinkedIn links pointed at a non-existent profile | `/in/vicentmanila` → `/in/vicent-manila`. |
 | PDFs staged as text | `.gitattributes` — CRLF conversion would have corrupted them. |
 | Unverifiable testimonials and media | Removed; see [`CONTENT_VERIFICATION.md`](./CONTENT_VERIFICATION.md). |
