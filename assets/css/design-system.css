@@ -1785,3 +1785,283 @@ div {
     padding-inline: 3.25rem;
   }
 }
+
+
+/* ============================================================================
+   PAGE-SPECIFIC RESPONSIVE CONTRACTS — v5.4
+   ========================================================================== */
+
+/* ---------- Home / leadership / selected work ---------------------------- */
+@media (max-width: 899px) {
+  .vm-feature {
+    grid-template-columns: 1fr !important;
+  }
+  .vm-feature:nth-child(even) .vm-feature__media {
+    order: 0 !important;
+  }
+  .vm-feature__body {
+    width: 100%;
+  }
+
+  .vm-profile {
+    grid-template-columns: 1fr !important;
+  }
+
+  .vm-philosophy__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .vm-contact {
+    grid-template-columns: 1fr !important;
+  }
+
+  .vm-index__item,
+  .vm-chrono__item,
+  .vm-geo {
+    width: 100%;
+  }
+}
+
+/* ---------- Project index ------------------------------------------------ */
+.vm-project-item {
+  min-width: 0;
+}
+.vm-project-item .vm-feature__media,
+.vm-project-item .vm-feature__body {
+  min-width: 0;
+}
+@media (max-width: 599px) {
+  #projects-grid {
+    gap: 3.25rem !important;
+  }
+  .vm-project-item .vm-feature__media {
+    aspect-ratio: 16 / 10;
+  }
+  .vm-project-item .vm-feature__summary,
+  .vm-project-item .vm-feature__outcome {
+    max-width: none;
+  }
+}
+
+/* ---------- Project detail ---------------------------------------------- */
+.project-content {
+  width: min(100%, var(--vm-max-w));
+  margin-inline: auto;
+  padding-inline: var(--vm-page-pad-x) !important;
+}
+.project-content--prose {
+  width: min(100%, 52rem);
+}
+
+.project-hero__content {
+  width: min(100%, var(--vm-max-w));
+  padding-left: var(--vm-page-pad-x) !important;
+  padding-right: var(--vm-page-pad-x) !important;
+}
+.project-hero__meta {
+  row-gap: 0.35rem;
+}
+.project-hero__title,
+.project-hero__summary {
+  min-width: 0;
+}
+.project-gallery,
+.project-impact-list {
+  min-width: 0;
+}
+.project-gallery__item,
+.project-impact-item,
+.project-related {
+  min-width: 0;
+}
+.project-related__body {
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .project-hero {
+    min-height: clamp(28rem, 82svh, 38rem) !important;
+    height: auto !important;
+  }
+  .project-hero__content {
+    position: relative !important;
+    margin-top: auto;
+    padding-top: calc(var(--vm-header-h) + 5rem) !important;
+    padding-bottom: 1.75rem !important;
+  }
+  .project-hero__title {
+    max-width: 16ch;
+    font-size: clamp(2rem, 10vw, 2.8rem) !important;
+    line-height: 1.06;
+  }
+  .project-hero__summary {
+    max-width: 42ch;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .project-hero__scrim {
+    background:
+      linear-gradient(180deg, rgba(7, 26, 51, 0.32) 0%, rgba(7, 26, 51, 0.36) 38%, rgba(7, 26, 51, 0.86) 78%, rgba(7, 26, 51, 0.96) 100%) !important;
+  }
+
+  .project-overview-section,
+  .project-gallery-section,
+  .project-impact-section,
+  .project-related-section {
+    padding-block: var(--vm-section-standard) !important;
+  }
+
+  .project-gallery {
+    grid-template-columns: 1fr !important;
+  }
+  .project-gallery__item {
+    aspect-ratio: 16 / 10 !important;
+  }
+
+  .project-impact-list {
+    grid-template-columns: 1fr !important;
+  }
+  .project-impact-item {
+    padding: 1rem !important;
+  }
+
+  .project-related {
+    grid-template-columns: 1fr !important;
+  }
+  .project-related__media {
+    min-height: 0 !important;
+    aspect-ratio: 16 / 10 !important;
+  }
+  .project-related__body {
+    padding: 1rem 0 0 !important;
+  }
+
+  .prose-cs h2 {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 399px) {
+  .project-hero__meta {
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+  }
+  .project-hero__dot {
+    width: 3px;
+    height: 3px;
+  }
+}
+
+/* ---------- Gallery ------------------------------------------------------ */
+.gallery-card,
+.gallery-card__media,
+.gallery-card__meta {
+  min-width: 0;
+}
+.gallery-card__meta {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 639px) {
+  .gallery-masonry {
+    columns: 1 !important;
+  }
+  .gallery-masonry > * {
+    margin-bottom: 1.5rem;
+  }
+  .gallery-card__meta {
+    padding-top: 0.8rem !important;
+  }
+  #gallery-empty {
+    padding-block: 2.5rem !important;
+  }
+}
+
+/* ---------- Speaking ----------------------------------------------------- */
+@media (max-width: 799px) {
+  .vm-event-feature {
+    grid-template-columns: 1fr !important;
+  }
+  .vm-event-feature__media {
+    justify-self: start;
+  }
+}
+@media (max-width: 599px) {
+  body[data-page="speaking"] .vm-hero__portrait {
+    width: min(100%, 22rem);
+  }
+  body[data-page="speaking"] .vm-img--portrait-ed {
+    aspect-ratio: 4 / 3;
+  }
+  body[data-page="speaking"] .vm-event-feature__media {
+    aspect-ratio: 4 / 5;
+  }
+  body[data-page="speaking"] .vm-photo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Appendix ----------------------------------------------------- */
+.vm-doc__body {
+  min-width: 0;
+}
+@media (max-width: 899px) {
+  .vm-doc {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    align-items: start;
+  }
+  .vm-doc__action {
+    grid-column: 2;
+  }
+}
+@media (max-width: 479px) {
+  .vm-doc {
+    grid-template-columns: 1fr;
+  }
+  .vm-doc__num,
+  .vm-doc__body,
+  .vm-doc__action {
+    grid-column: 1;
+  }
+  .vm-doc__num {
+    padding-top: 0;
+  }
+}
+
+/* ---------- Very narrow phones ------------------------------------------ */
+@media (max-width: 359px) {
+  .vm-nav {
+    gap: 0.5rem;
+  }
+  .vm-nav__brand {
+    gap: 0.45rem;
+  }
+  .vm-nav__brand .brand-logo--nav {
+    width: 30px;
+    height: 30px;
+  }
+  .vm-nav__brand .brand-name {
+    font-size: 0.8125rem;
+  }
+  .vm-nav__icon-btn {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+
+  .vm-display {
+    letter-spacing: -0.025em;
+  }
+
+  .vm-index__item {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+
+  .vm-publication__meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+  .vm-publication__meta [aria-hidden="true"] {
+    display: none;
+  }
+}
