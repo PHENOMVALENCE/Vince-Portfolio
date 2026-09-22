@@ -1,6 +1,6 @@
 # Vicent Manila — Portfolio Design System
 
-**Status:** v1.0 · Source of truth for all visual decisions in this repository.
+**Status:** v1.1 · Source of truth for all visual decisions in this repository.
 **Companion:** [documentation/DESIGN_REFERENCE_ANALYSIS.md](./documentation/DESIGN_REFERENCE_ANALYSIS.md) — the research this system is derived from.
 
 ---
@@ -183,8 +183,9 @@ Photography carries the visual sophistication of this site. It is the reason the
 
 | Class | Ratio | Use |
 |---|---|---|
-| `.vm-img--portrait-exec` | 4:5 | Hero portrait |
-| `.vm-img--portrait-ed` | 3:4 | Profile, speaking |
+| `.vm-img--portrait-exec` | 1:1 base | Hero portrait base frame |
+| `.vm-img--portrait-ed` | 1:1 base | Profile / speaking base frame |
+| `.vm-img--portrait-tight` | 5:4 | Primary profile crops; excludes lower wrist/arm accessories |
 | `.vm-img--case-hero` | 3:2 | Case-study heroes |
 | `.vm-img--event` | 4:3 | Event and editorial imagery |
 | `.vm-img--gallery` | native | Gallery archive |
@@ -289,7 +290,7 @@ Verified at **320 · 360 · 375 · 390 · 430 · 768 · 900 · 1024 · 1280 · 1
 
 **No horizontal overflow at 320px** — treated as a P0 defect.
 
-Mobile is designed, not stacked: the portrait leads, selected work becomes image-first, the chronology becomes a single vertical rail, metrics reduce to the strongest three, and long headlines get controlled wrapping via `text-wrap: balance`.
+Mobile is designed, not stacked: the portrait leads, selected work becomes image-first, the chronology becomes a single vertical rail, metrics collapse to one column, CTA groups become full-width on narrow phones, case-study heroes leave overlay mode below 900px, and long headings use controlled wrapping plus overflow safety.
 
 ---
 
