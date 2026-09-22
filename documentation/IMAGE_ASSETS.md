@@ -1,6 +1,6 @@
 ﻿# Image Assets
 
-**Version:** 5.2.0
+**Version:** 5.2.2
 
 ---
 
@@ -34,7 +34,7 @@ Central path map: `VM.images` in `assets/js/config.js`.
 | `assets/images/Vince/` | Source portraits |
 | `assets/images/Vince/web/` | Optimized portraits for hero, about, speaking, OG |
 | `assets/images/Vince/web/gallery/` | Optimized event/team images for projects & media |
-| `assets/images/Vince/web/events/mens-circle-2026/` | Final Men's Circle campaign artwork used by Speaking and Gallery |
+| `assets/images/Vince/web/events/mens-circle-2026/` | Vicent Manila's Men's Circle host artwork used by Speaking and Gallery |
 | `assets/images/Vince/gallery/` | Full gallery sources referenced by `gallery-data.js` |
 | `assets/images/Vince/gallery/thumbs/` | Lightweight thumbs for gallery grid |
 
