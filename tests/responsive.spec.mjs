@@ -16,6 +16,7 @@ const viewports = [
   { name: 'phone-430', width: 430, height: 932 },
   { name: 'tablet-768', width: 768, height: 1024 },
   { name: 'desktop-breakpoint-900', width: 900, height: 900 },
+  { name: 'desktop-1280', width: 1280, height: 800 },
 ];
 
 for (const viewport of viewports) {
