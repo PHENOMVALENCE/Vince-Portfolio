@@ -595,7 +595,7 @@
       role: 'Host',
       organization: 'AIESEC Alumni Tanzania · 21.25 Cluster',
       summary: 'A moderated conversation on men, purpose and leadership featuring Ram Hadji and Elizabeth Feria.',
-      image: 'assets/images/Vince/web/gallery/mens-circle-2026.jpg',
+      image: 'assets/images/Vince/web/events/mens-circle-2026/mens-circle-main.jpg',
       url: 'https://themenscircle.rsvpify.com',
       linkLabel: 'View event page',
     },
