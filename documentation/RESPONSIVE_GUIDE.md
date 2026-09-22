@@ -1,6 +1,6 @@
 # Responsive Guide
 
-**Status:** current for v5.4.0  
+**Status:** current for v5.5.0  
 **Mobile floor:** 320px  
 **Navigation breakpoint:** 900px
 
@@ -11,13 +11,20 @@
 Every public route is covered by the responsive browser smoke suite at:
 
 - 320 × 720
+- 360 × 800
 - 375 × 812
+- 390 × 844
 - 430 × 932
+- 667 × 375 (landscape phone)
 - 768 × 1024
+- 899 × 900
 - 900 × 900
+- 1024 × 768
 - 1280 × 800
+- 1440 × 900
+- 1920 × 1080
 
-Manual visual review should also include 360, 390, 1024, 1440 and 1920 widths.
+Manual visual review should use the same matrix and pay particular attention to image composition, long text wrapping and touch ergonomics.
 
 The acceptance floor is simple: **no horizontal page overflow at any supported width**.
 
@@ -124,11 +131,14 @@ node scripts/validate-site.mjs
 npm run test:responsive
 ```
 
-The Playwright suite starts against a local static server in CI and checks all seven routes for:
+The Playwright suite starts against a local static server in CI and checks all seven routes across the full viewport matrix for:
 
 - horizontal overflow,
-- navigation mode at the 900px breakpoint,
+- navigation mode immediately below and at the 900px breakpoint,
 - runtime JavaScript errors,
-- 44px interactive targets.
+- 44px interactive targets,
+- mobile drawer containment/focus restoration,
+- mobile gallery-lightbox containment,
+- project evidence/related-work containment.
 
 CI is triggered when a pull request is opened, synchronized, reopened or marked ready for review.
