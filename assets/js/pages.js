@@ -596,7 +596,7 @@
 
       const gallery = galleryItems.length ? `
         <section class="project-gallery-section" aria-labelledby="project-gallery-heading">
-          <div class="project-content max-w-8xl mx-auto px-6">
+          <div class="project-content vm-container">
             <div class="project-section-head">
               <p class="section-label mb-3">Visual Story</p>
               <h2 id="project-gallery-heading" class="section-title text-navy dark:text-white">Project Gallery</h2>
@@ -630,13 +630,13 @@
 
       const related = project.related?.length ? `
         <section class="project-related-section" aria-labelledby="related-projects-heading">
-          <div class="project-content max-w-8xl mx-auto px-6">
+          <div class="project-content vm-container">
             <div class="project-section-head">
               <p class="section-label mb-3">Continue Exploring</p>
               <h2 id="related-projects-heading" class="section-title text-navy dark:text-white">Related Projects</h2>
               <div class="project-gold-rule" aria-hidden="true"></div>
             </div>
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="vm-project-related-grid">
               ${project.related.map((sl, i) => {
                 const rel = VM.getProject(sl);
                 if (!rel) return '';
@@ -676,7 +676,7 @@
         </section>
 
         <section class="project-overview-section" aria-label="Project case study">
-          <div class="project-content project-content--prose max-w-8xl mx-auto px-6">
+          <div class="project-content project-content--prose vm-container">
             <div class="prose-cs project-case">
               <h2>Overview</h2>
               <p>${esc(project.overview)}</p>
@@ -710,7 +710,7 @@
         ${gallery}
 
         <section class="project-impact-section" aria-labelledby="project-impact-heading">
-          <div class="project-content max-w-8xl mx-auto px-6">
+          <div class="project-content vm-container">
             <div class="project-section-head project-section-head--light">
               <p class="section-label mb-3">Outcomes</p>
               <h2 id="project-impact-heading" class="section-title text-white">Impact Metrics</h2>
@@ -1024,7 +1024,7 @@
           <div class="vm-container vm-event-feature">
             <figure class="vm-event-feature__media vm-img-frame">
               <img class="vm-img" src="${esc(d.featuredEvent.image)}"
-                   alt="The Men's Circle event poster featuring host Vicent Manila and guests"
+                   alt="The Men's Circle event poster featuring host Vicent Manila"
                    width="864" height="1080" loading="lazy" decoding="async">
             </figure>
             <div class="vm-event-feature__body">
