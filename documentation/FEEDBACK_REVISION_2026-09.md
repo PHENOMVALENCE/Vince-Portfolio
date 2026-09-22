@@ -55,7 +55,7 @@ This makes professional claims inspectable rather than leaving them as skill lab
 
 ### External resources
 
-`VM.data.externalResources` is intentionally empty until real article/newsletter URLs are supplied. The component is already implemented and will render automatically when valid entries are added.
+`VM.data.externalResources` contains the verified Full Shangwe article and Mzumbe Career Fair Instagram post. The component renders only real public URLs.
 
 ---
 
@@ -72,13 +72,9 @@ This makes professional claims inspectable rather than leaving them as skill lab
 ## New and updated assets
 
 - `assets/cv/vicent-manila-cv.pdf` — final owner-supplied consultant CV
-- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-main.jpg`
 - `assets/images/Vince/web/events/mens-circle-2026/mens-circle-vicent-manila-host.jpg`
-- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-ram-hadji.jpg`
-- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-elizabeth-feria.jpg`
-- `assets/images/Vince/web/events/mens-circle-2026/mens-circle-cover.jpg`
 
-The WhatsApp filenames from the source upload are not used in production. The artwork was mapped into descriptive event paths and linked from Speaking and Gallery.
+Only Vicent Manila's host artwork is published for The Men's Circle. Guest, group and generic cover artwork were removed from the portfolio implementation.
 
 ---
 
@@ -105,6 +101,6 @@ Before merging:
 - Desktop and mobile navigation remain functional.
 - Case-study filters only expose categories with cases.
 - External links use safe new-tab attributes.
-- The full Men's Circle artwork set resolves from the structured event directory.
+- The Vicent Manila Men's Circle host artwork resolves from the structured event directory.
 - The public CV resolves from `assets/cv/vicent-manila-cv.pdf`.
 - The public CV opens successfully.
