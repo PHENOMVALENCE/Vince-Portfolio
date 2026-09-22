@@ -57,6 +57,16 @@ for (const [file, page] of Object.entries(shells)) {
     `${file}: missing canonical link`);
   assert(/<title>[^<]+<\/title>/i.test(html),
     `${file}: missing document title`);
+  assert(/<meta\s+property=["']og:title["'][^>]*content=/i.test(html),
+    `${file}: missing Open Graph title`);
+  assert(/<meta\s+property=["']og:description["'][^>]*content=/i.test(html),
+    `${file}: missing Open Graph description`);
+  assert(/<meta\s+property=["']og:image["'][^>]*content=/i.test(html),
+    `${file}: missing Open Graph image`);
+  assert(/<meta\s+name=["']twitter:card["'][^>]*content=["']summary_large_image["']/i.test(html),
+    `${file}: missing Twitter summary card metadata`);
+  assert(html.includes('lucide@0.468.0/dist/umd/lucide.min.js'),
+    `${file}: Lucide must remain pinned to 0.468.0`);
 
   if (version) {
     const refs = [...html.matchAll(/[?&]v=([0-9]+\.[0-9]+\.[0-9]+)/g)].map(m => m[1]);
