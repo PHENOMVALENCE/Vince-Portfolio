@@ -10,63 +10,61 @@
   VM.data = {
     hero: {
       eyebrow: 'Management Consulting',
-      /**
-       * Positioning: consultant first, national executive second.
-       * AIESEC is a leadership chapter within a broader career, not the frame.
-       */
-      headline: 'Management Consultant · Strategic Partnerships · Organizational Leadership',
-      summary: 'Management consultant working across strategy, partnerships and organizational development — after leading two national organizations, in Rwanda and Tanzania, as President.',
+      headline: 'Management Consultant · Strategy · Partnerships · Research & Evaluation',
+      summary: 'Management consultant working across strategy, partnerships, research and evaluation. His experience spans private and public sector programmes, field monitoring and evaluation, and national leadership roles in Tanzania and Rwanda.',
       location: 'Dar es Salaam · Tanzania · East Africa',
-      /** Verifiable role facts. Current work first. */
       proof: [
-        'Associate Management Consultant — INNOVEX',
-        'General Partner — MigLine',
-        'Former National President — AIESEC in Tanzania & Rwanda',
+        'Management Consultant — INNOVEX Development Consulting Ltd',
+        'Field M&E — Tanga Yetu Project Phase 2',
+        'Former national leader — AIESEC in Tanzania & Rwanda',
       ],
     },
 
     about: {
-      summary: 'Vicent Manila is a management consultant working across strategy, partnerships and organizational development in East Africa. He advises on market entry, partnership structuring and stakeholder engagement, and leads the Tanzanian deployment of a regional delivery platform. Before consulting, he served as national President of AIESEC in two countries — Rwanda and then Tanzania — running national teams, negotiating corporate partnerships, and building leadership systems designed to outlast any single term of office.',
-      philosophy: 'Leadership is not authority — it is stewardship. The most durable organizations are built when people are equipped with agency, when partnerships are rooted in mutual value, and when strategy is translated into systems that outlast any single leader.',
-      mission: 'To strengthen the institutions and partnerships that develop the next generation of African leaders, and to translate complex organizational challenges into strategies that hold up in execution.',
+      summary: 'Vicent Manila is a management consultant with experience in strategy, research and evaluation, partnership development and programme delivery. At INNOVEX Development Consulting Ltd, he supports field monitoring and evaluation for Tanga Yetu Project Phase 2. His earlier work spans youth livelihoods, national leadership, international business development and cross-border organizational support.',
+      philosophy: 'Leadership is stewardship. Durable organizations are built when people have agency, partnerships create mutual value, and strategy becomes a system that can outlast any one leader.',
+      mission: 'To help institutions and partnerships turn complex challenges into practical strategies, measurable programmes and stronger leadership systems.',
 
-      /** Six capability groups. Replaces the former carousel and tag cloud. */
       expertise: [
-        { title: 'Management & Strategy', desc: 'Organizational problem solving, strategy design and execution.', competencies: ['Management Consulting', 'Strategic Planning', 'Market Entry', 'Business Intelligence'] },
-        { title: 'Strategic Partnerships', desc: 'Business development, institutional relations and corporate partnership structuring.', competencies: ['Partnership Development', 'Proposal Development', 'Negotiation', 'Corporate Relations'] },
-        { title: 'Organizational Leadership', desc: 'National leadership, governance and the design of leadership pipelines.', competencies: ['National Leadership', 'Governance', 'Team Leadership', 'Organizational Development'] },
-        { title: 'Programme & Project Leadership', desc: 'Programme coordination, stakeholder management and delivery.', competencies: ['Programme Coordination', 'Monitoring & Evaluation', 'Youth Employability', 'Development Programmes'] },
-        { title: 'Cross-Cultural Leadership', desc: 'Leading organizations and teams across national and cultural borders.', competencies: ['Tanzania', 'Rwanda', 'International Networks'] },
-        { title: 'Youth & Human Capital Development', desc: 'Leadership development, mentorship and professional readiness.', competencies: ['Leadership Development', 'Mentorship', 'Career Development', 'Facilitation & Training'] },
+        { title: 'Management & Strategy', desc: 'Organizational problem solving, strategy formulation and practical execution.', competencies: ['Management Consulting', 'Strategic Planning', 'Business Intelligence', 'Strategy Execution'] },
+        { title: 'Research & Evaluation', desc: 'Field monitoring, programme evaluation and evidence-informed decision support.', competencies: ['Monitoring & Evaluation', 'Field M&E', 'Research', 'Performance Reporting'] },
+        { title: 'Strategic Partnerships', desc: 'Business development, partner engagement and institutional relationship management.', competencies: ['Partnership Development', 'Proposal Development', 'Negotiation', 'Corporate Relations'] },
+        { title: 'Programme & Project Leadership', desc: 'Programme coordination, stakeholder management and delivery across multi-stakeholder environments.', competencies: ['Programme Coordination', 'Stakeholder Management', 'Youth Livelihoods', 'Development Programmes'] },
+        { title: 'Organizational Leadership', desc: 'National leadership, governance, accountability and team performance systems.', competencies: ['National Leadership', 'Governance', 'Team Leadership', 'Organizational Development'] },
+        { title: 'International Collaboration', desc: 'Cross-border work across national entities, global committees and business development portfolios.', competencies: ['Tanzania', 'Rwanda', 'AIESEC International', 'Belarus Entity Support'] },
       ],
 
       international: [
-        { country: 'Tanzania', role: 'National President, AIESEC in Tanzania · Consulting and partnerships practice, Dar es Salaam' },
-        { country: 'Rwanda', role: 'National President and Vice President, Business Development, AIESEC in Rwanda' },
-        { country: 'East Africa', role: 'Initiated and coordinated the East African Conference Cycle' },
+        { country: 'Tanzania', role: 'Management consulting, field M&E, youth livelihoods and national organizational leadership' },
+        { country: 'Rwanda', role: 'Member Committee President and Head of Business Development & Employer Branding, AIESEC in Rwanda' },
+        { country: 'AIESEC International', role: 'International Legislative Meeting Subcommittee and Business Development Steering Team, Montreal-based global portfolio' },
+        { country: 'Belarus', role: 'Remote entity-support role in product development sales' },
       ],
 
       education: {
         school: 'Institute of Finance Management (IFM)',
         location: 'Dar es Salaam, Tanzania',
         degree: 'Bachelor of Science in Social Protection',
-        period: '2019 – 2022',
+        period: 'Oct 2019 – Nov 2022',
       },
 
-      /**
-       * Undergraduate research. Supplied via the revision brief.
-       * Described only at the level the brief states — no findings invented.
-       */
+      training: {
+        title: 'Digital Lion Program',
+        provider: 'Alibaba Global Initiatives & Africa\'s Business Heroes',
+        completed: '17 July 2026',
+        focus: 'Strategy formulation and implementation using Alibaba business practices',
+        certificate: 'AGI2607170104',
+      },
+
       research: {
         title: 'How Social Protection Systems Respond in Times of Crisis and Emergency',
         period: 'October 2020 – February 2021',
-        summary: 'Undergraduate research examining social-protection responses during crisis, using the COVID-19 pandemic as its case study. Covered Tanzania’s social-protection system, the pandemic’s effects on health and education, its impact on elderly people, women and children, and recommendations for strengthening social-protection systems in Africa.',
+        summary: 'Undergraduate research examining social-protection responses during crisis, using the COVID-19 pandemic as its case study.',
       },
 
       languages: [
-        { name: 'Swahili', level: 'Native or bilingual' },
-        { name: 'English', level: 'Full professional' },
-        { name: 'Kinyarwanda', level: 'Elementary' },
+        { name: 'English', level: 'Fluent' },
+        { name: 'Swahili', level: 'Fluent' },
       ],
     },
 
@@ -79,112 +77,132 @@
     experience: [
       {
         period: 'Jul 2026 — Present', current: true,
-        title: 'Associate Management Consultant',
-        organization: 'INNOVEX', country: 'Dar es Salaam, Tanzania',
-        mandate: 'Management consulting practice covering organizational strategy, partner relationship management and execution.',
-        outcomes: [],
-        skills: ['Management Consulting', 'Partner Relationship Management'],
-      },
-      {
-        period: 'Sep 2025 — Present', current: true,
-        title: 'General Partner',
-        organization: 'MigLine', country: 'Dar es Salaam, Tanzania',
-        mandate: 'Leading the deployment of MigLine in Tanzania, a regional delivery platform operating across Africa and the Middle East.',
+        title: 'Management Consultant',
+        organization: 'INNOVEX Development Consulting Ltd', country: 'Dar es Salaam, Tanzania',
+        mandate: 'Supporting management consultancy, research and evaluation work across multi-sectoral programmes.',
         outcomes: [
-          'Spearheading market entry strategy, partnership development and operations in Tanzania',
-          'Driving growth through stakeholder engagement and alignment with national regulatory frameworks',
+          'Current assignment: Field Monitoring & Evaluation for Tanga Yetu Project Phase 2 in Tanga, Tanzania',
+          'Supporting field-level M&E delivery as part of the project team',
         ],
-        skills: ['Market Entry', 'Partnership Development', 'Operations'],
+        skills: ['Management Consulting', 'Research & Evaluation', 'Field M&E'],
       },
       {
-        period: 'Aug 2025 — Present', current: true,
-        title: 'Founder',
-        organization: 'VMAN Enterprises', country: 'Dar es Salaam, Tanzania',
-        mandate: '',
-        outcomes: [],
-        skills: [],
-      },
-      {
-        period: '2025',
+        period: 'Sep 2025 — Jun 2026',
         title: 'Sustainable Livelihoods Coordinator',
         organization: 'Mo Dewji Foundation', country: 'Dar es Salaam, Tanzania',
-        mandate: 'Supporting entrepreneurship and livelihood programmes aimed at youth employability and economic inclusion.',
+        mandate: 'Supported youth entrepreneurship and livelihood interventions focused on employability and economic inclusion.',
         outcomes: [
-          'Market assessment and opportunity analysis to inform programme design',
-          'Private sector and ecosystem partner engagement to strengthen enterprise support',
-          'Business growth pathways for youth-led enterprises',
+          'Conducted market assessments to inform programme design',
+          'Engaged private-sector and ecosystem partners',
+          'Contributed to programme monitoring, reporting and evaluation',
         ],
-        skills: ['Programme Support', 'Stakeholder Engagement', 'Monitoring & Evaluation'],
+        skills: ['Programme Coordination', 'Market Assessment', 'Monitoring & Evaluation'],
       },
       {
-        period: '2024 — 2025',
-        title: 'National President',
+        period: 'Aug 2024 — Jul 2025',
+        title: 'Country Director',
         organization: 'AIESEC in Tanzania', country: 'Dar es Salaam, Tanzania',
-        mandate: 'Full national accountability for strategy, operations, partnerships and external representation.',
+        mandate: 'Directed national strategy, partnerships, stakeholder platforms and organizational leadership.',
         outcomes: [
-          'Directed a national leadership team of 10+ managers and over 300 members across seven cities',
-          'Secured strategic corporate collaborations including Barrick Gold and Total Energies',
-          'Initiated and coordinated the East African Conference Cycle',
+          'Directed 10+ managers and 300+ members across seven cities',
+          'Led partnerships with Barrick Gold and Total Energies',
+          'Directed leadership summits and stakeholder platforms with 500+ participants',
+          'Initiated the East African Conference Cycle',
         ],
-        skills: ['National Leadership', 'Partnership Development', 'Governance'],
+        skills: ['National Leadership', 'Partnership Development', 'Stakeholder Management'],
       },
       {
-        period: '2023 — 2024',
-        title: 'National President',
+        period: 'Jul 2023 — Jul 2024',
+        title: 'Member Committee President',
         organization: 'AIESEC in Rwanda', country: 'Kigali, Rwanda',
-        mandate: 'Led national strategy, stakeholder engagement and organizational performance across local chapters.',
+        mandate: 'Led national strategy implementation and organizational performance across local chapters.',
         outcomes: [
-          'Designed and delivered national and regional conferences with over 500 delegates',
-          'Strengthened monitoring, evaluation, reporting and accountability systems nationally',
-          'Coordinated strategic partnerships across private and public sector stakeholders',
+          'Managed 300+ members and alumni, five heads of department and three local chapters',
+          'Designed national and regional conferences for 500+ delegates',
+          'Strengthened monitoring, evaluation, reporting and accountability systems',
         ],
-        skills: ['Organizational Development', 'Governance', 'Stakeholder Management'],
+        skills: ['Organizational Leadership', 'Governance', 'Monitoring & Evaluation'],
       },
       {
-        period: '2022 — 2023',
-        title: 'Vice President, Business Development & Incoming Global Talent',
-        organization: 'AIESEC in Rwanda', country: 'Kigali, Rwanda',
-        mandate: 'Owned the national partnership pipeline, from opportunity identification through negotiation and close.',
+        period: 'Jul 2023 — Jul 2024 · Concurrent',
+        title: 'International Legislative Meeting Subcommittee',
+        organization: 'AIESEC International', country: 'Montreal, Canada',
+        mandate: 'Supported the global conference bidding and host-entity process during a one-year concurrent term.',
         outcomes: [
-          'Secured 7+ high-value partnerships, expanding organizational revenue streams',
-          'Contributed to a 60% increase in internship placements through targeted BD initiatives',
+          'Managed bids, bid criteria and host-entity tracking for the AIESEC global conference',
         ],
-        skills: ['Business Development', 'Negotiation', 'Proposal Development'],
+        skills: ['International Operations', 'Bid Management', 'Stakeholder Coordination'],
+      },
+      {
+        period: 'Jan 2023 — Jun 2023 · Concurrent',
+        title: 'Business Development Steering Team',
+        organization: 'AIESEC International', country: 'Montreal, Canada',
+        mandate: 'Worked within the global business portfolio during a six-month concurrent term.',
+        outcomes: [
+          'Drove co-sales and advised Business Development Managers across 100+ countries',
+        ],
+        skills: ['Business Development', 'Co-sales', 'International Collaboration'],
+      },
+      {
+        period: 'Jul 2022 — Jul 2023',
+        title: 'Head of Business Development and Employer Branding',
+        organization: 'AIESEC in Rwanda', country: 'Kigali, Rwanda',
+        mandate: 'Led business development, employer branding, market research and client profiling.',
+        outcomes: [
+          'Secured 7+ high-value partnerships',
+          'Signed two new national partners and closed five partnerships for Global Money Week',
+          'Contributed to a 60% increase in internship placements',
+          'Delivered capacity-building sessions',
+        ],
+        skills: ['Business Development', 'Employer Branding', 'Partnership Development'],
       },
       {
         period: 'Aug 2022 — Sep 2022',
         title: 'Sales Auditor',
         organization: 'Empower Limited', country: 'Dar es Salaam, Tanzania',
-        mandate: 'Field audits and performance assessment for commercial sales teams.',
+        mandate: 'Conducted field audits and performance assessments for sales teams.',
         outcomes: [
-          'Analytical reporting to improve sales effectiveness and operational performance',
+          'Prepared analytical reports and recommendations',
         ],
-        skills: ['Auditing', 'Performance Analysis'],
+        skills: ['Sales Auditing', 'Performance Analysis'],
       },
       {
-        period: 'Dec 2019 — Feb 2022',
-        title: 'Team Member → Team Leader → National Support Team → President, AIESEC in IFM',
-        organization: 'AIESEC in Tanzania', country: 'Dar es Salaam, Tanzania',
-        mandate: 'Progressive leadership responsibility over two years, from team member to chapter president.',
+        period: 'Oct 2021 — Mar 2022 · Concurrent',
+        title: 'Entity Support Team, PD Sales Executive',
+        organization: 'AIESEC in Belarus', country: 'Remote',
+        mandate: 'Supported national-level direction as part of an international entity-support portfolio.',
+        outcomes: [],
+        skills: ['Entity Support', 'Sales', 'Cross-border Collaboration'],
+      },
+      {
+        period: 'Nov 2020 — Feb 2022',
+        title: 'Local Chapter President',
+        organization: 'AIESEC in IFM', country: 'Dar es Salaam, Tanzania',
+        mandate: 'Led a local chapter across leadership development, community engagement and employer partnerships.',
         outcomes: [
-          'Led a chapter team of 25+ members across leadership development and exchange programmes',
-          'Served on the National Support Team supporting entity-wide operations',
-          'Designed community engagement projects and employer partnership strategies',
+          'Led 25+ members and five vice presidents across five departments',
+          'Designed community engagement and employer partnership strategies',
+          'Organized conferences and leadership events',
         ],
-        skills: ['Team Leadership', 'Youth Development', 'Partnership Acquisition'],
+        skills: ['Leadership', 'Community Engagement', 'Employer Partnerships'],
+      },
+      {
+        period: 'Aug 2020 — Dec 2020',
+        title: 'National Supporting Team, Outgoing Exchange',
+        organization: 'AIESEC in Tanzania', country: 'Dar es Salaam, Tanzania',
+        mandate: 'Supported national strategic direction for the outgoing exchange portfolio.',
+        outcomes: [],
+        skills: ['National Support', 'Exchange Operations'],
       },
     ],
 
     projectCategories: {
-      all: 'All Projects',
+      all: 'All Case Studies',
       'business-development': 'Business Development',
-      'international-partnerships': 'International Partnerships',
       leadership: 'Leadership',
       'employer-branding': 'Employer Branding',
-      operations: 'Operations',
       'youth-development': 'Youth Development',
-      'strategic-planning': 'Strategic Planning',
-      'international-conferences': 'International Conferences',
+      'international-conferences': 'International Operations',
     },
 
     projects: [
@@ -372,10 +390,10 @@
      * supporting evidence in any supplied document. See CONTENT_VERIFICATION.md.
      */
     impactStats: [
-      { value: '300+', label: 'Members led across seven cities', note: 'AIESEC in Tanzania, as Country Director' },
-      { value: '7+', label: 'High-value partnerships secured', note: 'As VP Business Development, Rwanda' },
-      { value: '60%', label: 'Increase in internship placements', note: 'Through targeted BD initiatives' },
-      { value: '16,663', label: 'Students reached by Career Fair', note: 'Across seven regions of Tanzania, over two years' },
+      { value: '300+', label: 'Members led across seven cities', note: 'AIESEC in Tanzania, 2024–2025' },
+      { value: '500+', label: 'Participants and delegates across leadership platforms', note: 'National and regional conferences in Tanzania and Rwanda' },
+      { value: '7+', label: 'High-value partnerships secured', note: 'Business Development, AIESEC in Rwanda' },
+      { value: '60%', label: 'Increase in internship placements', note: 'Targeted business development initiatives' },
     ],
 
     /**
@@ -384,10 +402,13 @@
      * REMOVED: 'AIESEC in Belarus' — no supporting evidence in any supplied document.
      */
     organizations: [
+      'INNOVEX Development Consulting Ltd',
+      'Mo Dewji Foundation',
       'AIESEC in Tanzania',
       'AIESEC in Rwanda',
+      'AIESEC International',
       'AIESEC in IFM',
-      'Mo Dewji Foundation',
+      'AIESEC in Belarus',
       'Empower Limited',
     ],
 
@@ -486,10 +507,41 @@
      * and the annual reports held on file.
      */
     speakingEngagements: [
+      {
+        title: 'The Men\'s Circle',
+        role: 'Host',
+        organization: 'AIESEC Alumni Tanzania · 21.25 Cluster',
+        date: '17 Sep 2026',
+        location: 'Virtual',
+        note: 'Hosted a conversation on men, purpose and leadership with Ram Hadji and Elizabeth Feria.',
+        url: 'https://themenscircle.rsvpify.com',
+        external: true,
+      },
       { title: 'East African Conference Cycle', role: 'Initiator & Coordinator', organization: 'AIESEC in Tanzania', date: '2024–2025', location: 'East Africa' },
       { title: 'National Career Fair & Leadership Summits', role: 'Director', organization: 'AIESEC in Tanzania', date: '2024–2025', location: 'Tanzania', note: 'Over 500 participants and multiple corporate partners' },
       { title: 'National & Regional Conferences', role: 'Designer & Facilitator', organization: 'AIESEC in Rwanda', date: '2023–2024', location: 'Rwanda', note: 'Over 500 delegates' },
     ],
+
+    featuredEvent: {
+      title: 'The Men\'s Circle',
+      eyebrow: 'Recent Engagement',
+      date: '17 September 2026',
+      time: '7 PM EAT',
+      format: 'Virtual',
+      role: 'Host',
+      organization: 'AIESEC Alumni Tanzania · 21.25 Cluster',
+      summary: 'A moderated conversation on men, purpose and leadership featuring Ram Hadji and Elizabeth Feria.',
+      image: 'assets/images/Vince/web/gallery/mens-circle-2026.jpg',
+      url: 'https://themenscircle.rsvpify.com',
+      linkLabel: 'View event page',
+    },
+
+    /**
+     * External articles, newsletters and interviews can be added here only
+     * when a working public URL has been verified. The UI renders this list
+     * conditionally so the site never publishes placeholder links.
+     */
+    externalResources: [],
 
   };
 
