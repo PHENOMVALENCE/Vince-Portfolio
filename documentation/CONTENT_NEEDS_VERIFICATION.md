@@ -1,106 +1,73 @@
 # Content Needs Verification
 
-**Status:** open · **Last updated:** 2026-08-30
+**Status:** open  
+**Last updated:** 2026-09-22
 
-Items held back from publication, or published with a caveat, pending confirmation from Vicent. Nothing here has been deleted — it is parked so it can be restored quickly once confirmed.
-
-**Sources referenced:**
-- **CV** — `CV_s/Vicent Manila.pdf` (supplied)
-- **LI** — LinkedIn profile screenshots supplied 2026-08-30
-- **DOC** — the 22 supplied primary documents
-- **BRIEF** — the Verified Content Revision Brief
+This file now contains only items that remain genuinely unresolved after the updated consultant CV dated 04/09/2026 was adopted as the primary career source.
 
 ---
 
-## A. Conflicts between sources — resolved provisionally, need confirmation
+## 1. External articles and newsletters
 
-### A1. Mo Dewji Foundation — end date unknown
-- **CV** records *Sustainable Livelihoods Coordinator, Sep 2025 – Present*.
-- **LI** confirms the title, but also shows **INNOVEX from Jul 2026 as a full-time role**.
-- Both cannot be "present" full-time. The MDF entry is therefore published **without an end date** and shown as `2025`.
-- **Need:** did the MDF role end, and when? Or does it continue alongside INNOVEX?
+The feedback asks for external links to articles and newsletters. The rendering pattern is implemented, but no article/newsletter URLs were supplied with this revision.
 
-### A2. AIESEC in Tanzania presidency — start date conflict
-- **CV:** Country Director, *Aug 2024 – Jul 2025*.
-- **BRIEF:** became President in **April 2024**; external media April 2025 identifies him as national executive.
-- Published as **2024 – 2025** without a month, because the two sources disagree.
-- **Need:** the exact term start and end.
+**Needed for each item:**
 
-### A3. AIESEC in Rwanda — LinkedIn Organizations field is stale
-- **LI Organizations** shows *Country Director · Jul 2022 – Present*. This is **wrong** — the BRIEF confirms it is outdated, and he subsequently led Tanzania.
-- **CV** gives the more precise split: VP Business Development & iGT (Jul 2022 – Jul 2023), then Country Director (Jul 2023 – Jul 2024).
-- The CV split is published. **Need:** confirm the CV dates are correct so the stale LinkedIn field can be corrected at source.
+- title,
+- publisher/source,
+- public URL,
+- optional publication date and short description.
 
-### A4. Kinyarwanda proficiency
-- **CV:** "Conversational". **LI + BRIEF:** "Elementary proficiency".
-- **Published as Elementary** (the more conservative of the two).
-
-### A5. Degree title
-- **CV:** BSc Social Protection, IFM, 2019–2022.
-- **BRIEF:** "VERIFY BEFORE MODIFYING — do not infer the degree solely from previous portfolio copy."
-- Retained as the CV states it, since the CV is a primary source. **Need:** confirmation of the exact award title.
+Nothing is published until a working URL is available.
 
 ---
 
-## B. Not published — insufficient evidence
+## 2. MigLine and VMAN Enterprises
 
-### B1. INNOVEX responsibilities
-LI confirms **Associate Management Consultant, INNOVEX, full-time, Jul 2026 – present, Dar es Salaam, on-site**, and skill tags (*Management Professional, Partner Relationship Management, +5*). No description of duties is available.
-**Published:** title, employer, dates, location only. **No invented responsibilities.**
+Older LinkedIn material previously introduced:
 
-### B2. VMAN Enterprises
-LI confirms **Founder, self-employed, Aug 2025 – present**. Nothing else is known — not the sector, activity, or whether it is trading.
-**Published:** title, entity and dates only. **Need:** one or two lines describing what VMAN does, or instruction to remove it.
+- General Partner — MigLine
+- Founder — VMAN Enterprises
 
-### B3. Kwizera David recommendation
-BRIEF states a publicly verifiable recommendation exists from Kwizera David, a Local Chapter President, describing Vicent as accessible and supportive, encouraging creativity and empowering his team.
-**Not published** — I do not have the verbatim text or documented approval to reproduce it.
-**Need:** the exact quotation, his current role/title, and his consent. Then it can be published as the site's single verified testimonial.
+The updated consultant CV does not include either role. They have therefore been removed from the current career chronology rather than silently mixed into the new CV-based record.
 
-### B4. Mo Dewji Foundation health/ministry work
-BRIEF references LinkedIn activity about his health team engaging the Ministry of Health.
-**Not published** — no primary document, and health-ministry engagement is a significant claim.
-
-### B5. April 2025 Barrick/UDOM programme
-BRIEF describes a Barrick-supported AIESEC programme at UDOM (April 2025) on employability, entrepreneurship and career readiness, with Vicent publicly identified as national executive.
-**Not published as a case study** — no supplied document covers this specific event. The existing Barrick partnership proposal *is* published in the Appendix.
-**Need:** the media link or event material, and this becomes strong case-study evidence.
+**Needed:** explicit confirmation that either role should still appear, plus current dates and a short factual description.
 
 ---
 
-## C. Metrics — provenance recorded
+## 3. Testimonials or recommendations
 
-| Figure | Status | Source |
-|---|---|---|
-| **16,663 students reached** across seven regions | **Published** | DOC — `career-fair-2025-overview.pdf`, strongest evidence on the site |
-| **300+ members led** across seven cities | **Published, self-reported** | CV only — not independently corroborated |
-| **60% increase in internship placements** | **Published, self-reported** | CV only — not independently corroborated |
-| **7+ high-value partnerships** | **Published, self-reported** | CV only |
-| 100+ countries supported | **Removed** | No evidence in any source |
-| 20+ strategic partnerships | **Removed** | Unsupported |
-| 6+ national projects | **Removed** | Unsupported |
-| 7+ countries collaborated | **Removed** | Unsupported |
-| 500+ delegates | **Withdrawn from the metrics band** | CV-supported; still referenced on the Speaking page |
-| Revenue / sponsorship amounts | **Never published** | The only figure seen in any document is `$7,000` inside a draft proposal — a target, not an outcome |
+No testimonial is published without exact wording, attribution and approval.
 
-**Note:** three of the four published metrics rest on Vicent's own CV rather than third-party documentation. That is normal for a portfolio, but it is not the same standard as the 16,663 figure. If any is uncertain, it should come down.
+**Needed:** verbatim quotation, current title/organization of the person quoted, and confirmation that the quotation may be published.
 
 ---
 
-## D. Removed earlier and still excluded
+## 4. Optional event archive expansion
 
-Testimonials (3), media items (5) and the Media route, "AIESEC in Belarus", and the "International BD Support" case study. Full reasoning in [CONTENT_VERIFICATION.md](./CONTENT_VERIFICATION.md).
+The Men's Circle is verified from the supplied event artwork and has been added.
+
+If the portfolio should also preserve additional event materials, supply the preferred full-resolution artwork, recap link, recording or post-event article. The site currently uses a web-optimized event image.
 
 ---
 
-## E. Deliberately withheld personal data
+## Resolved by the September 2026 CV
 
-Referee names and mobile numbers; date of birth; nationality; marital status. All removed from the published CV by redaction, and absent from the site and its structured data. This is a settled decision, not a pending item.
+The following are no longer open questions:
+
+- Mo Dewji Foundation end date — **Jun 2026**
+- AIESEC in Tanzania Country Director dates — **Aug 2024 – Jul 2025**
+- AIESEC in Rwanda Member Committee President dates — **Jul 2023 – Jul 2024**
+- INNOVEX current assignment — **Field M&E, Tanga Yetu Project Phase 2**
+- AIESEC International Business Development Steering Team — **verified**
+- AIESEC International Legislative Meeting Subcommittee — **verified**
+- AIESEC in Belarus remote entity-support role — **verified**
+- English and Swahili proficiency — **Fluent**
+- Kinyarwanda — omitted because it does not appear in the updated CV
+- Digital Lion Program — **verified**, completed 17 Jul 2026
 
 ---
 
 ## Standing rule
 
-> Never make the portfolio more impressive by making it less truthful.
-
-If an item here is confirmed, move it to `CONTENT_VERIFICATION.md` with its source and publish it. If it is disconfirmed, delete it from the data layer.
+Do not fill a source gap with inference. Hold the item here until the evidence is available.

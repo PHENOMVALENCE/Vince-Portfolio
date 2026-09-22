@@ -4,6 +4,51 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.1.0 — Portfolio feedback revision — 2026-09-22
+
+### Content
+
+- Rebuilt the current professional record from the consultant CV dated 04/09/2026.
+- Current role is now **Management Consultant, INNOVEX Development Consulting Ltd**, including the Field Monitoring & Evaluation assignment for Tanga Yetu Project Phase 2.
+- Closed the Mo Dewji Foundation role at Jun 2026.
+- Restored CV-verified AIESEC International and Belarus assignments.
+- Added the Digital Lion Program and aligned published languages with the current CV.
+- Rewrote core copy into shorter, more direct professional language.
+
+### Evidence & selected work
+
+- Removed empty project filter categories.
+- Reworked case-study claims to match primary evidence.
+- Added **Evidence & Resources** links to case studies.
+- Added a direct bridge from expertise to supporting case studies.
+- Added infrastructure for verified external articles and newsletters without publishing placeholder links.
+
+### Speaking & events
+
+- Added **The Men's Circle** (17 Sep 2026) as a featured speaking engagement.
+- Added event artwork to the speaking archive.
+- Added safe external-link rendering for event and future article/newsletter URLs.
+
+### UI / responsive
+
+- Tightened portrait crops to keep attention on the face and upper torso.
+- Fixed the mobile expertise layout that compressed content against the left side.
+- Added responsive featured-event and evidence-resource components.
+
+### Metadata & release
+
+- Updated structured data to **Management Consultant** at **INNOVEX Development Consulting Ltd**.
+- Removed stale Kinyarwanda structured-data metadata.
+- Updated descriptions across site shells.
+- Bumped the cache/version identifier to **5.1.0**.
+
+### Documentation
+
+- Added [FEEDBACK_REVISION_2026-09.md](./FEEDBACK_REVISION_2026-09.md).
+- Rewrote content verification and open-verification records around the updated CV.
+
+---
+
 ## 5.0.4 — Navigation revision, light-only theme, documentation
 
 ### Fixed — critical
@@ -13,31 +58,30 @@ Newest first. Versions track the asset `?v=` query.
 
 ### Fixed
 
-- Drawer focus no longer depends on frame timing. `visibility` was being transitioned, and hidden elements silently reject `.focus()`, stranding focus behind the open menu. Now `transform` only.
-- Focus restoration never lands on `document.body` — falls back to the toggle.
-- Tertiary buttons 32px → 44px; the gold underline moved to `::after` pinned under the text so the target grows without the rule drifting.
+- Drawer focus no longer depends on frame timing.
+- Focus restoration never lands on `document.body`.
+- Tertiary buttons 32px → 44px.
 - Filter pills 41px → 44px.
 
 ### Changed
 
-- **Dark theme removed.** The site ships a single light theme. Toggle, stored preference, inline bootstrap script and all `.dark` token overrides are gone. `executive.css` retains inert `.dark` rules.
-- Navigation breakpoint 1024px → **900px** — measured, the content occupies 801px of 895px at 900px, so tablets get real navigation.
-- Brand name now visible at every width including 320px (95px of slack). The previous 380px cutoff hid it on common devices.
+- Dark theme removed. The site ships a single light theme.
+- Navigation breakpoint 1024px → 900px.
+- Brand name remains visible down to 320px.
 
 ### Documentation
 
-- New [NAVIGATION.md](./NAVIGATION.md).
-- Rewritten: ARCHITECTURE, TECHNOLOGY_STACK, RESPONSIVE_GUIDE, ACCESSIBILITY, PERFORMANCE, FEATURES, COMPONENT_DOCUMENTATION, PAGE_DOCUMENTATION, DESIGN_SYSTEM, KNOWN_ISSUES, README, DOCUMENTATION_INDEX — all described the pre-redesign site.
-- `DESIGN.md` synced to the shipped tokens.
+- Added NAVIGATION.md.
+- Rewrote architecture, technology, responsive, accessibility, performance, features, component, page and design-system documentation.
 
 ---
 
 ## 4.6.0 — Header rebuild and contact CTAs
 
-- Rebuilt the header on semantic classes after `.hidden { !important }` beat the non-important `.lg:*` variants and hid the desktop nav at **every** width.
-- Added WhatsApp and phone CTAs on +255 713 582 606 across contact, speaking, appendix, leadership and the drawer.
-- Removed the orphaned `contactCTAs` renderer — nothing emitted its mount point.
-- Active nav item: ink text with a gold underline, plus `aria-current="page"` on desktop.
+- Rebuilt the header on semantic classes.
+- Added WhatsApp and phone CTAs.
+- Removed the orphaned contact renderer.
+- Added active-navigation state with `aria-current="page"`.
 
 ---
 
@@ -45,23 +89,15 @@ Newest first. Versions track the asset `?v=` query.
 
 ### Design
 
-- New design system from the `awesome-design-md` reference library. Warm paper canvas replacing the cool `#F8FAFC` SaaS tint; radius capped at 8px (was 18/26px); one shadow, photographs only; serif reserved for editorial voice.
-- De-carded the profile, philosophy, expertise, metrics and chronology into hairline-separated editorial layouts.
-- Removed the autoplay expertise carousel, count-up counters and testimonial carousel. `prefers-reduced-motion` enforced.
+- Introduced the warm editorial design system.
+- De-carded profile, philosophy, expertise, metrics and chronology.
+- Removed autoplay expertise and testimonial patterns.
 
 ### Content
 
-- Repositioned as management consultant; AIESEC became a chapter of a broader career.
-- Added roles absent from the site entirely: INNOVEX, MigLine, VMAN Enterprises, and the 2019–2022 AIESEC progression.
-- Removed 3 unverifiable testimonials, 5 media items with no source URLs, the media route, "AIESEC in Belarus", and unsupported metrics.
-
-### Fixed
-
-- LinkedIn links pointed at `/in/vicentmanila` — not the profile.
-- "Download CV" returned 404 sitewide; a redacted CV is now published with date of birth, marital status and the referees block removed.
-- Duplicate `id="contact"`; hash links dead on load; telephone removed from `Person` schema.
-- `.gitattributes` added — git sniffed the PDFs as text and would have corrupted them via CRLF conversion.
+- Repositioned the portfolio around management consulting and broader professional work.
+- Introduced primary-source verification as a standing content rule.
 
 ### Performance
 
-- Removed the runtime Tailwind CDN for a ~7KB reset + utility layer.
+- Removed the runtime Tailwind CDN.

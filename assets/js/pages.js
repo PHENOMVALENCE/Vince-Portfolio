@@ -125,7 +125,7 @@
                 <img class="vm-img" src="${esc(img.hero)}"
                      alt="Vicent Manila, management consultant, Dar es Salaam"
                      width="900" height="1125" fetchpriority="high" decoding="async"
-                     style="object-position:50% 22%">
+                     style="object-position:50% 12%">
               </div>
             </figure>
           </div>
@@ -168,6 +168,11 @@
                       <span class="vm-caption">${esc(d.about.education.school)} · ${esc(d.about.education.period)}</span></dd>
                 </div>
                 <div class="vm-facts__row">
+                  <dt class="vm-eyebrow">Training</dt>
+                  <dd>${esc(d.about.training.title)}<br>
+                      <span class="vm-caption">${esc(d.about.training.provider)} · Completed ${esc(d.about.training.completed)}</span></dd>
+                </div>
+                <div class="vm-facts__row">
                   <dt class="vm-eyebrow">Languages</dt>
                   <dd>${d.about.languages.map(l => esc(l.name) + ' <span class="vm-caption">(' + esc(l.level) + ')</span>').join(' · ')}</dd>
                 </div>
@@ -187,7 +192,7 @@
                 <img class="vm-img" src="${esc(img.profile)}"
                      alt="Vicent Manila at a national leadership engagement"
                      width="800" height="1066" loading="lazy" decoding="async"
-                     style="object-position:50% 20%">
+                     style="object-position:50% 12%">
               </div>
             </figure>
           </div>
@@ -211,11 +216,15 @@
                 <div class="vm-index__item">
                   <span class="vm-index__num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
                   <h3 class="vm-index__title">${esc(e.title)}</h3>
-                  <div>
+                  <div class="vm-index__content">
                     <p class="vm-index__desc">${esc(e.desc)}</p>
                     <p class="vm-index__comps">${e.competencies.map(esc).join(' · ')}</p>
                   </div>
                 </div>`).join('')}
+            </div>
+            <div class="vm-evidence-bridge">
+              <p>These areas of practice are supported by the case studies and primary-source documents published in this portfolio.</p>
+              <a class="vm-btn vm-btn--tertiary" href="projects.html">Explore the evidence behind the work</a>
             </div>
           </div>
         </section>
@@ -496,7 +505,7 @@
           <div class="vm-container">
             <p class="vm-eyebrow vm-eyebrow--ruled">Selected Work</p>
             <h1 class="vm-display">Case Studies</h1>
-            <p class="vm-lead vm-mt-md">Strategic initiatives across business development, international partnerships, leadership, and organizational growth.</p>
+            <p class="vm-lead vm-mt-md">Selected assignments and leadership work presented as case studies, with supporting documents linked where public evidence is available.</p>
           </div>
         </section>
 
@@ -636,6 +645,19 @@
               <p>${esc(project.strategy)}</p>
               <h2>Execution</h2>
               <p>${esc(project.execution)}</p>
+              ${project.resources?.length ? `
+                <h2>Evidence &amp; Resources</h2>
+                <div class="vm-project-resources" aria-label="Supporting evidence">
+                  ${project.resources.map(resource => `
+                    <a class="vm-resource-link" href="${esc(resource.href)}"
+                       target="_blank" rel="noopener noreferrer">
+                      <span>
+                        <strong>${esc(resource.label)}</strong>
+                        <small>${esc(resource.type || 'Supporting resource')}</small>
+                      </span>
+                      <i data-lucide="external-link" class="w-4 h-4" aria-hidden="true"></i>
+                    </a>`).join('')}
+                </div>` : ''}
             </div>
           </div>
         </section>
@@ -946,13 +968,40 @@
                 <img class="vm-img" src="${esc(img.speakingForum)}"
                      alt="Vicent Manila speaking at a leadership forum"
                      width="800" height="1066" fetchpriority="high" decoding="async"
-                     style="object-position:50% 25%">
+                     style="object-position:50% 15%">
               </div>
             </figure>
           </div>
         </section>
 
-        <section class="vm-section vm-section--subtle">
+        ${d.featuredEvent ? `
+        <section class="vm-section vm-section--subtle" aria-labelledby="featured-event-title">
+          <div class="vm-container vm-event-feature">
+            <figure class="vm-event-feature__media vm-img-frame">
+              <img class="vm-img" src="${esc(d.featuredEvent.image)}"
+                   alt="The Men's Circle event poster featuring host Vicent Manila and guests"
+                   width="864" height="1080" loading="lazy" decoding="async">
+            </figure>
+            <div class="vm-event-feature__body">
+              <p class="vm-eyebrow vm-eyebrow--ruled">${esc(d.featuredEvent.eyebrow)}</p>
+              <h2 id="featured-event-title" class="vm-display-md">${esc(d.featuredEvent.title)}</h2>
+              <p class="vm-lead vm-mt-md">${esc(d.featuredEvent.summary)}</p>
+              <dl class="vm-event-meta">
+                <div><dt>Role</dt><dd>${esc(d.featuredEvent.role)}</dd></div>
+                <div><dt>Date</dt><dd>${esc(d.featuredEvent.date)} · ${esc(d.featuredEvent.time)}</dd></div>
+                <div><dt>Format</dt><dd>${esc(d.featuredEvent.format)}</dd></div>
+                <div><dt>Platform</dt><dd>${esc(d.featuredEvent.organization)}</dd></div>
+              </dl>
+              <a class="vm-btn vm-btn--secondary vm-external-link" href="${esc(d.featuredEvent.url)}"
+                 target="_blank" rel="noopener noreferrer">
+                ${esc(d.featuredEvent.linkLabel)}
+                <i data-lucide="external-link" class="w-4 h-4" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </section>` : ''}
+
+        <section class="vm-section">
           <div class="vm-container">
             <p class="vm-eyebrow vm-eyebrow--ruled">Topics</p>
             <h2 class="vm-display-md vm-mb-lg">What I speak about</h2>
@@ -967,7 +1016,7 @@
           </div>
         </section>
 
-        <section class="vm-section">
+        <section class="vm-section vm-section--subtle">
           <div class="vm-container">
             <p class="vm-eyebrow vm-eyebrow--ruled">Selected Engagements</p>
             <h2 class="vm-display-md vm-mb-lg">Conferences and platforms delivered</h2>
@@ -979,11 +1028,33 @@
                     <h3 class="vm-chrono__role">${esc(e.title)}</h3>
                     <p class="vm-chrono__org">${esc(e.role)} · ${esc(e.organization)} · ${esc(e.location)}</p>
                     ${e.note ? `<p class="vm-chrono__mandate">${esc(e.note)}</p>` : ''}
+                    ${e.url ? `<a class="vm-inline-external" href="${esc(e.url)}" target="_blank" rel="noopener noreferrer">
+                      View external event page <i data-lucide="external-link" class="w-4 h-4" aria-hidden="true"></i>
+                    </a>` : ''}
                   </div>
                 </article>`).join('')}
             </div>
           </div>
         </section>
+
+        ${d.externalResources?.length ? `
+        <section class="vm-section" aria-labelledby="external-resources-title">
+          <div class="vm-container">
+            <p class="vm-eyebrow vm-eyebrow--ruled">Articles &amp; Newsletters</p>
+            <h2 id="external-resources-title" class="vm-display-md vm-mb-lg">External resources</h2>
+            <div class="vm-resource-list">
+              ${d.externalResources.map(resource => `
+                <a class="vm-resource-link" href="${esc(resource.url)}"
+                   target="_blank" rel="noopener noreferrer">
+                  <span>
+                    <strong>${esc(resource.title)}</strong>
+                    <small>${esc(resource.source || resource.type || 'External resource')}</small>
+                  </span>
+                  <i data-lucide="external-link" class="w-4 h-4" aria-hidden="true"></i>
+                </a>`).join('')}
+            </div>
+          </div>
+        </section>` : ''}
 
         <section class="vm-section--expansive">
           <div class="vm-container">
