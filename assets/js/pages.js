@@ -421,6 +421,9 @@
             <ul class="vm-chrono__outcomes">
               ${r.outcomes.map(o => `<li>${esc(o)}</li>`).join('')}
             </ul>` : ''}
+            ${r.caseStudySlug ? `<a class="vm-chrono__case-link" href="project.html?slug=${encodeURIComponent(r.caseStudySlug)}">
+              Explore the case study <i data-lucide="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
+            </a>` : ''}
           </div>
         </article>`;
     },
