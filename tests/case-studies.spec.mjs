@@ -38,11 +38,11 @@ test('the work index can independently filter consulting and livelihoods', async
   await page.goto(base + '/projects.html');
   const cards = page.locator('.vm-project-item');
   await page.locator('[data-filter="consulting"]').click();
-  await expect(cards.filter({ visible: true })).toHaveCount(1);
-  await expect(cards.filter({ visible: true }).first()).toContainText('INNOVEX');
+  await expect(page.locator('.vm-project-item:visible')).toHaveCount(1);
+  await expect(page.locator('.vm-project-item:visible').first()).toContainText('INNOVEX');
   await page.locator('[data-filter="livelihoods"]').click();
-  await expect(cards.filter({ visible: true })).toHaveCount(1);
-  await expect(cards.filter({ visible: true }).first()).toContainText('Mo Dewji Foundation');
+  await expect(page.locator('.vm-project-item:visible')).toHaveCount(1);
+  await expect(page.locator('.vm-project-item:visible').first()).toContainText('Mo Dewji Foundation');
 });
 
 test('new career links and narrow-screen profile avoid horizontal overflow', async ({ page }) => {
