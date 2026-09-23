@@ -1,7 +1,7 @@
 {
   "name": "vicent-manila-portfolio",
   "private": true,
-  "version": "5.5.0",
+  "version": "5.5.1",
   "description": "Static portfolio QA tooling for Vicent Manila",
   "scripts": {
     "validate": "node scripts/validate-site.mjs",
