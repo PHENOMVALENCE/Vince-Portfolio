@@ -1,6 +1,6 @@
 # Image Assets
 
-**Status:** current for v5.4.0
+**Status:** current for v5.5.1
 
 ## Source hierarchy
 
@@ -62,6 +62,29 @@ Always verify:
 - 320px mobile crop,
 - desktop crop,
 - aspect-ratio transitions.
+
+### Face-safe editorial photography
+
+The Barrick article photograph (`assets/images/Vince/web/gallery/event-11.jpg`)
+and the Mo Dewji Foundation case-study hero
+(`assets/images/case-studies/mo-dewji-livelihoods-01.jpeg`) were being
+center-cropped into wide containers, cutting off Vicent's face. They now use
+explicit `imageFraming: 'portrait'` and `imagePosition: 'top'` in
+`assets/js/data.js`. The Rwanda leadership feature uses the same portrait
+framing.
+
+The renderers in `assets/js/pages.js` assign
+`.vm-feature--portrait` / `.vm-publication--portrait` only to
+portrait-marked records; `assets/css/design-system.css` gives those records
+taller frames (5:4 features, 4:3 publications, and 4:5 on phones). Profile
+thumbnails inherit their parent case-study focal point. Landscape images
+retain their original layout. The original photographs are unchanged.
+
+For future photographs, review the complete original first, choose an
+appropriate framing marker, set an explicit focal point and visually check
+320px, 375px, tablet and desktop crops. Never fix an editorial crop by
+distorting the image aspect ratio. Existing detailed gallery lightboxes retain
+the full originals.
 
 ## Optimization
 
