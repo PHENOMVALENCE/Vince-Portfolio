@@ -56,3 +56,49 @@ test('new career links and narrow-screen profile avoid horizontal overflow', asy
   }));
   expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.viewport + 1);
 });
+
+
+for (const viewport of [
+  { width: 320, height: 720 },
+  { width: 375, height: 812 },
+  { width: 1280, height: 800 },
+]) {
+  test(`portrait photography keeps faces within the frame at ${viewport.width}px`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto(base + '/index.html');
+
+    const barrick = page.locator('.vm-publication--portrait .vm-publication__media');
+    const livelihoods = page.locator('#work .vm-feature--portrait').first().locator('.vm-feature__media');
+    const expectedBarrick = viewport.width <= 599 ? '4 / 5' : '4 / 3';
+    const expectedLivelihoods = viewport.width <= 599 ? '4 / 5' : '5 / 4';
+
+    await expect(barrick).toBeVisible();
+    await expect(livelihoods).toBeVisible();
+    await expect(barrick).toHaveCSS('aspect-ratio', expectedBarrick);
+    await expect(livelihoods).toHaveCSS('aspect-ratio', expectedLivelihoods);
+
+    for (const media of [barrick, livelihoods]) {
+      const photo = media.locator('img');
+      await expect.poll(() => photo.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+      await expect(photo).toHaveCSS('object-fit', 'cover');
+      await expect(photo).toHaveAttribute('style', /object-position:center top/);
+    }
+
+    const profilePhoto = page.locator('#profile a[href="project.html?slug=mo-dewji-livelihoods"] img');
+    await expect(profilePhoto).toHaveAttribute('style', /object-position:center top/);
+    const widths = await page.evaluate(() => ({
+      viewport: document.documentElement.clientWidth,
+      page: document.documentElement.scrollWidth,
+    }));
+    expect(widths.page).toBeLessThanOrEqual(widths.viewport + 1);
+  });
+}
+
+test('portrait focal point carries into the Mo Dewji case-study hero', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto(base + '/project.html?slug=mo-dewji-livelihoods');
+  const hero = page.locator('.project-hero--editorial');
+  await expect(hero).toBeVisible();
+  await expect(hero).toHaveAttribute('style', /--img-pos:center top/);
+  await expect.poll(() => hero.locator('img').evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+});
