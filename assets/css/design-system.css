@@ -2146,6 +2146,23 @@ div {
   min-width: 0;
 }
 
+.vm-chrono__case-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding-block: 0.75rem;
+  margin-top: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 650;
+  color: var(--vm-ink);
+  text-underline-offset: 0.2em;
+}
+.vm-chrono__case-link:hover,
+.vm-chrono__case-link:focus-visible {
+  color: var(--vm-accent);
+}
+
 /* Photography stays readable on its own, rather than being enlarged behind
    dense overlay text. This variant is reserved for the two new case studies. */
 body[data-page="project"] .project-hero--editorial {
