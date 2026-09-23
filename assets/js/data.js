@@ -79,6 +79,7 @@
         period: 'Jul 2026 — Present', current: true,
         title: 'Management Consultant',
         organization: 'INNOVEX Development Consulting Ltd', country: 'Dar es Salaam, Tanzania',
+        caseStudySlug: 'innovex-consulting',
         mandate: 'Supporting management consultancy, research and evaluation work across multi-sectoral programmes.',
         outcomes: [
           'Current assignment: Field Monitoring & Evaluation for Tanga Yetu Project Phase 2 in Tanga, Tanzania',
@@ -90,6 +91,7 @@
         period: 'Sep 2025 — Jun 2026',
         title: 'Sustainable Livelihoods Coordinator',
         organization: 'Mo Dewji Foundation', country: 'Dar es Salaam, Tanzania',
+        caseStudySlug: 'mo-dewji-livelihoods',
         mandate: 'Supported youth entrepreneurship and livelihood interventions focused on employability and economic inclusion.',
         outcomes: [
           'Conducted market assessments to inform programme design',
