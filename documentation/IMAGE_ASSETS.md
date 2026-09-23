@@ -15,6 +15,18 @@
 
 Central primary image paths live in `VM.images` in `assets/js/config.js`.
 
+## Independent case-study photography
+
+The production case-study folder is `assets/images/case-studies/`. Images were
+reused from the owner's 23 September 2026 branch contribution and given stable
+lowercase filenames rather than leaving dated WhatsApp export names in markup.
+
+- `innovex-consulting.jpeg` — one INNOVEX photograph (the two uploaded originals were identical).
+- `mo-dewji-livelihoods-01.jpeg` through `-07.jpeg` — a curated sample from the owner's Mo Dewji Foundation folder; image 01 is the case-study hero, images 02–07 are the detail gallery.
+
+Photo descriptions remain general unless an owner-approved caption identifies
+the exact event and participants. See [CASE_STUDIES_2026-09.md](./CASE_STUDIES_2026-09.md).
+
 ## Current event asset
 
 The Men's Circle portfolio presentation intentionally publishes only:

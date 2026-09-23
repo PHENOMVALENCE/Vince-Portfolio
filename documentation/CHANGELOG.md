@@ -4,6 +4,17 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.5.0 — Independent consulting and livelihoods case studies — 2026-09-23
+
+- Imported selected, owner-supplied INNOVEX and Mo Dewji Foundation photographs using stable production filenames.
+- Added two standalone, evidence-led case studies with independent category filters, editorial image-first heroes and photo galleries.
+- Rebalanced the homepage: consulting and livelihoods now lead the selected work, followed by national leadership; Executive Profile and career chronology link directly to both cases.
+- Made the approved consultant CV available directly from the Executive Profile.
+- Distinguished ongoing consulting scope and programme activities from verified historical impact metrics.
+- Added dedicated case-study Playwright coverage and source/photography documentation. Entrepreneurial ventures await confirmed details before publication.
+
+---
+
 ## 5.4.0 — Site-wide responsive and repository revision — 2026-09-22
 
 ### Responsive system
