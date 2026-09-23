@@ -679,7 +679,7 @@
         </section>` : '';
 
       root.innerHTML = `
-        <section class="project-hero" aria-labelledby="project-title" style="--img-pos:${heroPos}">
+        <section class="project-hero${['consulting', 'livelihoods'].includes(project.category) ? ' project-hero--editorial' : ''}" aria-labelledby="project-title" style="--img-pos:${heroPos}">
           <div class="project-hero__media">
             <img src="${esc(project.image)}" alt="${esc(project.title)}" class="project-hero__img" width="1920" height="1080" fetchpriority="high" decoding="async">
             <div class="project-hero__scrim" aria-hidden="true"></div>
