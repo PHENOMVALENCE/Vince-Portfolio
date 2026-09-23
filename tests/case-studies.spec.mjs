@@ -78,6 +78,7 @@ for (const viewport of [
     await expect(livelihoods).toHaveCSS('aspect-ratio', expectedLivelihoods);
 
     for (const media of [barrick, livelihoods]) {
+      await media.scrollIntoViewIfNeeded();
       const photo = media.locator('img');
       await expect.poll(() => photo.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
       await expect(photo).toHaveCSS('object-fit', 'cover');
