@@ -168,7 +168,7 @@
             </div>
             <div class="vm-publication-grid">
               ${d.externalResources.map((resource, i) => `
-                <article class="vm-publication">
+                <article class="vm-publication${resource.imageFraming === 'portrait' ? ' vm-publication--portrait' : ''}">
                   <a class="vm-publication__media vm-img-frame"
                      href="${esc(resource.url)}"
                      target="_blank" rel="noopener noreferrer"
@@ -176,7 +176,7 @@
                     <img class="vm-img"
                          src="${esc(resource.image)}"
                          alt="${esc(resource.imageAlt || resource.title)}"
-                         width="1200" height="750"
+                         width="${resource.imageFraming === 'portrait' ? 800 : 1200}" height="${resource.imageFraming === 'portrait' ? 1200 : 750}"
                          loading="lazy" decoding="async"
                          style="object-position:${imgPos(resource.imagePosition)}">
                   </a>
@@ -214,7 +214,8 @@
                   <a class="vm-profile-case" href="project.html?slug=${encodeURIComponent(p.slug)}"
                      aria-label="Explore ${esc(p.title)} case study">
                     <img class="vm-profile-case__image" src="${esc(p.image)}" alt=""
-                         width="112" height="84" loading="lazy" decoding="async">
+                         width="112" height="84" loading="lazy" decoding="async"
+                         style="object-position:${imgPos(p.imagePosition)}">
                     <span class="vm-profile-case__copy">
                       <span class="vm-profile-case__type">${esc(p.category_label)}</span>
                       <strong>${esc(p.slug === 'innovex-consulting' ? 'INNOVEX Consulting' : 'Mo Dewji Foundation')}</strong>
@@ -455,12 +456,12 @@
       const pos = imgPos(p.imagePosition);
       const h = level === 2 ? 'h2' : 'h3';
       return `
-        <article class="vm-feature">
+        <article class="vm-feature${p.imageFraming === 'portrait' ? ' vm-feature--portrait' : ''}">
           <a class="vm-feature__media vm-img-frame vm-img--case-hero"
              href="project.html?slug=${encodeURIComponent(p.slug)}"
              aria-label="${esc(p.title)} — view case study">
             <img class="vm-img" src="${esc(p.image)}" alt="${esc(p.title)}"
-                 width="1100" height="733" loading="lazy" decoding="async"
+                 width="${p.imageFraming === 'portrait' ? 800 : 1100}" height="${p.imageFraming === 'portrait' ? 1200 : 733}" loading="lazy" decoding="async"
                  style="object-position:${pos}">
           </a>
           <div class="vm-feature__body">
