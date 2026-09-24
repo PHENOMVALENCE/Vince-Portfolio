@@ -4,6 +4,16 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.5.1 — Face-safe photo framing — 2026-09-23
+
+- Fixed face clipping in the Barrick article image and Mo Dewji Foundation feature photograph.
+- Added explicit portrait framing for the Rwanda leadership feature and used top-aligned focal points for the affected portraits.
+- Applied controlled desktop and mobile aspect ratios without modifying or distorting the source photographs.
+- Carried the Mo Dewji focal point into Executive Profile thumbnails and the independent case-study hero.
+- Added Playwright photo framing and horizontal overflow coverage at 320px, 375px and 1280px.
+
+---
+
 ## 5.5.0 — Independent consulting and livelihoods case studies — 2026-09-23
 
 - Imported selected, owner-supplied INNOVEX and Mo Dewji Foundation photographs using stable production filenames.
