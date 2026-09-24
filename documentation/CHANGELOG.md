@@ -4,6 +4,15 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
+## 5.5.1 — Face-safe editorial image crops — 2026-09-24
+
+- Corrected the Mo Dewji Foundation portrait focal point so the face remains visible in homepage, project-index and detail hero crops.
+- Corrected the Barrick external-resource card to anchor its portrait photograph at the top instead of vertically centering it.
+- Applied the same focal-point metadata to portrait-oriented Mo Dewji gallery images and Executive Profile thumbnails.
+- Added Playwright assertions that lock these portrait focal points across homepage and case-study views.
+
+---
+
 ## 5.5.0 — Independent consulting and livelihoods case studies — 2026-09-23
 
 - Imported selected, owner-supplied INNOVEX and Mo Dewji Foundation photographs using stable production filenames.
