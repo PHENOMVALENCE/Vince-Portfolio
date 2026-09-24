@@ -34,4 +34,4 @@ Case-study data, activity headings and gallery captions live in `assets/js/data.
 
 ## QA
 
-Check both independent case-study routes, image loading, CV download, programme-category filters and direct links from Executive Profile and Leadership. The dedicated Playwright test is `tests/case-studies.spec.mjs`, with broader mobile coverage in `tests/responsive.spec.mjs`.
+Check both independent case-study routes, image loading, CV download, programme-category filters and direct links from Executive Profile and Leadership. Portrait-led images must retain a top-biased focal point in homepage features, profile thumbnails, project heroes and portrait gallery tiles so faces remain visible across responsive aspect-ratio changes. The dedicated Playwright test is `tests/case-studies.spec.mjs`, with broader mobile coverage in `tests/responsive.spec.mjs`.
