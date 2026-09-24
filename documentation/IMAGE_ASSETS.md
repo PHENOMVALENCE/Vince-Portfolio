@@ -55,10 +55,12 @@ Avoid WhatsApp/camera-export filenames in final production paths.
 
 Portrait and project focal points use `object-position` / `imagePosition`.
 
+For portrait-oriented photographs displayed inside landscape cards, set the focal point to `top` when the subject's face sits in the upper half of the source. Do not rely on the default centered crop: it can remove the face when `object-fit: cover` adapts a portrait image to 3:2, 16:10 or similar editorial frames.
+
 Primary portraits intentionally crop above distracting wrist accessories.
 
 Always verify:
-- face visibility,
+- full face visibility before decorative/background content,
 - 320px mobile crop,
 - desktop crop,
 - aspect-ratio transitions.

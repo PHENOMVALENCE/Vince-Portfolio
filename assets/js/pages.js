@@ -434,7 +434,8 @@
       return `
         <article class="reveal project-card group" style="--d:${delay(i, 0.08)}; --img-pos:${pos}">
           <a href="project.html?slug=${encodeURIComponent(p.slug)}" class="project-card__media" aria-label="${esc(p.title)} case study">
-            <img src="${esc(p.image)}" alt="${esc(p.title)}" width="900" height="562" loading="lazy" decoding="async">
+            <img src="${esc(p.image)}" alt="${esc(p.title)}" width="900" height="562" loading="lazy" decoding="async"
+                 style="object-position:${pos}">
           </a>
           <div class="project-card__body">
             <span class="project-card__category">${esc(p.category_label)}</span>

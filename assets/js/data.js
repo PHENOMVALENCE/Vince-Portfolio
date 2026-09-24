@@ -282,10 +282,10 @@
         gallery: [
           { src: 'assets/images/case-studies/mo-dewji-livelihoods-02.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
           { src: 'assets/images/case-studies/mo-dewji-livelihoods-03.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
-          { src: 'assets/images/case-studies/mo-dewji-livelihoods-04.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
-          { src: 'assets/images/case-studies/mo-dewji-livelihoods-05.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
+          { src: 'assets/images/case-studies/mo-dewji-livelihoods-04.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'top' },
+          { src: 'assets/images/case-studies/mo-dewji-livelihoods-05.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'top' },
           { src: 'assets/images/case-studies/mo-dewji-livelihoods-06.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
-          { src: 'assets/images/case-studies/mo-dewji-livelihoods-07.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
+          { src: 'assets/images/case-studies/mo-dewji-livelihoods-07.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'top' },
         ],
         related: ['innovex-consulting', 'tanzania-national-partnerships'],
       },
