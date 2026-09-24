@@ -258,6 +258,7 @@
         description: 'Sustainable livelihoods coordination, market assessment and vocational-pathway programme work.',
         image: 'assets/images/case-studies/mo-dewji-livelihoods-01.jpeg',
         imagePosition: 'top',
+        imageFraming: 'portrait',
         overview: 'From September 2025 to June 2026, Vicent served as Sustainable Livelihoods Coordinator at the Mo Dewji Foundation. His work supported youth entrepreneurship and livelihoods interventions focused on employability and economic inclusion, including discussions around vocational pathways.',
         challenge: 'Livelihood interventions require market context, coordination with private-sector and ecosystem partners, and ongoing programme monitoring.',
         objectives: [
@@ -300,6 +301,7 @@
         description: 'National leadership, governance and organizational performance across AIESEC in Rwanda.',
         image: 'assets/images/Vince/web/7.jpg',
         imagePosition: 'top',
+        imageFraming: 'portrait',
         overview: 'As Member Committee President, Vicent led national strategy implementation and organizational performance across AIESEC in Rwanda. The role covered three local chapters, five heads of department and a network of more than 300 members and alumni.',
         challenge: 'The mandate required consistent national direction across multiple chapters while maintaining reporting, accountability and leadership development systems.',
         objectives: [
@@ -697,6 +699,7 @@
         image: 'assets/images/Vince/web/gallery/event-11.jpg',
         imageAlt: 'Vicent Manila at a Barrick-supported university engagement',
         imagePosition: 'top',
+        imageFraming: 'portrait',
       },
       {
         title: 'Career Fair — Mzumbe University',

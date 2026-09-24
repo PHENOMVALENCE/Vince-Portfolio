@@ -2239,3 +2239,30 @@ body[data-page="project"] .project-hero--editorial .project-hero__meta {
   .vm-profile-case { grid-template-columns: 4rem minmax(0, 1fr); }
   .vm-profile-cases__actions .vm-btn { width: 100%; justify-content: flex-start; }
 }
+
+
+/* Face-safe portrait framing for case studies and external coverage.
+   Portrait source images previously filled a wide 3:2 or 16:10 frame with
+   a centered crop, removing faces near the top of the photograph.
+   Only explicitly marked portraits use the taller frame; landscapes retain
+   the existing editorial proportions. Source files are not cropped. */
+.vm-feature--portrait .vm-feature__media {
+  aspect-ratio: 5 / 4;
+}
+.vm-publication--portrait .vm-publication__media {
+  aspect-ratio: 4 / 3;
+}
+.vm-feature--portrait .vm-feature__media .vm-img,
+.vm-publication--portrait .vm-publication__media .vm-img {
+  object-fit: cover;
+}
+
+/* Make the portrait itself the visual on narrow screens, not a strip cropped
+   to a landscape thumbnail. These overrides follow the general mobile rules. */
+@media (max-width: 599px) {
+  .vm-feature--portrait .vm-feature__media,
+  .vm-project-item .vm-feature--portrait .vm-feature__media,
+  .vm-publication--portrait .vm-publication__media {
+    aspect-ratio: 4 / 5;
+  }
+}

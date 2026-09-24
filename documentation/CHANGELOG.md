@@ -4,12 +4,13 @@ Newest first. Versions track the asset `?v=` query.
 
 ---
 
-## 5.5.1 — Face-safe editorial image crops — 2026-09-24
+## 5.5.1 — Face-safe photo framing — 2026-09-23
 
-- Corrected the Mo Dewji Foundation portrait focal point so the face remains visible in homepage, project-index and detail hero crops.
-- Corrected the Barrick external-resource card to anchor its portrait photograph at the top instead of vertically centering it.
-- Applied the same focal-point metadata to portrait-oriented Mo Dewji gallery images and Executive Profile thumbnails.
-- Added Playwright assertions that lock these portrait focal points across homepage and case-study views.
+- Fixed face clipping in the Barrick article image and Mo Dewji Foundation feature photograph.
+- Added explicit portrait framing for the Rwanda leadership feature and used top-aligned focal points for the affected portraits.
+- Applied controlled desktop and mobile aspect ratios without modifying or distorting the source photographs.
+- Carried the Mo Dewji focal point into Executive Profile thumbnails and the independent case-study hero.
+- Added Playwright photo framing and horizontal overflow coverage at 320px, 375px and 1280px.
 
 ---
 
