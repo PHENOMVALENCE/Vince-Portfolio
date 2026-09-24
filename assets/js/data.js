@@ -257,7 +257,7 @@
         summary: 'Market assessments, ecosystem partnerships and programme coordination supporting youth livelihoods and entrepreneurship.',
         description: 'Sustainable livelihoods coordination, market assessment and vocational-pathway programme work.',
         image: 'assets/images/case-studies/mo-dewji-livelihoods-01.jpeg',
-        imagePosition: 'center',
+        imagePosition: 'top',
         overview: 'From September 2025 to June 2026, Vicent served as Sustainable Livelihoods Coordinator at the Mo Dewji Foundation. His work supported youth entrepreneurship and livelihoods interventions focused on employability and economic inclusion, including discussions around vocational pathways.',
         challenge: 'Livelihood interventions require market context, coordination with private-sector and ecosystem partners, and ongoing programme monitoring.',
         objectives: [
@@ -281,10 +281,10 @@
         gallery: [
           { src: 'assets/images/case-studies/mo-dewji-livelihoods-02.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
           { src: 'assets/images/case-studies/mo-dewji-livelihoods-03.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
-          { src: 'assets/images/case-studies/mo-dewji-livelihoods-04.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
-          { src: 'assets/images/case-studies/mo-dewji-livelihoods-05.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
+          { src: 'assets/images/case-studies/mo-dewji-livelihoods-04.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'top' },
+          { src: 'assets/images/case-studies/mo-dewji-livelihoods-05.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'top' },
           { src: 'assets/images/case-studies/mo-dewji-livelihoods-06.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
-          { src: 'assets/images/case-studies/mo-dewji-livelihoods-07.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'center' },
+          { src: 'assets/images/case-studies/mo-dewji-livelihoods-07.jpeg', alt: 'Photograph supplied from Mo Dewji Foundation livelihoods programme work', position: 'top' },
         ],
         related: ['innovex-consulting', 'tanzania-national-partnerships'],
       },
@@ -696,7 +696,7 @@
         url: 'https://fullshangweblog.co.tz/2025/04/14/barrick-yadhamini-kongamano-la-wanafunzi-vyuo-vikuu-lililofanyika-chuo-kikuu-dodoma/',
         image: 'assets/images/Vince/web/gallery/event-11.jpg',
         imageAlt: 'Vicent Manila at a Barrick-supported university engagement',
-        imagePosition: 'center',
+        imagePosition: 'top',
       },
       {
         title: 'Career Fair — Mzumbe University',
